@@ -11,8 +11,9 @@ const {
   description = 'Futureboard Studio is a modern DAW and creative audio platform built with Rust, GPUI, Web, and native audio technology.',
 } = Astro.props;
 
-const ogImage = '/og.png';
 const siteUrl = 'https://futureboard.studio';
+const ogImage = `${siteUrl}/banner.png`;
+const ogImageAlt = 'Futureboard Studio — Modern DAW and Creative Audio Platform';
 ---
 
 <!doctype html>
@@ -25,18 +26,28 @@ const siteUrl = 'https://futureboard.studio';
     <title>{title}</title>
     <meta name="description" content={description} />
 
+    <!-- Canonical -->
+    <link rel="canonical" href={siteUrl} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Futureboard Studio" />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ftbdproject" />
+    <meta name="twitter:creator" content="@ftbdproject" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
