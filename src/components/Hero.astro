@@ -1,0 +1,97 @@
+---
+
+---
+
+<section class="bg-canvas pt-24 pb-28 px-6 relative overflow-hidden">
+    <!-- Ambient glow — subtle, behind content -->
+    <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 z-0"
+        style="background: radial-gradient(ellipse 60% 40% at 20% 60%, rgba(88,203,203,0.05) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 80% 20%, rgba(174,160,253,0.05) 0%, transparent 70%);"
+    >
+    </div>
+
+    <!-- Preview image layer -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/85 to-canvas/30"
+        >
+        </div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-transparent"
+        >
+        </div>
+
+        <div
+            class="absolute right-[-10%] top-[14%] w-[78rem] max-w-none opacity-55"
+        >
+            <img
+                src="/preview.png"
+                alt=""
+                class="w-full rounded-xl border border-white/5 shadow-[0_48px_140px_rgba(0,0,0,0.48)]"
+                style="
+          mask-image: linear-gradient(to left, black 72%, transparent 100%),
+            linear-gradient(to bottom, black 78%, transparent 100%);
+          mask-composite: intersect;
+          -webkit-mask-image: linear-gradient(to left, black 72%, transparent 100%),
+            linear-gradient(to bottom, black 78%, transparent 100%);
+          -webkit-mask-composite: source-in;
+        "
+            />
+        </div>
+    </div>
+
+    <div class="max-w-[1200px] mx-auto relative z-10">
+        <div class="max-w-[640px]">
+            <!-- Eyebrow -->
+            <p
+                class="text-accent text-xs font-mono tracking-widest uppercase mb-6 flex items-center gap-2"
+            >
+                <span
+                    class="w-1.5 h-1.5 rounded-full bg-accent inline-block"
+                    style="box-shadow: 0 0 6px #58CBCB;"></span>
+                Experimental &middot; Active Development
+            </p>
+
+            <!-- Headline -->
+            <h1
+                class="text-ink font-sans font-normal leading-[1.05] mb-6"
+                style="font-size: clamp(2.8rem, 6.5vw, 5rem); letter-spacing: -2px;"
+            >
+                A modern DAW for<br />
+                producers and<br />
+                <span class="font-serif italic" style="color: #73C7C7;">
+                    audio hackers.
+                </span>
+            </h1>
+
+            <!-- Description -->
+            <p class="text-body text-lg leading-7 max-w-xl mb-10">
+                Futureboard Studio is a modern DAW and creative audio platform
+                built for producers, developers, and audio hackers. Native Rust
+                + GPUI at its core, with Web and Electron targets for every
+                workflow.
+            </p>
+
+            <!-- CTA row -->
+            <div class="flex flex-wrap items-center gap-3">
+                <a
+                    href="#waitlist"
+                    class="inline-flex items-center bg-accent text-canvas text-sm font-medium px-5 py-2.5 rounded-sm hover:bg-accent-light transition-colors"
+                    style="box-shadow: 0 0 20px rgba(88, 203, 203, 0.25);"
+                >
+                    Join the Waitlist
+                </a>
+
+                <a
+                    href="https://github.com/arizkami/futureboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center text-body text-sm font-medium px-5 py-2.5 rounded-sm border border-hairline hover:border-accent/40 hover:text-ink transition-colors"
+                >
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

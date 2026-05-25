@@ -1,0 +1,123 @@
+---
+---
+
+<section id="product" class="bg-canvas border-t border-hairline py-24 px-6">
+  <div class="max-w-[1200px] mx-auto">
+    <p class="text-accent text-xs font-mono tracking-widest uppercase mb-4">Product Lineup</p>
+    <h2
+      class="text-ink font-normal mb-4"
+      style="font-size: 32px; line-height: 40px; letter-spacing: -0.8px;"
+    >
+      One platform, three targets.
+    </h2>
+    <p class="text-body text-base leading-6 max-w-lg mb-14">
+      From browser to native desktop, Futureboard meets you wherever you work.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <!-- Express — Web -->
+      <a
+        href="https://app.futureboard.studio"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-canvas-soft border border-hairline rounded-md p-6 flex flex-col gap-4 hover:border-green/40 transition-colors group"
+      >
+        <div>
+          <p class="text-mute text-xs font-mono tracking-widest uppercase mb-2">Express</p>
+          <h3 class="text-ink text-xl font-medium group-hover:text-accent-light transition-colors" style="letter-spacing: -0.4px;">Futureboard Express</h3>
+        </div>
+        <p class="text-body text-sm leading-5">
+          Run directly in your browser. React-based UI with WebAssembly audio processing — zero install, instant access.
+        </p>
+        <ul class="flex flex-col gap-2 mt-auto">
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
+            WebUI
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
+            React + WASM
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
+            No install required
+          </li>
+        </ul>
+        <span class="inline-block text-mute text-xs font-mono bg-canvas border border-hairline rounded-sm px-2 py-1 w-fit group-hover:border-green/30 transition-colors">
+          Web target &rarr;
+        </span>
+      </a>
+
+      <!-- Lite — Electron -->
+      <div class="bg-canvas-soft border border-hairline rounded-md p-6 flex flex-col gap-4">
+        <div>
+          <p class="text-mute text-xs font-mono tracking-widest uppercase mb-2">Lite</p>
+          <h3 class="text-ink text-xl font-medium" style="letter-spacing: -0.4px;">Futureboard Lite</h3>
+        </div>
+        <p class="text-body text-sm leading-5">
+          Desktop experience built on Electron. Cross-platform out of the box with a familiar web-stack foundation.
+        </p>
+        <ul class="flex flex-col gap-2 mt-auto">
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
+            Electron desktop
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
+            Windows / macOS / Linux
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
+            Installable app
+          </li>
+        </ul>
+        <span class="inline-block text-mute text-xs font-mono bg-canvas border border-hairline rounded-sm px-2 py-1 w-fit">
+          Electron target
+        </span>
+      </div>
+
+      <!-- Studio — Primary, glowing -->
+      <div
+        class="bg-canvas-mid rounded-md p-6 flex flex-col gap-4 relative overflow-hidden"
+        style="border: 1px solid rgba(88,203,203,0.35); box-shadow: 0 0 0 1px rgba(88,203,203,0.1), 0 0 32px rgba(88,203,203,0.06);"
+      >
+        <!-- Subtle top glow line -->
+        <div
+          aria-hidden="true"
+          class="absolute inset-x-0 top-0 h-px"
+          style="background: linear-gradient(90deg, transparent, rgba(88,203,203,0.5), transparent);"
+        ></div>
+
+        <div>
+          <p class="text-xs font-mono tracking-widest uppercase mb-2" style="color:#449999;">Studio</p>
+          <h3 class="text-ink text-xl font-medium" style="letter-spacing: -0.4px;">Futureboard Studio</h3>
+        </div>
+        <p class="text-body text-sm leading-5">
+          The long-term flagship. Built in Rust with GPUI for a truly native, GPU-accelerated experience. Uncompromising performance.
+        </p>
+        <ul class="flex flex-col gap-2 mt-auto">
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
+            Rust + GPUI
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
+            Native audio engine
+          </li>
+          <li class="flex items-center gap-2 text-body text-sm">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
+            GPU-accelerated UI
+          </li>
+        </ul>
+        <span
+          class="inline-block text-xs font-mono rounded-sm px-2 py-1 w-fit"
+          style="color:#58CBCB; background: rgba(88,203,203,0.08); border: 1px solid rgba(88,203,203,0.2);"
+        >
+          Native target &middot; Primary
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
