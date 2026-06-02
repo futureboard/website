@@ -1,0 +1,25 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LegalDocument from '../components/LegalDocument.astro';
+import PrivacyEnglish from '../assets/privacy.mdx';
+import PrivacyThai from '../assets/privacy_th.mdx';
+---
+
+<Layout
+  title="Privacy Policy | Futureboard Studio"
+  description="Futureboard Marketplace Privacy Policy in English and Thai."
+>
+  <Header />
+  <LegalDocument
+    eyebrow="Legal"
+    title="Privacy Policy"
+    description="How Futureboard Marketplace collects, uses, stores, shares, and protects personal information."
+    EnglishContent={PrivacyEnglish}
+    ThaiContent={PrivacyThai}
+  />
+  <Footer />
+</Layout>

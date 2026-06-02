@@ -1,0 +1,104 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  EnglishContent: any;
+  ThaiContent: any;
+}
+
+const { eyebrow, title, description, EnglishContent, ThaiContent } = Astro.props;
+const groupId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+---
+
+<section class="border-b border-hairline bg-canvas px-6 py-14 md:py-18">
+  <div class="mx-auto max-w-[920px]">
+    <p class="font-mono text-xs uppercase tracking-widest text-accent">{eyebrow}</p>
+    <h1 class="mt-4 max-w-3xl text-4xl font-medium tracking-tight text-ink md:text-5xl">
+      {title}
+    </h1>
+    <p class="mt-4 max-w-2xl text-base leading-7 text-body">
+      {description}
+    </p>
+  </div>
+</section>
+
+<main class="px-6 py-8 md:py-12">
+  <div class="mx-auto max-w-[920px]">
+    <div
+      class="mb-8 inline-flex rounded-sm border border-hairline bg-canvas-soft p-1"
+      role="tablist"
+      aria-label="Document language"
+      data-language-tabs={groupId}
+    >
+      <button
+        type="button"
+        class="legal-tab active rounded-xs px-4 py-2 text-sm font-medium text-ink transition-colors"
+        role="tab"
+        aria-selected="true"
+        aria-controls={`${groupId}-en`}
+        data-language-tab="en"
+      >
+        English
+      </button>
+      <button
+        type="button"
+        class="legal-tab rounded-xs px-4 py-2 text-sm font-medium text-body transition-colors hover:text-ink"
+        role="tab"
+        aria-selected="false"
+        aria-controls={`${groupId}-th`}
+        data-language-tab="th"
+      >
+        ภาษาไทย
+      </button>
+    </div>
+
+    <article
+      id={`${groupId}-en`}
+      class="legal-markdown"
+      role="tabpanel"
+      data-language-panel="en"
+    >
+      <EnglishContent />
+    </article>
+
+    <article
+      id={`${groupId}-th`}
+      class="legal-markdown"
+      role="tabpanel"
+      lang="th"
+      hidden
+      data-language-panel="th"
+    >
+      <ThaiContent />
+    </article>
+  </div>
+</main>
+
+<script>
+  document.querySelectorAll('[data-language-tabs]').forEach((tabGroup) => {
+    const wrapper = tabGroup.parentElement;
+    if (!wrapper) return;
+
+    const tabs = Array.from(tabGroup.querySelectorAll('[data-language-tab]'));
+    const panels = Array.from(wrapper.querySelectorAll('[data-language-panel]'));
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const language = tab.getAttribute('data-language-tab');
+
+        tabs.forEach((button) => {
+          const isActive = button === tab;
+          button.setAttribute('aria-selected', String(isActive));
+          button.classList.toggle('active', isActive);
+          button.classList.toggle('text-ink', isActive);
+          button.classList.toggle('text-body', !isActive);
+        });
+
+        panels.forEach((panel) => {
+          panel.toggleAttribute('hidden', panel.getAttribute('data-language-panel') !== language);
+        });
+      });
+    });
+  });
+</script>

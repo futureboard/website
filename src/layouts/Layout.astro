@@ -12,6 +12,7 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://futureboard.studio';
+const pageUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = `${siteUrl}/banner.png`;
 const ogImageAlt = 'Futureboard Studio — Modern DAW and Creative Audio Platform';
 ---
@@ -27,12 +28,12 @@ const ogImageAlt = 'Futureboard Studio — Modern DAW and Creative Audio Platfor
     <meta name="description" content={description} />
 
     <!-- Canonical -->
-    <link rel="canonical" href={siteUrl} />
+    <link rel="canonical" href={pageUrl} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Futureboard Studio" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
