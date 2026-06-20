@@ -1,0 +1,234 @@
+/* ─── Shared Components & Utilities ─────────────────────────── */
+
+@layer components {
+
+  /* ── Section layout helper ─────────────────────── */
+  .section-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  /* ── Eyebrow label ─────────────────────────────── */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  /* ── Section headings ──────────────────────────── */
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    line-height: 1.15;
+  }
+
+  .section-lead {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-body);
+    max-width: 40ch;
+    margin-top: 0.75rem;
+  }
+
+  /* ── Card base ─────────────────────────────────── */
+  .card {
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+
+  /* ── Buttons ───────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-base),
+                color var(--transition-base),
+                border-color var(--transition-base);
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #141312;
+    border-color: var(--color-accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-light);
+    border-color: var(--color-accent-light);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-body);
+    border-color: var(--color-hairline);
+  }
+
+  .btn-outline:hover {
+    color: var(--color-ink);
+    border-color: rgba(91, 191, 181, 0.3);
+  }
+
+  /* ── Status dot ────────────────────────────────── */
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .status-dot--active {
+    background: var(--color-accent);
+  }
+
+  .status-dot--planned {
+    background: var(--color-wheat);
+  }
+
+  .status-dot--future {
+    background: var(--color-hairline-soft);
+  }
+
+  /* ── Form inputs ───────────────────────────────── */
+  .form-input {
+    width: 100%;
+    background: var(--color-canvas-mid);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-family: var(--font-sans);
+    transition: border-color var(--transition-base);
+    appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: var(--color-mute);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: rgba(91, 191, 181, 0.45);
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-body-strong);
+    margin-bottom: 6px;
+  }
+
+  .form-label .optional {
+    font-weight: 400;
+    color: var(--color-mute);
+    font-size: 0.75rem;
+  }
+
+  /* ── Legal page tabs ───────────────────────────── */
+  .legal-tab {
+    padding: 6px 14px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-body);
+    border-radius: var(--radius-xs);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: color var(--transition-base);
+  }
+
+  .legal-tab:hover {
+    color: var(--color-ink);
+  }
+
+  .legal-tab.active {
+    background: var(--color-accent);
+    color: #141312;
+  }
+
+  /* ── Legal markdown prose ──────────────────────── */
+  .legal-markdown {
+    color: var(--color-body);
+    font-size: 0.9375rem;
+    line-height: 1.85;
+  }
+
+  .legal-markdown > * + * {
+    margin-top: 1rem;
+  }
+
+  .legal-markdown h1,
+  .legal-markdown h2,
+  .legal-markdown h3 {
+    color: var(--color-ink);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .legal-markdown h1 {
+    margin-top: 0;
+    font-size: 1.75rem;
+  }
+
+  .legal-markdown h2 {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-hairline);
+    font-size: 1.25rem;
+  }
+
+  .legal-markdown h3 {
+    margin-top: 1.75rem;
+    font-size: 1rem;
+  }
+
+  .legal-markdown strong {
+    color: var(--color-body-strong);
+    font-weight: 500;
+  }
+
+  .legal-markdown a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .legal-markdown ul,
+  .legal-markdown ol {
+    padding-left: 1.25rem;
+    list-style: revert;
+  }
+
+  .legal-markdown li + li {
+    margin-top: 0.4rem;
+  }
+
+  .legal-markdown hr {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .legal-markdown[hidden] {
+    display: none;
+  }
+}

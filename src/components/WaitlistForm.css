@@ -1,0 +1,130 @@
+/* ─── WaitlistForm component styles ─────────────────────────── */
+
+.wl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Fields */
+.wl-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Optional badge inside label */
+.optional {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-mute);
+}
+
+/* Select arrow */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6359' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+/* Textarea */
+.wl-textarea {
+  resize: none;
+  line-height: 1.6;
+}
+
+/* Fieldset */
+.wl-fieldset {
+  border: none;
+  padding: 0;
+}
+
+.wl-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 8px;
+}
+
+.wl-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8125rem;
+  color: var(--color-body);
+  cursor: pointer;
+}
+
+.wl-checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+/* Error */
+.wl-error {
+  font-size: 0.8125rem;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--color-rose);
+  background: rgba(196, 140, 122, 0.07);
+  border: 1px solid rgba(196, 140, 122, 0.18);
+}
+
+/* Submit button */
+.wl-submit {
+  width: 100%;
+  justify-content: center;
+  padding-block: 10px;
+}
+
+.wl-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success state */
+.wl-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-block: 32px;
+  text-align: center;
+}
+
+.wl-success-icon {
+  color: var(--color-accent);
+  opacity: 0.85;
+}
+
+.wl-success-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.wl-success-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-body);
+  max-width: 30ch;
+}
+
+.wl-reset-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-mute);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: color var(--transition-base);
+}
+
+.wl-reset-btn:hover {
+  color: var(--color-body);
+}

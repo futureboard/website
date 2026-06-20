@@ -1,51 +1,47 @@
 ---
+import FadeUp from './motion/FadeUp.tsx';
+
 const items = [
-  { status: 'active',  label: 'Port to GPUI Native',            detail: 'Migrating rendering layer to Rust + GPUI for full native performance.' },
-  { status: 'active',  label: 'Timeline system',                 detail: 'Track lanes, clip arrangement, transport controls, and loop regions.' },
+  { status: 'active',  label: 'Port to GPUI Native',              detail: 'Migrating rendering layer to Rust + GPUI for full native performance.' },
+  { status: 'active',  label: 'Timeline system',                   detail: 'Track lanes, clip arrangement, transport controls, and loop regions.' },
   { status: 'active',  label: 'Audio / MIDI / Automation editors', detail: 'Piano roll, automation curves, and waveform clip editors.' },
-  { status: 'planned', label: 'Audio plugin support',            detail: 'VST3 and CLAP host integration. Plugin scanner and process sandbox.' },
-  { status: 'planned', label: 'Mixer and routing',               detail: 'Full channel strip, aux sends, master bus, and flexible routing graph.' },
-  { status: 'planned', label: 'Windows first release',           detail: 'First stable binary targeting Windows x64.' },
-  { status: 'planned', label: 'Web React + WASM target',         detail: 'Futureboard Express browser edition with WASM audio engine.' },
-  { status: 'future',  label: 'macOS / Linux support',           detail: 'Community contributor pathway for non-Windows platforms.' },
-  { status: 'future',  label: 'LV2 / AU plugin formats',         detail: 'Expand plugin ecosystem coverage for Linux and macOS users.' },
+  { status: 'planned', label: 'Audio plugin support',              detail: 'VST3 and CLAP host integration. Plugin scanner and process sandbox.' },
+  { status: 'planned', label: 'Mixer and routing',                 detail: 'Full channel strip, aux sends, master bus, and flexible routing graph.' },
+  { status: 'planned', label: 'Windows first release',             detail: 'First stable binary targeting Windows x64.' },
+  { status: 'planned', label: 'Web React + WASM target',           detail: 'Futureboard Express browser edition with WASM audio engine.' },
+  { status: 'future',  label: 'macOS / Linux support',             detail: 'Community contributor pathway for non-Windows platforms.' },
+  { status: 'future',  label: 'LV2 / AU plugin formats',           detail: 'Expand plugin ecosystem coverage for Linux and macOS users.' },
 ];
 
-const statusMeta: Record<string, { label: string; color: string; glow: boolean }> = {
-  active:  { label: 'In progress', color: '#58CBCB', glow: true },
-  planned: { label: 'Planned',     color: '#FACF70', glow: false },
-  future:  { label: 'Future',      color: '#2E3747', glow: false },
+const statusMeta: Record<string, { label: string; dotClass: string }> = {
+  active:  { label: 'In progress', dotClass: 'dot--active' },
+  planned: { label: 'Planned',     dotClass: 'dot--planned' },
+  future:  { label: 'Future',      dotClass: 'dot--future' },
 };
 ---
 
-<section id="roadmap" class="bg-canvas border-t border-hairline py-24 px-6">
-  <div class="max-w-[1200px] mx-auto">
-    <p class="text-accent text-xs font-mono tracking-widest uppercase mb-4">Roadmap</p>
-    <h2
-      class="text-ink font-normal mb-4"
-      style="font-size: 32px; line-height: 40px; letter-spacing: -0.8px;"
-    >
-      What's being built.
-    </h2>
-    <p class="text-body text-base leading-6 max-w-lg mb-14">
-      Futureboard is in active development. This is a living roadmap — priorities shift as the project grows.
-    </p>
+<section id="roadmap" class="roadmap-section">
+  <div class="section-inner">
+    <FadeUp client:visible>
+      <span class="eyebrow">Roadmap</span>
+      <h2 class="section-title">What's being built.</h2>
+      <p class="section-lead">
+        Futureboard is in active development. This is a living roadmap — priorities shift as the project grows.
+      </p>
+    </FadeUp>
 
-    <div class="flex flex-col border-t border-hairline">
+    <div class="roadmap-list">
       {items.map((item) => {
         const meta = statusMeta[item.status];
         return (
-          <div class="flex items-start gap-6 py-5 border-b border-hairline">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0 pt-0.5">
-              <span
-                class="w-2 h-2 rounded-full flex-shrink-0"
-                style={`background: ${meta.color};${meta.glow ? ` box-shadow: 0 0 6px ${meta.color};` : ''}`}
-              ></span>
-              <span class="text-mute text-xs font-mono">{meta.label}</span>
+          <div class="roadmap-row">
+            <div class="roadmap-status">
+              <span class={`status-dot ${meta.dotClass}`}></span>
+              <span class="status-label">{meta.label}</span>
             </div>
-            <div class="flex flex-col gap-1">
-              <p class="text-ink text-sm font-medium">{item.label}</p>
-              <p class="text-body text-sm leading-5">{item.detail}</p>
+            <div class="roadmap-content">
+              <p class="roadmap-title">{item.label}</p>
+              <p class="roadmap-detail">{item.detail}</p>
             </div>
           </div>
         );
@@ -53,3 +49,77 @@ const statusMeta: Record<string, { label: string; color: string; glow: boolean }
     </div>
   </div>
 </section>
+
+<style>
+  .roadmap-section {
+    background: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline);
+    padding-block: 88px;
+    padding-inline: 24px;
+  }
+
+  .section-lead {
+    margin-bottom: 40px;
+  }
+
+  /* List */
+  .roadmap-list {
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .roadmap-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  /* Status column */
+  .roadmap-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 108px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .dot--active  { background: var(--color-accent); }
+  .dot--planned { background: var(--color-wheat); }
+  .dot--future  { background: var(--color-hairline-soft); border: 1px solid var(--color-hairline); width: 5px; height: 5px; }
+
+  .status-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-mute);
+    letter-spacing: 0.02em;
+  }
+
+  /* Content */
+  .roadmap-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .roadmap-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+
+  .roadmap-detail {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-body);
+  }
+</style>

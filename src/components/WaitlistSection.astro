@@ -1,64 +1,140 @@
 ---
 import WaitlistForm from './WaitlistForm.tsx';
+import FadeUp from './motion/FadeUp.tsx';
 ---
 
-<section id="waitlist" class="bg-canvas border-t border-hairline py-24 px-6 relative overflow-hidden">
-  <!-- Ambient glow behind section -->
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-0"
-    style="background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(88,203,203,0.04) 0%, transparent 70%);"
-  ></div>
+<section id="waitlist" class="waitlist-section">
+  <!-- Subtle ambient, not a glowing blob -->
+  <div class="waitlist-bg" aria-hidden="true"></div>
 
-  <div class="max-w-[1200px] mx-auto relative">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+  <div class="section-inner waitlist-inner">
 
-      <!-- Copy -->
-      <div>
-        <p class="text-accent text-xs font-mono tracking-widest uppercase mb-4">Early Access</p>
-        <h2
-          class="text-ink font-normal mb-4"
-          style="font-size: 32px; line-height: 40px; letter-spacing: -0.8px;"
-        >
+    <!-- Copy -->
+    <FadeUp client:visible>
+      <div class="waitlist-copy">
+        <span class="eyebrow">Early Access</span>
+        <h2 class="waitlist-headline">
           Be first to try<br />
-          <span class="font-serif italic" style="color:#73C7C7;">Futureboard.</span>
+          <em class="waitlist-accent">Futureboard.</em>
         </h2>
-        <p class="text-body text-base leading-6 max-w-sm mb-8">
+        <p class="waitlist-desc">
           Futureboard is in active development. Join the waitlist to get early access, shape the roadmap, and follow the build.
         </p>
-        <ul class="flex flex-col gap-3">
-          <li class="flex items-start gap-3 text-body text-sm leading-5">
-            <span
-              class="w-1.5 h-1.5 mt-2 rounded-full flex-shrink-0"
-              style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"
-            ></span>
+
+        <ul class="waitlist-perks">
+          <li>
+            <span class="perk-dot" aria-hidden="true"></span>
             Early access to native builds when ready
           </li>
-          <li class="flex items-start gap-3 text-body text-sm leading-5">
-            <span
-              class="w-1.5 h-1.5 mt-2 rounded-full flex-shrink-0"
-              style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"
-            ></span>
+          <li>
+            <span class="perk-dot" aria-hidden="true"></span>
             Input on features and roadmap priorities
           </li>
-          <li class="flex items-start gap-3 text-body text-sm leading-5">
-            <span
-              class="w-1.5 h-1.5 mt-2 rounded-full flex-shrink-0"
-              style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"
-            ></span>
+          <li>
+            <span class="perk-dot" aria-hidden="true"></span>
             No spam — updates only when something ships
           </li>
         </ul>
       </div>
+    </FadeUp>
 
-      <!-- Form card -->
-      <div
-        class="bg-canvas-soft rounded-md p-6 lg:p-8"
-        style="border: 1px solid #2E3747; box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);"
-      >
+    <!-- Form card -->
+    <FadeUp client:visible delay={0.12}>
+      <div class="waitlist-card">
         <WaitlistForm client:load />
       </div>
+    </FadeUp>
 
-    </div>
   </div>
 </section>
+
+<style>
+  .waitlist-section {
+    background: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline);
+    padding-block: 88px;
+    padding-inline: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .waitlist-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 45% 55% at 80% 50%, rgba(91, 191, 181, 0.03) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .waitlist-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .waitlist-inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Copy */
+  .waitlist-headline {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    line-height: 1.1;
+    margin-top: 12px;
+    margin-bottom: 16px;
+  }
+
+  .waitlist-accent {
+    font-style: italic;
+    font-family: var(--font-serif);
+    color: var(--color-accent-light);
+  }
+
+  .waitlist-desc {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-body);
+    max-width: 38ch;
+    margin-bottom: 28px;
+  }
+
+  /* Perks */
+  .waitlist-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .waitlist-perks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--color-body);
+  }
+
+  .perk-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+    opacity: 0.7;
+  }
+
+  /* Form card */
+  .waitlist-card {
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    padding: 28px;
+  }
+</style>

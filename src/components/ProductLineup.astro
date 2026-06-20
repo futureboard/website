@@ -1,123 +1,227 @@
 ---
+import FadeUp from './motion/FadeUp.tsx';
 ---
 
-<section id="product" class="bg-canvas border-t border-hairline py-24 px-6">
-  <div class="max-w-[1200px] mx-auto">
-    <p class="text-accent text-xs font-mono tracking-widest uppercase mb-4">Product Lineup</p>
-    <h2
-      class="text-ink font-normal mb-4"
-      style="font-size: 32px; line-height: 40px; letter-spacing: -0.8px;"
-    >
-      One platform, three targets.
-    </h2>
-    <p class="text-body text-base leading-6 max-w-lg mb-14">
-      From browser to native desktop, Futureboard meets you wherever you work.
-    </p>
+<section id="product" class="product-section">
+  <div class="section-inner">
+    <FadeUp client:visible>
+      <span class="eyebrow">Product Lineup</span>
+      <h2 class="section-title">One platform, three targets.</h2>
+      <p class="section-lead">
+        From browser to native desktop, Futureboard meets you wherever you work.
+      </p>
+    </FadeUp>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="product-grid">
 
       <!-- Express — Web -->
       <a
         href="https://app.futureboard.studio"
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-canvas-soft border border-hairline rounded-md p-6 flex flex-col gap-4 hover:border-green/40 transition-colors group"
+        class="product-card product-card--link"
       >
-        <div>
-          <p class="text-mute text-xs font-mono tracking-widest uppercase mb-2">Express</p>
-          <h3 class="text-ink text-xl font-medium group-hover:text-accent-light transition-colors" style="letter-spacing: -0.4px;">Futureboard Express</h3>
+        <div class="product-card-header">
+          <span class="product-tag">Express</span>
+          <h3 class="product-name">Futureboard Express</h3>
         </div>
-        <p class="text-body text-sm leading-5">
+        <p class="product-desc">
           Run directly in your browser. React-based UI with WebAssembly audio processing — zero install, instant access.
         </p>
-        <ul class="flex flex-col gap-2 mt-auto">
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
-            WebUI
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
-            React + WASM
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#73C78E;"></span>
-            No install required
-          </li>
+        <ul class="product-specs">
+          <li><span class="spec-dot" style="background: var(--color-sage);"></span>WebUI</li>
+          <li><span class="spec-dot" style="background: var(--color-sage);"></span>React + WASM</li>
+          <li><span class="spec-dot" style="background: var(--color-sage);"></span>No install required</li>
         </ul>
-        <span class="inline-block text-mute text-xs font-mono bg-canvas border border-hairline rounded-sm px-2 py-1 w-fit group-hover:border-green/30 transition-colors">
-          Web target &rarr;
-        </span>
+        <span class="product-badge">Web target &rarr;</span>
       </a>
 
       <!-- Lite — Electron -->
-      <div class="bg-canvas-soft border border-hairline rounded-md p-6 flex flex-col gap-4">
-        <div>
-          <p class="text-mute text-xs font-mono tracking-widest uppercase mb-2">Lite</p>
-          <h3 class="text-ink text-xl font-medium" style="letter-spacing: -0.4px;">Futureboard Lite</h3>
+      <div class="product-card product-card--muted">
+        <div class="product-card-header">
+          <span class="product-tag">Lite</span>
+          <h3 class="product-name">Futureboard Lite</h3>
         </div>
-        <p class="text-body text-sm leading-5">
+        <p class="product-desc">
           Desktop experience built on Electron. Cross-platform out of the box with a familiar web-stack foundation.
         </p>
-        <ul class="flex flex-col gap-2 mt-auto">
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
-            Electron desktop
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
-            Windows / macOS / Linux
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#FACF70;"></span>
-            Installable app
-          </li>
+        <ul class="product-specs">
+          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>Electron desktop</li>
+          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>Windows / macOS / Linux</li>
+          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>Installable app</li>
         </ul>
-        <span class="inline-block text-mute text-xs font-mono bg-canvas border border-hairline rounded-sm px-2 py-1 w-fit">
-          Electron target
-        </span>
+        <span class="product-badge product-badge--muted">Electron target</span>
       </div>
 
-      <!-- Studio — Primary, glowing -->
-      <div
-        class="bg-canvas-mid rounded-md p-6 flex flex-col gap-4 relative overflow-hidden"
-        style="border: 1px solid rgba(88,203,203,0.35); box-shadow: 0 0 0 1px rgba(88,203,203,0.1), 0 0 32px rgba(88,203,203,0.06);"
-      >
-        <!-- Subtle top glow line -->
-        <div
-          aria-hidden="true"
-          class="absolute inset-x-0 top-0 h-px"
-          style="background: linear-gradient(90deg, transparent, rgba(88,203,203,0.5), transparent);"
-        ></div>
-
-        <div>
-          <p class="text-xs font-mono tracking-widest uppercase mb-2" style="color:#449999;">Studio</p>
-          <h3 class="text-ink text-xl font-medium" style="letter-spacing: -0.4px;">Futureboard Studio</h3>
+      <!-- Studio — Primary -->
+      <div class="product-card product-card--primary">
+        <div class="product-card-top-line" aria-hidden="true"></div>
+        <div class="product-card-header">
+          <span class="product-tag product-tag--accent">Studio</span>
+          <h3 class="product-name">Futureboard Studio</h3>
         </div>
-        <p class="text-body text-sm leading-5">
+        <p class="product-desc">
           The long-term flagship. Built in Rust with GPUI for a truly native, GPU-accelerated experience. Uncompromising performance.
         </p>
-        <ul class="flex flex-col gap-2 mt-auto">
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
-            Rust + GPUI
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
-            Native audio engine
-          </li>
-          <li class="flex items-center gap-2 text-body text-sm">
-            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#58CBCB; box-shadow: 0 0 5px #58CBCB;"></span>
-            GPU-accelerated UI
-          </li>
+        <ul class="product-specs">
+          <li><span class="spec-dot spec-dot--accent"></span>Rust + GPUI</li>
+          <li><span class="spec-dot spec-dot--accent"></span>Native audio engine</li>
+          <li><span class="spec-dot spec-dot--accent"></span>GPU-accelerated UI</li>
         </ul>
-        <span
-          class="inline-block text-xs font-mono rounded-sm px-2 py-1 w-fit"
-          style="color:#58CBCB; background: rgba(88,203,203,0.08); border: 1px solid rgba(88,203,203,0.2);"
-        >
-          Native target &middot; Primary
-        </span>
+        <span class="product-badge product-badge--accent">Native target &middot; Primary</span>
       </div>
 
     </div>
   </div>
 </section>
+
+<style>
+  .product-section {
+    background: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline);
+    padding-block: 88px;
+    padding-inline: 24px;
+  }
+
+  .section-lead {
+    margin-bottom: 48px;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Card base */
+  .product-card {
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition-base);
+  }
+
+  /* Linked card hover */
+  .product-card--link:hover {
+    border-color: rgba(125, 184, 154, 0.4);
+  }
+
+  /* Muted card (Lite) */
+  .product-card--muted {
+    opacity: 0.8;
+  }
+
+  /* Primary card (Studio) */
+  .product-card--primary {
+    background: var(--color-canvas-mid);
+    border-color: rgba(91, 191, 181, 0.25);
+  }
+
+  /* Top accent line for primary */
+  .product-card-top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(91, 191, 181, 0.4) 50%, transparent 100%);
+  }
+
+  /* Card header */
+  .product-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .product-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .product-tag--accent {
+    color: var(--color-accent-dark);
+  }
+
+  .product-name {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: -0.025em;
+  }
+
+  /* Description */
+  .product-desc {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--color-body);
+    flex-grow: 1;
+  }
+
+  /* Specs list */
+  .product-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .product-specs li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    color: var(--color-body);
+  }
+
+  .spec-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .spec-dot--accent {
+    background: var(--color-accent);
+  }
+
+  /* Badge */
+  .product-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-mute);
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xs);
+    padding: 4px 8px;
+    align-self: flex-start;
+  }
+
+  .product-badge--muted {
+    opacity: 0.6;
+  }
+
+  .product-badge--accent {
+    color: var(--color-accent);
+    background: rgba(91, 191, 181, 0.06);
+    border-color: rgba(91, 191, 181, 0.18);
+  }
+</style>

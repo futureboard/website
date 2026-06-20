@@ -1,97 +1,153 @@
 ---
-
+import HeroContent from './HeroContent.tsx';
 ---
 
-<section class="bg-canvas pt-24 pb-28 px-6 relative overflow-hidden">
-    <!-- Ambient glow — subtle, behind content -->
-    <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-0 z-0"
-        style="background: radial-gradient(ellipse 60% 40% at 20% 60%, rgba(88,203,203,0.05) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 80% 20%, rgba(174,160,253,0.05) 0%, transparent 70%);"
-    >
+<section class="hero">
+  <!-- Ambient texture — very subtle, not glowing -->
+  <div class="hero-bg" aria-hidden="true"></div>
+
+  <!-- App preview — faded right side -->
+  <div class="hero-preview" aria-hidden="true">
+    <div class="hero-preview-fade"></div>
+    <div class="hero-preview-fade-bottom"></div>
+    <div class="hero-preview-img-wrap">
+      <img
+        src="/preview.png"
+        alt=""
+        class="hero-preview-img"
+        loading="eager"
+      />
     </div>
+  </div>
 
-    <!-- Preview image layer -->
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
-        <div
-            class="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/85 to-canvas/30"
-        >
-        </div>
-        <div
-            class="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-transparent"
-        >
-        </div>
-
-        <div
-            class="absolute right-[-10%] top-[14%] w-[78rem] max-w-none opacity-55"
-        >
-            <img
-                src="/preview.png"
-                alt=""
-                class="w-full rounded-xl border border-white/5 shadow-[0_48px_140px_rgba(0,0,0,0.48)]"
-                style="
-          mask-image: linear-gradient(to left, black 72%, transparent 100%),
-            linear-gradient(to bottom, black 78%, transparent 100%);
-          mask-composite: intersect;
-          -webkit-mask-image: linear-gradient(to left, black 72%, transparent 100%),
-            linear-gradient(to bottom, black 78%, transparent 100%);
-          -webkit-mask-composite: source-in;
-        "
-            />
-        </div>
-    </div>
-
-    <div class="max-w-[1200px] mx-auto relative z-10">
-        <div class="max-w-[640px]">
-            <!-- Eyebrow -->
-            <p
-                class="text-accent text-xs font-mono tracking-widest uppercase mb-6 flex items-center gap-2"
-            >
-                <span
-                    class="w-1.5 h-1.5 rounded-full bg-accent inline-block"
-                    style="box-shadow: 0 0 6px #58CBCB;"></span>
-                Experimental &middot; Active Development
-            </p>
-
-            <!-- Headline -->
-            <h1
-                class="text-ink font-sans font-normal leading-[1.05] mb-6"
-                style="font-size: clamp(2.8rem, 6.5vw, 5rem); letter-spacing: -2px;"
-            >
-                A modern DAW for<br />
-                producers and<br />
-                <span class="font-serif italic" style="color: #73C7C7;">
-                    audio hackers.
-                </span>
-            </h1>
-
-            <!-- Description -->
-            <p class="text-body text-lg leading-7 max-w-xl mb-10">
-                Futureboard Studio is a modern DAW and creative audio platform
-                built for producers, developers, and audio hackers. Native Rust
-                + GPUI at its core, with Web and Electron targets for every
-                workflow.
-            </p>
-
-            <!-- CTA row -->
-            <div class="flex flex-wrap items-center gap-3">
-                <a
-                    href="#waitlist"
-                    class="inline-flex items-center bg-accent text-canvas text-sm font-medium px-5 py-2.5 rounded-sm hover:bg-accent-light transition-colors"
-                    style="box-shadow: 0 0 20px rgba(88, 203, 203, 0.25);"
-                >
-                    Join the Waitlist
-                </a>
-
-                <a
-                    href="https://github.com/arizkami/futureboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center text-body text-sm font-medium px-5 py-2.5 rounded-sm border border-hairline hover:border-accent/40 hover:text-ink transition-colors"
-                >
-                    View on GitHub
-                </a>
-            </div>
-        </div>
-    </div>
+  <div class="section-inner hero-content">
+    <!-- Animated text block — staggered entrance on load -->
+    <HeroContent client:load />
+  </div>
 </section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 96px;
+    padding-bottom: 112px;
+    padding-inline: 24px;
+    background: var(--color-canvas);
+  }
+
+  /* Subtle noise/grain feel — not a glowing orb */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 18% 65%, rgba(91, 191, 181, 0.04) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 30% at 75% 25%, rgba(143, 155, 186, 0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Preview image fades */
+  .hero-preview {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-preview-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #141312 28%, rgba(20, 19, 18, 0.7) 58%, rgba(20, 19, 18, 0.2) 100%);
+    z-index: 1;
+  }
+
+  .hero-preview-fade-bottom {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #141312 0%, transparent 35%);
+    z-index: 1;
+  }
+
+  .hero-preview-img-wrap {
+    position: absolute;
+    right: -8%;
+    top: 12%;
+    width: 72rem;
+    max-width: none;
+    opacity: 0.45;
+  }
+
+  .hero-preview-img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 48px 120px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Content */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-text {
+    max-width: 580px;
+  }
+
+  /* Eyebrow */
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 24px;
+  }
+
+  .eyebrow-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  /* Headline */
+  .hero-headline {
+    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    margin-bottom: 24px;
+  }
+
+  .hero-accent {
+    font-style: italic;
+    font-family: var(--font-serif);
+    color: var(--color-accent-light);
+    letter-spacing: -0.02em;
+  }
+
+  /* Description */
+  .hero-desc {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-body);
+    max-width: 48ch;
+    margin-bottom: 36px;
+  }
+
+  /* Actions */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+</style>

@@ -1,12 +1,10 @@
 import { useState } from 'react';
+import './WaitlistForm.css';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
 const roles = ['Producer', 'Developer', 'Plugin Developer', 'Tester', 'Other'];
 const platforms = ['Windows', 'macOS', 'Linux', 'Web'];
-
-const inputClass =
-  'w-full bg-canvas-mid border border-hairline rounded-sm px-3 py-2 text-ink text-sm placeholder:text-mute focus:outline-none focus:border-accent/60 transition-colors';
 
 export default function WaitlistForm() {
   const [state, setState] = useState<FormState>('idle');
@@ -18,11 +16,11 @@ export default function WaitlistForm() {
     const data = new FormData(form);
 
     const payload = {
-      name: (data.get('name') as string).trim(),
-      email: (data.get('email') as string).trim(),
-      role: data.get('role') as string,
+      name:      (data.get('name') as string).trim(),
+      email:     (data.get('email') as string).trim(),
+      role:      data.get('role') as string,
       platforms: platforms.filter((p) => data.get(`platform_${p}`)),
-      message: (data.get('message') as string | null)?.trim() ?? '',
+      message:   (data.get('message') as string | null)?.trim() ?? '',
     };
 
     if (!payload.email) return;
@@ -37,6 +35,7 @@ export default function WaitlistForm() {
         body: JSON.stringify(payload),
       });
       const json = await res.json();
+
       if (res.ok && json.ok) {
         setState('success');
         form.reset();
@@ -52,29 +51,29 @@ export default function WaitlistForm() {
 
   if (state === 'success') {
     return (
-      <div className="flex flex-col items-center gap-4 py-8 text-center">
+      <div className="wl-success">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#58CBCB"
-          strokeWidth="1.5"
+          stroke="currentColor"
+          strokeWidth="1.75"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          style={{ filter: 'drop-shadow(0 0 6px #58CBCB)' }}
+          className="wl-success-icon"
         >
           <path d="M5 12l5 5L20 7" />
         </svg>
-        <p className="text-ink text-base font-medium">You're on the list.</p>
-        <p className="text-body text-sm leading-5 max-w-xs">
+        <p className="wl-success-title">You're on the list.</p>
+        <p className="wl-success-desc">
           We'll reach out when Futureboard is ready for early access. Watch GitHub for progress updates.
         </p>
         <button
           onClick={() => setState('idle')}
-          className="text-mute text-xs font-mono hover:text-body transition-colors mt-2"
+          className="wl-reset-btn"
         >
           Submit another response
         </button>
@@ -83,27 +82,24 @@ export default function WaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="wl-form">
 
       {/* Name */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="wl-name" className="text-ink text-sm font-medium">
-          Name
-        </label>
+      <div className="wl-field">
+        <label htmlFor="wl-name" className="form-label">Name</label>
         <input
           id="wl-name"
           name="name"
           type="text"
           placeholder="Your name"
-          className={inputClass}
-          style={{ backgroundColor: '#202633' }}
+          className="form-input"
         />
       </div>
 
       {/* Email */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="wl-email" className="text-ink text-sm font-medium">
-          Email <span className="text-mute font-normal">(required)</span>
+      <div className="wl-field">
+        <label htmlFor="wl-email" className="form-label">
+          Email <span className="optional">(required)</span>
         </label>
         <input
           id="wl-email"
@@ -111,21 +107,17 @@ export default function WaitlistForm() {
           type="email"
           required
           placeholder="you@example.com"
-          className={inputClass}
-          style={{ backgroundColor: '#202633' }}
+          className="form-input"
         />
       </div>
 
       {/* Role */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="wl-role" className="text-ink text-sm font-medium">
-          Role / Interest
-        </label>
+      <div className="wl-field">
+        <label htmlFor="wl-role" className="form-label">Role / Interest</label>
         <select
           id="wl-role"
           name="role"
-          className={inputClass + ' appearance-none'}
-          style={{ backgroundColor: '#202633' }}
+          className="form-input form-select"
         >
           <option value="">Select your role</option>
           {roles.map((r) => (
@@ -135,61 +127,47 @@ export default function WaitlistForm() {
       </div>
 
       {/* Platform */}
-      <fieldset>
-        <legend className="text-ink text-sm font-medium mb-2">Platform</legend>
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
+      <fieldset className="wl-fieldset">
+        <legend className="form-label">Platform</legend>
+        <div className="wl-checkboxes">
           {platforms.map((p) => (
-            <label key={p} className="flex items-center gap-2 cursor-pointer">
+            <label key={p} className="wl-checkbox-label">
               <input
                 type="checkbox"
                 name={`platform_${p}`}
                 value={p}
-                className="w-3.5 h-3.5 rounded-xs"
-                style={{ accentColor: '#58CBCB' }}
+                className="wl-checkbox"
               />
-              <span className="text-body text-sm">{p}</span>
+              <span>{p}</span>
             </label>
           ))}
         </div>
       </fieldset>
 
       {/* Message */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="wl-message" className="text-ink text-sm font-medium">
-          Message <span className="text-mute font-normal">(optional)</span>
+      <div className="wl-field">
+        <label htmlFor="wl-message" className="form-label">
+          Message <span className="optional">(optional)</span>
         </label>
         <textarea
           id="wl-message"
           name="message"
           rows={3}
           placeholder="What are you hoping to build with Futureboard?"
-          className={inputClass + ' resize-none'}
-          style={{ backgroundColor: '#202633' }}
+          className="form-input wl-textarea"
         />
       </div>
 
       {/* Error state */}
       {state === 'error' && (
-        <p
-          className="text-sm px-3 py-2 rounded-sm"
-          style={{ color: '#F19275', background: 'rgba(241,146,117,0.08)', border: '1px solid rgba(241,146,117,0.2)' }}
-        >
-          {errorMsg}
-        </p>
+        <p className="wl-error">{errorMsg}</p>
       )}
 
       {/* Submit */}
       <button
         type="submit"
         disabled={state === 'loading'}
-        className="inline-flex items-center justify-center text-sm font-medium px-4 py-2.5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{
-          backgroundColor: '#58CBCB',
-          color: '#191A1C',
-          boxShadow: '0 0 16px rgba(88,203,203,0.2)',
-        }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#73C7C7'; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#58CBCB'; }}
+        className="btn btn-primary wl-submit"
       >
         {state === 'loading' ? 'Submitting…' : 'Join the Waitlist'}
       </button>

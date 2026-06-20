@@ -11,29 +11,27 @@ const { eyebrow, title, description, EnglishContent, ThaiContent } = Astro.props
 const groupId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 ---
 
-<section class="border-b border-hairline bg-canvas px-6 py-14 md:py-18">
-  <div class="mx-auto max-w-[920px]">
-    <p class="font-mono text-xs uppercase tracking-widest text-accent">{eyebrow}</p>
-    <h1 class="mt-4 max-w-3xl text-4xl font-medium tracking-tight text-ink md:text-5xl">
-      {title}
-    </h1>
-    <p class="mt-4 max-w-2xl text-base leading-7 text-body">
-      {description}
-    </p>
+<section class="legal-hero">
+  <div class="section-inner">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1 class="legal-title">{title}</h1>
+    <p class="legal-desc">{description}</p>
   </div>
 </section>
 
-<main class="px-6 py-8 md:py-12">
-  <div class="mx-auto max-w-[920px]">
+<main class="legal-body">
+  <div class="section-inner">
+
+    <!-- Language tabs -->
     <div
-      class="mb-8 inline-flex rounded-sm border border-hairline bg-canvas-soft p-1"
+      class="lang-tabs"
       role="tablist"
       aria-label="Document language"
       data-language-tabs={groupId}
     >
       <button
         type="button"
-        class="legal-tab active rounded-xs px-4 py-2 text-sm font-medium text-ink transition-colors"
+        class="legal-tab active"
         role="tab"
         aria-selected="true"
         aria-controls={`${groupId}-en`}
@@ -43,7 +41,7 @@ const groupId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       </button>
       <button
         type="button"
-        class="legal-tab rounded-xs px-4 py-2 text-sm font-medium text-body transition-colors hover:text-ink"
+        class="legal-tab"
         role="tab"
         aria-selected="false"
         aria-controls={`${groupId}-th`}
@@ -53,6 +51,7 @@ const groupId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       </button>
     </div>
 
+    <!-- Content panels -->
     <article
       id={`${groupId}-en`}
       class="legal-markdown"
@@ -72,27 +71,71 @@ const groupId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     >
       <ThaiContent />
     </article>
+
   </div>
 </main>
+
+<style>
+  /* Hero */
+  .legal-hero {
+    border-bottom: 1px solid var(--color-hairline);
+    background: var(--color-canvas);
+    padding-block: 56px 48px;
+    padding-inline: 24px;
+  }
+
+  .legal-title {
+    margin-top: 14px;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: -0.04em;
+    max-width: 640px;
+  }
+
+  .legal-desc {
+    margin-top: 14px;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-body);
+    max-width: 520px;
+  }
+
+  /* Body */
+  .legal-body {
+    padding-block: 40px 80px;
+    padding-inline: 24px;
+    background: var(--color-canvas);
+  }
+
+  /* Language tabs */
+  .lang-tabs {
+    display: inline-flex;
+    gap: 2px;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+    margin-bottom: 36px;
+  }
+</style>
 
 <script>
   document.querySelectorAll('[data-language-tabs]').forEach((tabGroup) => {
     const wrapper = tabGroup.parentElement;
     if (!wrapper) return;
 
-    const tabs = Array.from(tabGroup.querySelectorAll('[data-language-tab]'));
+    const tabs   = Array.from(tabGroup.querySelectorAll('[data-language-tab]'));
     const panels = Array.from(wrapper.querySelectorAll('[data-language-panel]'));
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         const language = tab.getAttribute('data-language-tab');
 
-        tabs.forEach((button) => {
-          const isActive = button === tab;
-          button.setAttribute('aria-selected', String(isActive));
-          button.classList.toggle('active', isActive);
-          button.classList.toggle('text-ink', isActive);
-          button.classList.toggle('text-body', !isActive);
+        tabs.forEach((btn) => {
+          const isActive = btn === tab;
+          btn.setAttribute('aria-selected', String(isActive));
+          btn.classList.toggle('active', isActive);
         });
 
         panels.forEach((panel) => {
