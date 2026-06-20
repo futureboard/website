@@ -49,6 +49,8 @@
 
   /* Typography defaults */
   h1, h2, h3, h4, h5, h6 {
+    /* Restore sizing — Tailwind preflight resets to `font-size: inherit` */
+    font-size: revert;
     line-height: 1.15;
     letter-spacing: -0.03em;
     color: #edeae4;
