@@ -16,9 +16,7 @@ const t = translations[lang];
 
 const GITHUB_RELEASES_API =
     "https://api.github.com/repos/arizkami/futureboard/releases";
-const FALLBACK_RELEASE_VERSION = "v0.1.0-alpha";
-const FALLBACK_RELEASE_URL =
-    "https://github.com/arizkami/futureboard/releases/latest";
+const FALLBACK_RELEASE_VERSION = "v2026.08.1-alpha";
 
 type GitHubReleaseAsset = {
     name: string;
@@ -84,20 +82,9 @@ function formatReleaseDate(locale: Locale, publishedAt?: string) {
     }
 }
 
-function findReleaseAsset(release: GitHubRelease | null, extension: string) {
-    return release?.assets?.find((asset) =>
-        asset.name.toLowerCase().endsWith(extension),
-    )?.browser_download_url;
-}
-
 const latestRelease = await getLatestRelease();
 const releaseVersion = latestRelease?.tag_name ?? FALLBACK_RELEASE_VERSION;
-const latestReleaseUrl = latestRelease?.html_url ?? FALLBACK_RELEASE_URL;
 const releaseDateLabel = formatReleaseDate(lang, latestRelease?.published_at);
-const exeDownloadUrl =
-    findReleaseAsset(latestRelease, ".exe") ?? latestReleaseUrl;
-const zipDownloadUrl =
-    findReleaseAsset(latestRelease, ".zip") ?? latestReleaseUrl;
 ---
 
 <Layout
@@ -164,38 +151,9 @@ const zipDownloadUrl =
                             {t.dl_win_desc}
                         </p>
                         <div class="platform-actions">
-                            <a
-                                href={exeDownloadUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn btn-primary dl-btn"
-                                id="download-windows"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
-                                    ></path>
-                                </svg>
-                                {t.dl_download_exe}
-                            </a>
-                            <a
-                                href={zipDownloadUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn btn-outline dl-btn-sm"
-                                >{t.dl_zip_portable}</a
-                            >
+                            <span class="platform-badge-paused">
+                                Nightly downloads paused
+                            </span>
                         </div>
                     </CursorGlowCard>
 
@@ -628,7 +586,8 @@ const zipDownloadUrl =
         padding: 7px 12px;
     }
 
-    .platform-badge-coming {
+    .platform-badge-coming,
+    .platform-badge-paused {
         font-family: var(--font-sans);
         font-size: 0.8125rem;
         color: var(--color-mute);
@@ -636,6 +595,11 @@ const zipDownloadUrl =
         border: 1px solid var(--color-hairline);
         border-radius: var(--radius-xs);
         padding: 5px 10px;
+    }
+
+    .platform-badge-paused {
+        color: var(--color-body-strong);
+        border-color: rgba(115, 191, 252, 0.24);
     }
 
     /* ── Requirements ───────────────────────── */
