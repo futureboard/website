@@ -13,10 +13,10 @@
   --color-hairline-soft: #292724;
 
   /* Text — warm whites and greys */
-  --color-ink:         #edeae4;   /* primary text, warm white */
-  --color-body-strong: #c5bfb5;
-  --color-body:        #9e9589;
-  --color-mute:        #6b6359;
+  --color-ink:         #edebe6;   /* primary text, warm white */
+  --color-body-strong: #cac4ba;
+  --color-body:        #a8a09a;   /* slightly lifted for readability */
+  --color-mute:        #7a7168;   /* less invisible, more intentional */
 
   /* Accent — earthy teal, less neon */
   --color-accent:       #5bbfb5;
@@ -33,7 +33,8 @@
   /* Fonts */
   --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-mono:  "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* mono aliased to sans — no more code-font anywhere on the site */
+  --font-mono:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Radii — slightly rounder, more natural */
   --radius-none: 0px;
