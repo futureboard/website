@@ -6,9 +6,9 @@ import FadeUp from './motion/FadeUp.tsx';
   <div class="section-inner">
     <FadeUp client:visible>
       <span class="eyebrow">Product Lineup</span>
-      <h2 class="section-title">One platform, three targets.</h2>
+      <h2 class="section-title">Three builds, one codebase.</h2>
       <p class="section-lead">
-        From browser to native desktop, Futureboard meets you wherever you work.
+        The web version runs right now. The native build is where the real work is happening.
       </p>
     </FadeUp>
 
@@ -26,12 +26,13 @@ import FadeUp from './motion/FadeUp.tsx';
           <h3 class="product-name">Futureboard Express</h3>
         </div>
         <p class="product-desc">
-          Run directly in your browser. React-based UI with WebAssembly audio processing — zero install, instant access.
+          Runs in the browser, no install. Good for quick sketching and sharing ideas.
+          React + WASM under the hood — not as fast as native, but surprisingly usable.
         </p>
         <ul class="product-specs">
-          <li><span class="spec-dot" style="background: var(--color-sage);"></span>WebUI</li>
+          <li><span class="spec-dot" style="background: var(--color-sage);"></span>Runs in browser</li>
           <li><span class="spec-dot" style="background: var(--color-sage);"></span>React + WASM</li>
-          <li><span class="spec-dot" style="background: var(--color-sage);"></span>No install required</li>
+          <li><span class="spec-dot" style="background: var(--color-sage);"></span>No install needed</li>
         </ul>
         <span class="product-badge">Web target &rarr;</span>
       </a>
@@ -43,7 +44,8 @@ import FadeUp from './motion/FadeUp.tsx';
           <h3 class="product-name">Futureboard Lite</h3>
         </div>
         <p class="product-desc">
-          Desktop experience built on Electron. Cross-platform out of the box with a familiar web-stack foundation.
+          An installable app built on Electron. Easier to ship cross-platform but it has the usual
+          overhead you'd expect. Solid middle ground while the native build matures.
         </p>
         <ul class="product-specs">
           <li><span class="spec-dot" style="background: var(--color-wheat);"></span>Electron desktop</li>
@@ -61,12 +63,14 @@ import FadeUp from './motion/FadeUp.tsx';
           <h3 class="product-name">Futureboard Studio</h3>
         </div>
         <p class="product-desc">
-          The long-term flagship. Built in Rust with GPUI for a truly native, GPU-accelerated experience. Uncompromising performance.
+          This is the one I actually care about. Rust + GPUI means native performance,
+          zero electron overhead, and a UI that renders at GPU speed. Still in progress,
+          but it's where most of the effort goes.
         </p>
         <ul class="product-specs">
           <li><span class="spec-dot spec-dot--accent"></span>Rust + GPUI</li>
           <li><span class="spec-dot spec-dot--accent"></span>Native audio engine</li>
-          <li><span class="spec-dot spec-dot--accent"></span>GPU-accelerated UI</li>
+          <li><span class="spec-dot spec-dot--accent"></span>GPU-rendered UI</li>
         </ul>
         <span class="product-badge product-badge--accent">Native target &middot; Primary</span>
       </div>

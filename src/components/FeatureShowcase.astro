@@ -1,0 +1,342 @@
+---
+import FadeUp from './motion/FadeUp.tsx';
+
+const features = [
+  {
+    id: 'track-experience',
+    tag: '01',
+    title: 'Track Experience',
+    body: [
+      'Designed to give producers a clear, focused, and highly responsive workspace for building complete arrangements. Every track is presented with essential controls — volume, pan, mute, solo, record arm, monitoring state, and visual waveform feedback.',
+      'The layout is built to stay readable even when the project becomes complex. Track headers, clip lanes, meters, and automation-ready areas are visually separated so the user can quickly identify what is playing, what is selected, and what needs attention.',
+    ],
+    image: '/ft-track-experience.webp',
+    imageAlt: 'Futureboard track arrangement view showing multiple colored audio tracks',
+    flip: false,
+    accent: '#5bbfb5',
+  },
+  {
+    id: 'inspector',
+    tag: '02',
+    title: 'Inspector Details',
+    body: [
+      'A dedicated space for editing the properties of selected tracks, clips, and musical elements without interrupting the main timeline workflow. Fine-tune gain, pitch, stretch, fades, timing, routing, and plugin-related settings in one panel.',
+      'By keeping detailed controls close to the arrangement view, the Inspector reduces the need for pop-up dialogs. Producers can modify small details while still seeing the result in the timeline — aligning clips, adjusting transitions, and correcting timing.',
+    ],
+    image: '/ft-inspector.webp',
+    imageAlt: 'Inspector panel showing clip properties like name, timing, gain, and fade controls',
+    flip: true,
+    accent: '#8f9bba',
+  },
+  {
+    id: 'continuous-scroll',
+    tag: '03',
+    title: 'Continuous Scroll',
+    body: [
+      'Keeps the timeline movement smooth, stable, and easy to follow during playback and editing. Stay visually connected to the music as the playhead moves through the arrangement — making long sessions, live recordings, and multitrack projects easier to navigate.',
+      'Instead of jumping abruptly between timeline sections, the view follows playback naturally. The timeline remains responsive while scrolling, zooming, and displaying waveforms — so the project never feels disconnected from the audio.',
+    ],
+    image: '/ft-continuous-scroll.webp',
+    imageAlt: 'Continuous scroll view showing smooth waveform timeline playback',
+    flip: false,
+    accent: '#7db89a',
+  },
+  {
+    id: 'floating-toolbar',
+    tag: '04',
+    title: 'Floating Toolbar',
+    body: [
+      'Brings the most commonly used editing tools directly to the area where the user is working. Select, cut, move, trim, split, snap, zoom — all accessible near the selected content without relying on distant menus or fixed toolbars.',
+      'Designed to be contextual, lightweight, and non-intrusive. It appears when useful, stays out of the way when not needed, and adapts to the current task — making editing feel more direct, almost like the interface is responding to the user.',
+    ],
+    image: '/ft-floating-toolbar.webp',
+    imageAlt: 'Floating toolbar appearing near an audio track with editing tool icons',
+    flip: true,
+    accent: '#c8a97a',
+  },
+  {
+    id: 'mixer',
+    tag: '05',
+    title: 'Mixer Experience',
+    body: [
+      'Built for fast, readable, and professional control over the sound of the entire session. Each channel provides clear access to faders, meters, pan controls, mute, solo, record states, inserts, sends, and routing information — a complete mix overview in one view.',
+      'The layout emphasizes clarity and density without becoming visually overwhelming. Channel strips are compact enough to fit many tracks on screen, but still detailed enough to support serious mixing decisions — approachable for beginners, powerful for professionals.',
+    ],
+    image: '/ft-mixer.webp',
+    imageAlt: 'Futureboard mixer showing multiple channel strips with faders, pan knobs, and meters',
+    flip: false,
+    accent: '#c48c7a',
+  },
+  {
+    id: 'midi-editor',
+    tag: '06',
+    title: 'MIDI Editor',
+    body: [
+      'A precise piano-roll environment for composing, editing, and refining musical ideas. Notes are displayed clearly on a grid, making it easy to create melodies, chords, basslines, drum patterns, and full MIDI arrangements with accurate timing and pitch control.',
+      'Designed for both fast sketching and detailed programming. Quickly draw notes, resize them, move them, adjust timing, and refine rhythmic patterns. Supports velocity editing, quantization, snapping, note selection, and expressive control data.',
+    ],
+    image: '/ft-midi.webp',
+    imageAlt: 'MIDI piano roll editor showing teal note blocks on a dark grid',
+    flip: true,
+    accent: '#6ecdc4',
+  },
+];
+---
+
+<section id="feature-showcase" class="showcase-section">
+  <div class="section-inner">
+    <FadeUp client:visible>
+      <span class="eyebrow">Features</span>
+      <h2 class="section-title">Here's what it actually does.</h2>
+      <p class="section-lead">
+        Six things I kept getting annoyed by in other DAWs. So I built them properly.
+      </p>
+    </FadeUp>
+  </div>
+
+  <div class="showcase-features">
+    {features.map((ft, i) => (
+      <article
+        class={`showcase-item ${ft.flip ? 'showcase-item--flip' : ''}`}
+        id={ft.id}
+        style={`--ft-accent: ${ft.accent};`}
+      >
+        <div class="showcase-inner">
+          <!-- Text column -->
+          <div class="showcase-text">
+            <div class="showcase-meta">
+              <span class="showcase-num">{ft.tag}</span>
+              <span class="showcase-divider" aria-hidden="true"></span>
+            </div>
+            <h3 class="showcase-title">{ft.title}</h3>
+            {ft.body.map(p => (
+              <p class="showcase-body">{p}</p>
+            ))}
+          </div>
+
+          <!-- Image column -->
+          <div class="showcase-visual">
+            <div class="showcase-frame">
+              <div class="frame-glow" aria-hidden="true"></div>
+              <img
+                src={ft.image}
+                alt={ft.imageAlt}
+                class="showcase-img"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  .showcase-section {
+    background: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline);
+    padding-block: 96px 0;
+  }
+
+  .showcase-section .section-inner {
+    padding-inline: 24px;
+    margin-bottom: 80px;
+  }
+
+  .section-lead {
+    margin-top: 0.75rem;
+  }
+
+  /* ─── Feature items list ──────────────────────── */
+  .showcase-features {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── Each item ───────────────────────────────── */
+  .showcase-item {
+    border-top: 1px solid var(--color-hairline);
+    padding-block: 80px;
+    padding-inline: 24px;
+    position: relative;
+    transition: background 0.4s ease;
+  }
+
+  .showcase-item:last-child {
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  /* Subtle accent glow on hover per-item */
+  .showcase-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 50% at 30% 50%,
+      color-mix(in srgb, var(--ft-accent) 4%, transparent) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .showcase-item--flip::before {
+    background: radial-gradient(
+      ellipse 60% 50% at 70% 50%,
+      color-mix(in srgb, var(--ft-accent) 4%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .showcase-item:hover::before {
+    opacity: 1;
+  }
+
+  /* ─── Inner grid ──────────────────────────────── */
+  .showcase-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 900px) {
+    .showcase-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+    }
+
+    /* Flip layout: image left, text right */
+    .showcase-item--flip .showcase-inner {
+      direction: rtl;
+    }
+
+    .showcase-item--flip .showcase-inner > * {
+      direction: ltr;
+    }
+  }
+
+  /* ─── Text column ─────────────────────────────── */
+  .showcase-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .showcase-num {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    color: var(--ft-accent);
+    opacity: 0.9;
+  }
+
+  .showcase-divider {
+    display: block;
+    height: 1px;
+    width: 32px;
+    background: var(--ft-accent);
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  .showcase-title {
+    font-size: clamp(1.5rem, 3vw, 2.125rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    line-height: 1.12;
+    margin-bottom: 20px;
+  }
+
+  .showcase-body {
+    font-size: 0.9375rem;
+    line-height: 1.78;
+    color: var(--color-body);
+    max-width: 48ch;
+  }
+
+  .showcase-body + .showcase-body {
+    margin-top: 14px;
+  }
+
+  /* ─── Image column ────────────────────────────── */
+  .showcase-visual {
+    position: relative;
+  }
+
+  .showcase-frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.3),
+      0 12px 48px rgba(0,0,0,0.45),
+      0 0 0 1px rgba(255,255,255,0.03) inset;
+  }
+
+  /* Per-item accent glow behind frame */
+  .frame-glow {
+    position: absolute;
+    inset: -40px;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      color-mix(in srgb, var(--ft-accent) 8%, transparent) 0%,
+      transparent 70%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .showcase-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* Subtle entrance on load */
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.95);
+  }
+
+  .showcase-frame:hover .showcase-img {
+    transform: scale(1.015);
+    filter: brightness(1) saturate(1);
+  }
+
+  /* ─── Responsive tweaks ───────────────────────── */
+  @media (max-width: 899px) {
+    .showcase-item {
+      padding-block: 56px;
+    }
+
+    .showcase-inner {
+      gap: 32px;
+    }
+
+    /* On mobile, always show text first */
+    .showcase-text {
+      order: 1;
+    }
+
+    .showcase-visual {
+      order: 2;
+    }
+
+    .showcase-body {
+      max-width: 100%;
+    }
+  }
+</style>
