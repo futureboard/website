@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
-type TrackId = 'synth' | 'hat' | 'snare' | 'kick';
+type TrackId = "synth" | "hat" | "snare" | "kick";
 
 interface Track {
   id: TrackId;
@@ -13,32 +13,34 @@ interface Track {
 
 const TRACKS: Track[] = [
   {
-    id: 'synth',
-    name: 'Lead Synth',
-    color: 'var(--color-accent)',
+    id: "synth",
+    name: "Lead Synth",
+    color: "var(--fb-cyan)",
     defaultPattern: [true, false, true, false, true, false, true, false],
   },
   {
-    id: 'hat',
-    name: 'Hi-Hat',
-    color: 'var(--color-sage)',
+    id: "hat",
+    name: "Hi-Hat",
+    color: "var(--color-sage)",
     defaultPattern: [true, true, true, true, true, true, true, true],
   },
   {
-    id: 'snare',
-    name: 'Snare Drum',
-    color: 'var(--color-rose)',
+    id: "snare",
+    name: "Snare Drum",
+    color: "var(--color-rose)",
     defaultPattern: [false, false, true, false, false, false, true, false],
   },
   {
-    id: 'kick',
-    name: 'Kick Drum',
-    color: 'var(--color-wheat)',
+    id: "kick",
+    name: "Kick Drum",
+    color: "var(--color-wheat)",
     defaultPattern: [true, false, false, false, true, false, false, false],
   },
 ];
 
-const SYNTH_PITCHES = [261.63, 293.66, 329.63, 392.00, 440.00, 392.00, 329.63, 293.66]; // C pentatonic
+const SYNTH_PITCHES = [
+  261.63, 293.66, 329.63, 392.0, 440.0, 392.0, 329.63, 293.66,
+]; // C pentatonic
 
 export default function InteractiveSequencer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -51,7 +53,7 @@ export default function InteractiveSequencer() {
     });
     return initial as Record<TrackId, boolean[]>;
   });
-  
+
   const [mutes, setMutes] = useState<Record<TrackId, boolean>>({
     synth: false,
     hat: false,
@@ -61,7 +63,7 @@ export default function InteractiveSequencer() {
 
   // Audio Context Ref
   const audioCtxRef = useRef<AudioContext | null>(null);
-  
+
   // Timing variables
   const schedulerTimerRef = useRef<number | null>(null);
   const nextNoteTimeRef = useRef(0.0);
@@ -98,30 +100,39 @@ export default function InteractiveSequencer() {
   // Initialize Audio Nodes
   const initAudio = () => {
     if (audioCtxRef.current) return;
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContextClass =
+      window.AudioContext || (window as any).webkitAudioContext;
     const ctx = new AudioContextClass();
     audioCtxRef.current = ctx;
   };
 
   // Synthesize Sound Functions
-  const playKick = (ctx: AudioContext, destination: AudioNode, time: number) => {
+  const playKick = (
+    ctx: AudioContext,
+    destination: AudioNode,
+    time: number,
+  ) => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    
+
     osc.connect(gain);
     gain.connect(destination);
-    
+
     osc.frequency.setValueAtTime(150, time);
     osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.3);
-    
+
     gain.gain.setValueAtTime(1.0, time);
     gain.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
-    
+
     osc.start(time);
     osc.stop(time + 0.35);
   };
 
-  const playSnare = (ctx: AudioContext, destination: AudioNode, time: number) => {
+  const playSnare = (
+    ctx: AudioContext,
+    destination: AudioNode,
+    time: number,
+  ) => {
     // Generate white noise buffer
     const bufferSize = ctx.sampleRate * 0.2;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -129,22 +140,22 @@ export default function InteractiveSequencer() {
     for (let i = 0; i < bufferSize; i++) {
       data[i] = Math.random() * 2 - 1;
     }
-    
+
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
-    
+
     const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
+    filter.type = "bandpass";
     filter.frequency.setValueAtTime(1000, time);
-    
+
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.5, time);
     gain.gain.exponentialRampToValueAtTime(0.01, time + 0.18);
-    
+
     noise.connect(filter);
     filter.connect(gain);
     gain.connect(destination);
-    
+
     noise.start(time);
     noise.stop(time + 0.2);
   };
@@ -156,39 +167,44 @@ export default function InteractiveSequencer() {
     for (let i = 0; i < bufferSize; i++) {
       data[i] = Math.random() * 2 - 1;
     }
-    
+
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
-    
+
     const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
+    filter.type = "highpass";
     filter.frequency.setValueAtTime(7500, time);
-    
+
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.25, time);
     gain.gain.exponentialRampToValueAtTime(0.01, time + 0.04);
-    
+
     noise.connect(filter);
     filter.connect(gain);
     gain.connect(destination);
-    
+
     noise.start(time);
     noise.stop(time + 0.05);
   };
 
-  const playSynth = (ctx: AudioContext, destination: AudioNode, time: number, step: number) => {
+  const playSynth = (
+    ctx: AudioContext,
+    destination: AudioNode,
+    time: number,
+    step: number,
+  ) => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    
-    osc.type = 'triangle';
+
+    osc.type = "triangle";
     osc.frequency.setValueAtTime(SYNTH_PITCHES[step % 8], time);
-    
+
     gain.gain.setValueAtTime(0.12, time);
     gain.gain.exponentialRampToValueAtTime(0.001, time + 0.22);
-    
+
     osc.connect(gain);
     gain.connect(destination);
-    
+
     osc.start(time);
     osc.stop(time + 0.25);
   };
@@ -197,7 +213,7 @@ export default function InteractiveSequencer() {
   const scheduleNote = (step: number, time: number) => {
     const ctx = audioCtxRef.current;
     if (!ctx) return;
-    
+
     const dest = ctx.destination;
 
     // Trigger visual step indicator
@@ -210,27 +226,30 @@ export default function InteractiveSequencer() {
     const activePatterns = patternsRef.current;
     const activeMutes = mutesRef.current;
 
-    if (activePatterns.kick[step] && !activeMutes.kick) playKick(ctx, dest, time);
-    if (activePatterns.snare[step] && !activeMutes.snare) playSnare(ctx, dest, time);
+    if (activePatterns.kick[step] && !activeMutes.kick)
+      playKick(ctx, dest, time);
+    if (activePatterns.snare[step] && !activeMutes.snare)
+      playSnare(ctx, dest, time);
     if (activePatterns.hat[step] && !activeMutes.hat) playHat(ctx, dest, time);
-    if (activePatterns.synth[step] && !activeMutes.synth) playSynth(ctx, dest, time, step);
+    if (activePatterns.synth[step] && !activeMutes.synth)
+      playSynth(ctx, dest, time, step);
   };
 
   const scheduler = () => {
     const ctx = audioCtxRef.current;
     if (!ctx) return;
-    
+
     while (nextNoteTimeRef.current < ctx.currentTime + 0.1) {
       scheduleNote(stepRef.current, nextNoteTimeRef.current);
-      
+
       // Advance to next note
       const secondsPerBeat = 60.0 / bpmRef.current;
       const stepDuration = secondsPerBeat / 2; // 8th note steps
       nextNoteTimeRef.current += stepDuration;
-      
+
       stepRef.current = (stepRef.current + 1) % 8;
     }
-    
+
     schedulerTimerRef.current = window.setTimeout(scheduler, 25.0);
   };
 
@@ -240,7 +259,7 @@ export default function InteractiveSequencer() {
     const ctx = audioCtxRef.current;
     if (!ctx) return;
 
-    if (ctx.state === 'suspended') {
+    if (ctx.state === "suspended") {
       await ctx.resume();
     }
 
@@ -293,7 +312,10 @@ export default function InteractiveSequencer() {
         <div className="ruler-left-label">TRACKS</div>
         <div className="ruler-grid">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className={`ruler-mark ${currentStep === i ? 'ruler-mark--active' : ''}`}>
+            <div
+              key={i}
+              className={`ruler-mark ${currentStep === i ? "ruler-mark--active" : ""}`}
+            >
               <span>01:0{i + 1}:00</span>
             </div>
           ))}
@@ -307,14 +329,17 @@ export default function InteractiveSequencer() {
             {/* Track controls sidebar */}
             <div className="track-controls">
               <div className="track-info">
-                <span className="track-dot" style={{ backgroundColor: t.color }}></span>
+                <span
+                  className="track-dot"
+                  style={{ backgroundColor: t.color }}
+                ></span>
                 <span className="track-name">{t.name}</span>
               </div>
               <div className="track-buttons">
                 <button
                   type="button"
                   onClick={() => toggleMute(t.id)}
-                  className={`track-btn track-btn--mute ${mutes[t.id] ? 'track-btn--muted-active' : ''}`}
+                  className={`track-btn track-btn--mute ${mutes[t.id] ? "track-btn--muted-active" : ""}`}
                   title="Mute"
                 >
                   M
@@ -329,14 +354,20 @@ export default function InteractiveSequencer() {
                   key={colIdx}
                   type="button"
                   onClick={() => toggleCell(t.id, colIdx)}
-                  className={`step-cell ${isActive ? 'step-cell--active' : ''} ${currentStep === colIdx ? 'step-cell--playing' : ''}`}
-                  style={{
-                    '--cell-color': t.color,
-                    '--glow-color': isActive ? `color-mix(in srgb, ${t.color} 35%, transparent)` : 'transparent',
-                  } as React.CSSProperties}
+                  className={`step-cell ${isActive ? "step-cell--active" : ""} ${currentStep === colIdx ? "step-cell--playing" : ""}`}
+                  style={
+                    {
+                      "--cell-color": t.color,
+                      "--glow-color": isActive
+                        ? `color-mix(in srgb, ${t.color} 35%, transparent)`
+                        : "transparent",
+                    } as React.CSSProperties
+                  }
                   aria-label={`Toggle step ${colIdx + 1} for ${t.name}`}
                 >
-                  {currentStep === colIdx && <div className="step-playhead-indicator"></div>}
+                  {currentStep === colIdx && (
+                    <div className="step-playhead-indicator"></div>
+                  )}
                 </button>
               ))}
             </div>
@@ -350,26 +381,36 @@ export default function InteractiveSequencer() {
           <button
             type="button"
             onClick={togglePlay}
-            className={`play-btn ${isPlaying ? 'play-btn--playing' : ''}`}
-            aria-label={isPlaying ? 'Stop' : 'Play Beat'}
+            className={`play-btn ${isPlaying ? "play-btn--playing" : ""}`}
+            aria-label={isPlaying ? "Stop" : "Play Beat"}
           >
             {isPlaying ? (
               <>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <rect x="4" y="4" width="16" height="16" rx="2" />
                 </svg>
                 <span>STOP</span>
               </>
             ) : (
               <>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <path d="M8 5v14l11-7z" />
                 </svg>
                 <span>PLAY BEAT</span>
               </>
             )}
           </button>
-          
+
           <button
             type="button"
             onClick={clearPatterns}
@@ -393,12 +434,14 @@ export default function InteractiveSequencer() {
                 onChange={(e) => setBpm(Number(e.target.value))}
                 className="sequencer-range-input"
               />
-              <span className="control-value">{bpm} <span className="value-unit">BPM</span></span>
+              <span className="control-value">
+                {bpm} <span className="value-unit">BPM</span>
+              </span>
             </div>
           </div>
         </div>
       </div>
-      
+
       <style>{`
         .sequencer-panel {
           background: rgba(20, 19, 18, 0.45);
@@ -409,7 +452,7 @@ export default function InteractiveSequencer() {
           flex-direction: column;
           gap: 12px;
           backdrop-filter: blur(16px);
-          box-shadow: 
+          box-shadow:
             0 1px 1px rgba(0, 0, 0, 0.2) inset,
             0 24px 60px rgba(0, 0, 0, 0.6);
         }
@@ -526,7 +569,7 @@ export default function InteractiveSequencer() {
         }
 
         .track-btn--muted-active {
-          background: rgba(196, 140, 122, 0.15);
+          background: rgba(253, 190, 216, 0.16);
           border-color: var(--color-rose);
           color: var(--color-rose);
         }
@@ -545,9 +588,7 @@ export default function InteractiveSequencer() {
           background: rgba(255, 255, 255, 0.015);
           cursor: pointer;
           position: relative;
-          transition: background-color 0.12s cubic-bezier(0.16, 1, 0.3, 1),
-                      border-color 0.12s cubic-bezier(0.16, 1, 0.3, 1),
-                      box-shadow 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: background-color 0.12s ease, border-color 0.12s ease;
         }
 
         .step-cell:hover {
@@ -558,9 +599,9 @@ export default function InteractiveSequencer() {
         .step-cell--active {
           background-color: var(--cell-color);
           border-color: var(--cell-color);
-          box-shadow: 0 0 10px var(--glow-color);
+          box-shadow: none;
         }
-        
+
         .step-cell--active:hover {
           filter: brightness(1.1);
         }
@@ -600,7 +641,7 @@ export default function InteractiveSequencer() {
           align-items: center;
           gap: 10px;
         }
-        
+
         @media (max-width: 600px) {
           .sequencer-toolbar {
             flex-direction: column;
@@ -624,7 +665,7 @@ export default function InteractiveSequencer() {
           padding-inline: 12px;
           border-radius: var(--radius-xs);
           border: 1px solid var(--color-accent);
-          background: rgba(91, 191, 181, 0.08);
+          background: rgba(115, 191, 252, 0.1);
           color: var(--color-accent);
           font-family: var(--font-sans);
           font-size: 0.7rem;
@@ -636,18 +677,18 @@ export default function InteractiveSequencer() {
 
         .play-btn:hover {
           background: var(--color-accent);
-          color: #141312;
+          color: #101214;
         }
 
         .play-btn--playing {
           border-color: var(--color-rose);
-          background: rgba(196, 140, 122, 0.1);
+          background: rgba(253, 190, 216, 0.12);
           color: var(--color-rose);
         }
 
         .play-btn--playing:hover {
           background: var(--color-rose);
-          color: #141312;
+          color: #101214;
         }
 
         .clear-btn {

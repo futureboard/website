@@ -1,26 +1,30 @@
 ---
 export const prerender = true;
 
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import ProductLineup from '../components/ProductLineup.astro';
-import FeatureShowcase from '../components/FeatureShowcase.astro';
-import Roadmap from '../components/Roadmap.astro';
-import WaitlistSection from '../components/WaitlistSection.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ProductLineup from "../components/ProductLineup.astro";
+import FeatureShowcase from "../components/FeatureShowcase.astro";
+import Roadmap from "../components/Roadmap.astro";
+import WaitlistSection from "../components/WaitlistSection.astro";
+import Footer from "../components/Footer.astro";
 
-const lang = 'en';
+const lang = "en";
 ---
 
-<Layout lang={lang}>
-  <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <ProductLineup lang={lang} />
-    <FeatureShowcase lang={lang} />
-    <Roadmap lang={lang} />
-    <WaitlistSection lang={lang} />
-  </main>
-  <Footer lang={lang} />
+<Layout
+    lang={lang}
+    title="Futureboard Studio — Native DAW in Rust and GPUI"
+    description="Futureboard Studio is an experimental DAW built with a native Rust audio core, GPU-rendered UI, MIDI editing, mixer, and plugin support."
+>
+    <Header lang={lang} />
+    <main>
+        <Hero lang={lang} />
+        <ProductLineup lang={lang} />
+        <FeatureShowcase lang={lang} />
+        <Roadmap lang={lang} />
+        <WaitlistSection lang={lang} />
+    </main>
+    <Footer lang={lang} />
 </Layout>

@@ -1,256 +1,264 @@
 ---
-import { translations, type Locale } from '../i18n/translations';
+import { translations, type Locale } from "../i18n/translations";
 
 interface Props {
-  lang?: Locale;
+    lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = "en" } = Astro.props;
 const t = translations[lang];
 
 const year = new Date().getFullYear();
 
 const socialLinks = [
-  {
-    label: 'Discord',
-    href: 'https://discord.gg/kcAmCyXnVn',
-    path: 'M8.5 5a13.2 13.2 0 0 0-5.5 1.6 14 14 0 0 0-2 9.9 13 13 0 0 0 5.5 2.5 10 10 0 0 0 .9-1.8 8.5 8.5 0 0 1-1.4-.7l.4-1a10.3 10.3 0 0 0 8.2 0l.4 1a8.5 8.5 0 0 1-1.4.7 10 10 0 0 0 .9 1.8 13 13 0 0 0 5.5-2.5 14 14 0 0 0-2-9.9A13.2 13.2 0 0 0 15.5 5h-7zM9.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z',
-  },
-  {
-    label: 'X / Twitter',
-    href: 'https://x.com/ftbdproject',
-    path: 'M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4',
-  },
+    {
+        label: "Discord",
+        href: "https://discord.gg/kcAmCyXnVn",
+        path: "M8.5 5a13.2 13.2 0 0 0-5.5 1.6 14 14 0 0 0-2 9.9 13 13 0 0 0 5.5 2.5 10 10 0 0 0 .9-1.8 8.5 8.5 0 0 1-1.4-.7l.4-1a10.3 10.3 0 0 0 8.2 0l.4 1a8.5 8.5 0 0 1-1.4.7 10 10 0 0 0 .9 1.8 13 13 0 0 0 5.5-2.5 14 14 0 0 0-2-9.9A13.2 13.2 0 0 0 15.5 5h-7zM9.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z",
+    },
+    {
+        label: "X / Twitter",
+        href: "https://x.com/ftbdproject",
+        path: "M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4",
+    },
 ];
 ---
 
 <footer class="site-footer">
-  <div class="section-inner footer-main">
+    <div class="section-inner footer-main">
+        <!-- Brand -->
+        <div class="footer-brand">
+            <div class="footer-logo-row">
+                <img src="/logo.webp" alt="" class="h-8" />
+                <span class="brand-name">Futureboard Studio</span>
+            </div>
+            <p class="brand-desc">
+                {t.hero_desc}
+            </p>
+            <p class="brand-status">
+                <span class="status-indicator" aria-hidden="true"></span>
+                Alpha &middot; Futureboard Project.
+            </p>
+        </div>
 
-    <!-- Brand -->
-    <div class="footer-brand">
-      <div class="footer-logo-row">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-logo" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#1b1a18" stroke="var(--color-accent)" stroke-width="1.5" />
-          <path d="M7 12H9C10.1 12 11 11.1 11 10V8C11 6.9 11.9 6 13 6H17" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M7 16H11C12.1 16 13 15.1 13 14" stroke="var(--color-accent-light)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="7" cy="12" r="1.25" fill="var(--color-accent)" />
-          <circle cx="7" cy="16" r="1.25" fill="var(--color-accent-light)" />
-          <circle cx="17" cy="6" r="1.25" fill="var(--color-accent)" />
-          <circle cx="13" cy="14" r="1.25" fill="var(--color-accent-light)" />
-        </svg>
-        <span class="brand-name">Futureboard Studio</span>
-      </div>
-      <p class="brand-desc">
-        {t.hero_desc}
-      </p>
-      <p class="brand-status">
-        <span class="status-indicator" aria-hidden="true"></span>
-        Alpha &middot; Futureboard Project.
-      </p>
+        <div class="footer-cols">
+            <!-- Links -->
+            <div class="footer-col">
+                <p class="col-heading">{t.footer_links_title}</p>
+                <nav aria-label="Footer navigation">
+                    <a href={lang === "en" ? "/download" : `/${lang}/download`}
+                        >{t.nav_download}</a
+                    >
+                    <a
+                        href="https://github.com/arizkami/futureboard"
+                        target="_blank"
+                        rel="noopener noreferrer">GitHub</a
+                    >
+                    <a href={lang === "en" ? "/#waitlist" : `/${lang}#waitlist`}
+                        >{t.nav_waitlist}</a
+                    >
+                    <a href={lang === "en" ? "/terms" : `/${lang}/terms`}
+                        >{t.footer_terms}</a
+                    >
+                    <a href={lang === "en" ? "/privacy" : `/${lang}/privacy`}
+                        >{t.footer_privacy}</a
+                    >
+                </nav>
+            </div>
+
+            <!-- Community -->
+            <div class="footer-col">
+                <p class="col-heading">Community</p>
+                <nav aria-label="Social links">
+                    {
+                        socialLinks.map((s) => (
+                            <a
+                                href={s.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="social-link"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="13"
+                                    height="13"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.75"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d={s.path} />
+                                </svg>
+                                {s.label}
+                            </a>
+                        ))
+                    }
+                </nav>
+            </div>
+        </div>
     </div>
 
-    <div class="footer-cols">
-
-      <!-- Links -->
-      <div class="footer-col">
-        <p class="col-heading">{t.footer_links_title}</p>
-        <nav aria-label="Footer navigation">
-          <a href={lang === 'en' ? '/download' : `/${lang}/download`}>{t.nav_download}</a>
-          <a href="https://github.com/arizkami/futureboard" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href={lang === 'en' ? '/#waitlist' : `/${lang}#waitlist`}>{t.nav_waitlist}</a>
-          <a href={lang === 'en' ? '/terms' : `/${lang}/terms`}>{t.footer_terms}</a>
-          <a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`}>{t.footer_privacy}</a>
-        </nav>
-      </div>
-
-      <!-- Community -->
-      <div class="footer-col">
-        <p class="col-heading">Community</p>
-        <nav aria-label="Social links">
-          {socialLinks.map((s) => (
-            <a href={s.href} target="_blank" rel="noopener noreferrer" class="social-link">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.75"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d={s.path} />
-              </svg>
-              {s.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-
+    <!-- Bottom bar -->
+    <div class="section-inner footer-bottom">
+        <p>{t.footer_copyright}</p>
+        <p>Astro &middot; Rust &middot; GPUI &middot; WebAssembly</p>
     </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="section-inner footer-bottom">
-    <p>{t.footer_copyright}</p>
-    <p>Astro &middot; Rust &middot; GPUI &middot; WebAssembly</p>
-  </div>
 </footer>
 
 <style>
-  .site-footer {
-    background: var(--color-canvas);
-    border-top: 1px solid var(--color-hairline);
-    padding-block: 56px 32px;
-    padding-inline: 24px;
-  }
+    .site-footer {
+        background: var(--color-canvas);
+        border-top: 1px solid var(--color-hairline);
+        padding-block: 56px 32px;
+        padding-inline: 24px;
+    }
 
-  /* Main row */
-  .footer-main {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  @media (min-width: 768px) {
+    /* Main row */
     .footer-main {
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
     }
-  }
 
-  /* Brand */
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 320px;
-  }
+    @media (min-width: 768px) {
+        .footer-main {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+    }
 
-  .footer-logo-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    /* Brand */
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 320px;
+    }
 
-  .brand-name {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.01em;
-  }
+    .footer-logo-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-  .brand-desc {
-    font-size: 0.8125rem;
-    line-height: 1.65;
-    color: var(--color-body);
-  }
+    .brand-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.01em;
+    }
 
-  .brand-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    color: var(--color-mute);
-  }
+    .brand-desc {
+        font-size: 0.8125rem;
+        line-height: 1.65;
+        color: var(--color-body);
+    }
 
-  .status-indicator {
-    width: 5px;
-    height: 5px;
-    border-radius: 9999px;
-    background: var(--color-accent);
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
+    .brand-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-sans);
+        font-size: 0.6875rem;
+        color: var(--color-mute);
+    }
 
-  /* Columns */
-  .footer-cols {
-    display: flex;
-    gap: 60px;
-  }
+    .status-indicator {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        flex-shrink: 0;
+        opacity: 0.7;
+    }
 
-  @media (max-width: 480px) {
+    /* Columns */
     .footer-cols {
-      flex-direction: column;
-      gap: 28px;
+        display: flex;
+        gap: 60px;
     }
-  }
 
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+    @media (max-width: 480px) {
+        .footer-cols {
+            flex-direction: column;
+            gap: 28px;
+        }
+    }
 
-  .col-heading {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-mute);
-    margin-bottom: 4px;
-  }
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
 
-  .footer-col nav {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+    .col-heading {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-mute);
+        margin-bottom: 4px;
+    }
 
-  .footer-col a {
-    font-size: 0.8125rem;
-    color: var(--color-body);
-    text-decoration: none;
-    transition: color var(--transition-base);
-  }
+    .footer-col nav {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
 
-  .footer-col a:hover {
-    color: var(--color-ink);
-  }
+    .footer-col a {
+        font-size: 0.8125rem;
+        color: var(--color-body);
+        text-decoration: none;
+        transition: color var(--transition-base);
+    }
 
-  /* Social link with icon */
-  .social-link {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    text-decoration: none;
-  }
+    .footer-col a:hover {
+        color: var(--color-ink);
+    }
 
-  .social-link svg {
-    opacity: 0.55;
-    transition: opacity var(--transition-base);
-  }
+    /* Social link with icon */
+    .social-link {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        text-decoration: none;
+    }
 
-  .social-link:hover svg {
-    opacity: 0.9;
-  }
+    .social-link svg {
+        opacity: 0.55;
+        transition: opacity var(--transition-base);
+    }
 
-  /* Bottom bar */
-  .footer-bottom {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-hairline);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+    .social-link:hover svg {
+        opacity: 0.9;
+    }
 
-  @media (min-width: 768px) {
+    /* Bottom bar */
     .footer-bottom {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--color-hairline);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
     }
-  }
 
-  .footer-bottom p {
-    font-size: 0.75rem;
-    color: var(--color-mute);
-  }
+    @media (min-width: 768px) {
+        .footer-bottom {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .footer-bottom p {
+        font-size: 0.75rem;
+        color: var(--color-mute);
+    }
 </style>

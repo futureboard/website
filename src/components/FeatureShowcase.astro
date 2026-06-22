@@ -18,7 +18,7 @@ const features = [
     image: '/ft-track-experience.webp',
     imageAlt: 'Futureboard track arrangement view showing multiple colored audio tracks',
     flip: false,
-    accent: '#5bbfb5',
+    accent: '#31FD97',
   },
   {
     id: 'inspector',
@@ -28,7 +28,7 @@ const features = [
     image: '/ft-inspector.webp',
     imageAlt: 'Inspector panel showing clip properties like name, timing, gain, and fade controls',
     flip: true,
-    accent: '#8f9bba',
+    accent: '#73BFFC',
   },
   {
     id: 'continuous-scroll',
@@ -38,7 +38,7 @@ const features = [
     image: '/ft-continuous-scroll.webp',
     imageAlt: 'Continuous scroll view showing smooth waveform timeline playback',
     flip: false,
-    accent: '#7db89a',
+    accent: '#94E2FE',
   },
   {
     id: 'floating-toolbar',
@@ -48,7 +48,7 @@ const features = [
     image: '/ft-floating-toolbar.webp',
     imageAlt: 'Floating toolbar appearing near an audio track with editing tool icons',
     flip: true,
-    accent: '#c8a97a',
+    accent: '#FCA2B2',
   },
   {
     id: 'mixer',
@@ -58,7 +58,7 @@ const features = [
     image: '/ft-mixer.webp',
     imageAlt: 'Futureboard mixer showing multiple channel strips with faders, pan knobs, and meters',
     flip: false,
-    accent: '#c48c7a',
+    accent: '#CD96FE',
   },
   {
     id: 'midi-editor',
@@ -68,7 +68,7 @@ const features = [
     image: '/ft-midi.webp',
     imageAlt: 'MIDI piano roll editor showing teal note blocks on a dark grid',
     flip: true,
-    accent: '#6ecdc4',
+    accent: '#7163F6',
   },
 ];
 ---
@@ -166,11 +166,7 @@ const features = [
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      ellipse 60% 50% at 30% 50%,
-      color-mix(in srgb, var(--ft-accent) 4%, transparent) 0%,
-      transparent 70%
-    );
+    background: rgba(255, 255, 255, 0.012);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -178,11 +174,7 @@ const features = [
   }
 
   .showcase-item--flip::before {
-    background: radial-gradient(
-      ellipse 60% 50% at 70% 50%,
-      color-mix(in srgb, var(--ft-accent) 4%, transparent) 0%,
-      transparent 70%
-    );
+    background: rgba(255, 255, 255, 0.012);
   }
 
   .showcase-item:hover::before {
@@ -273,15 +265,12 @@ const features = [
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--color-hairline);
-    background: #181716;
-    box-shadow:
-      0 2px 4px rgba(0,0,0,0.3),
-      0 12px 48px rgba(0,0,0,0.45),
-      0 0 0 1px rgba(255,255,255,0.03) inset;
+    background: var(--color-canvas-soft);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
   }
 
   .frame-header-decor {
-    background: #1e1d1b;
+    background: var(--color-canvas-mid);
     border-bottom: 1px solid var(--color-hairline-soft);
     height: 30px;
     display: flex;
@@ -301,7 +290,7 @@ const features = [
     height: 6px;
     border-radius: 9999px;
     background: var(--ft-accent);
-    box-shadow: 0 0 6px var(--ft-accent);
+    box-shadow: none;
   }
 
   .decor-title {
@@ -317,11 +306,7 @@ const features = [
     position: absolute;
     inset: -40px;
     border-radius: 50%;
-    background: radial-gradient(
-      ellipse 80% 60% at 50% 50%,
-      color-mix(in srgb, var(--ft-accent) 8%, transparent) 0%,
-      transparent 70%
-    );
+    background: transparent;
     z-index: -1;
     pointer-events: none;
     transition: opacity 0.4s ease;

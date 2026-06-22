@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion, type Variants } from 'framer-motion';
-import { translations, type Locale } from '../i18n/translations.ts';
+import React from "react";
+import { motion, type Variants } from "framer-motion";
+import { translations, type Locale } from "../i18n/translations.ts";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -22,7 +22,7 @@ const itemVariants: Variants = {
 const ease = [0.16, 1, 0.3, 1] as const;
 const transitionDur = { duration: 0.6, ease } as const;
 
-export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
+export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
   const t = translations[lang];
 
   return (
@@ -35,26 +35,47 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
         animate="show"
       >
         {/* Eyebrow */}
-        <motion.p className="hero-eyebrow" variants={itemVariants} transition={transitionDur}>
+        <motion.p
+          className="hero-eyebrow"
+          variants={itemVariants}
+          transition={transitionDur}
+        >
           <span className="eyebrow-dot" aria-hidden="true" />
           {t.hero_eyebrow}
         </motion.p>
 
         {/* Headline */}
-        <motion.h1 className="hero-headline" variants={itemVariants} transition={transitionDur}>
-          {t.hero_headline_1}<br />
-          {t.hero_headline_2}<br />
+        <motion.h1
+          className="hero-headline"
+          variants={itemVariants}
+          transition={transitionDur}
+        >
+          {t.hero_headline_1}
+          <br />
+          {t.hero_headline_2}
+          <br />
           <em className="hero-accent">{t.hero_headline_accent}</em>
         </motion.h1>
 
         {/* Description */}
-        <motion.p className="hero-desc" variants={itemVariants} transition={transitionDur}>
+        <motion.p
+          className="hero-desc"
+          variants={itemVariants}
+          transition={transitionDur}
+        >
           {t.hero_desc}
         </motion.p>
 
         {/* CTA Actions */}
-        <motion.div className="hero-actions" variants={itemVariants} transition={transitionDur}>
-          <a href={lang === 'en' ? '/download' : `/${lang}/download`} className="btn btn-primary hero-btn-main">
+        <motion.div
+          className="hero-actions"
+          variants={itemVariants}
+          transition={transitionDur}
+        >
+          <a
+            href={lang === "en" ? "/download" : `/${lang}/download`}
+            className="btn btn-primary hero-btn-main"
+          >
             {t.hero_download}
           </a>
           <a href="#waitlist" className="btn btn-outline">
@@ -80,28 +101,12 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
       >
         <div className="showcase-window">
           {/* Simulated Title Bar */}
-          <div className="window-titlebar">
-            {/* macOS-style Traffic Light Buttons */}
-            <div className="window-dots" aria-hidden="true">
-              <span className="window-dot-btn red"></span>
-              <span className="window-dot-btn yellow"></span>
-              <span className="window-dot-btn green"></span>
-            </div>
-
-            {/* Window title */}
-            <div className="window-title">Futureboard Studio</div>
-            
-            {/* Window version status */}
-            <div className="window-status" aria-hidden="true">
-              v0.1.0-alpha
-            </div>
-          </div>
 
           {/* Window Body Container */}
           <div className="window-body">
             <div className="showcase-view screenshot-view">
               <img
-                src="/preview.webp"
+                src="/Master.webp"
                 alt="Futureboard Studio DAW interface preview showing track lanes and timeline"
                 className="showcase-screenshot-img"
                 loading="eager"
@@ -110,7 +115,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
           </div>
         </div>
       </motion.div>
-      
+
       <style>{`
         .hero-grid {
           display: grid;
@@ -136,6 +141,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
         .hero-eyebrow {
           display: flex;
           align-items: center;
+          flex-wrap: wrap;
           gap: 8px;
           font-family: var(--font-sans);
           font-size: 0.72rem;
@@ -166,6 +172,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
           font-weight: 400;
           line-height: 1.05;
           letter-spacing: -0.05em;
+          text-wrap: balance;
           color: var(--color-ink);
           margin-bottom: 18px;
         }
@@ -182,7 +189,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
           font-size: 0.9rem;
           line-height: 1.7;
           color: var(--color-body);
-          max-width: 44ch;
+          max-width: 50ch;
           margin-bottom: 24px;
         }
 
@@ -191,6 +198,17 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
           flex-wrap: wrap;
           align-items: center;
           gap: 8px;
+          width: 100%;
+        }
+
+        .hero-actions .btn {
+          justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+          .hero-actions .btn {
+            width: 100%;
+          }
         }
 
         /* Showcase App Window */
@@ -203,11 +221,11 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
         .showcase-window {
           width: 100%;
           max-width: 680px;
-          background: #181716;
+          background: var(--color-canvas-soft);
           border: 1px solid var(--color-hairline);
           border-radius: var(--radius-lg);
           overflow: hidden;
-          box-shadow: 
+          box-shadow:
             0 1px 1px rgba(255, 255, 255, 0.03) inset,
             0 12px 30px rgba(0, 0, 0, 0.4),
             0 32px 70px rgba(0, 0, 0, 0.55);
@@ -217,7 +235,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
 
         .window-titlebar {
           height: 38px;
-          background: #1d1c1a;
+          background: var(--color-canvas-mid);
           border-bottom: 1px solid var(--color-hairline-soft);
           display: flex;
           align-items: center;
@@ -249,6 +267,10 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
           font-size: 0.72rem;
           font-weight: 500;
           color: var(--color-body-strong);
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .window-status {
@@ -263,7 +285,7 @@ export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
 
         .window-body {
           position: relative;
-          background: #141312;
+          background: #171719;
           display: flex;
           flex-direction: column;
         }

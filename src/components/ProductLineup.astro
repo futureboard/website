@@ -1,242 +1,304 @@
 ---
-import FadeUp from './motion/FadeUp.tsx';
-import CursorGlowCard from './CursorGlowCard.tsx';
-import { translations, type Locale } from '../i18n/translations';
+import FadeUp from "./motion/FadeUp.tsx";
+import CursorGlowCard from "./CursorGlowCard.tsx";
+import { translations, type Locale } from "../i18n/translations";
 
 interface Props {
-  lang?: Locale;
+    lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = "en" } = Astro.props;
 const t = translations[lang];
 ---
 
 <section id="product" class="product-section">
-  <div class="section-inner">
-    <FadeUp client:visible>
-      <span class="eyebrow">{t.product_eyebrow}</span>
-      <h2 class="section-title">{t.product_title}</h2>
-      <p class="section-lead">{t.product_lead}</p>
-    </FadeUp>
+    <div class="section-inner">
+        <FadeUp client:visible>
+            <span class="eyebrow">{t.product_eyebrow}</span>
+            <h2 class="section-title">{t.product_title}</h2>
+            <p class="section-lead">{t.product_lead}</p>
+        </FadeUp>
 
-    <div class="product-grid">
+        <div class="product-grid">
+            <!-- Express — Web -->
+            <CursorGlowCard
+                as="a"
+                href="https://app.futureboard.studio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="product-card product-card--link"
+                client:visible
+            >
+                <div class="product-card-header">
+                    <span class="product-tag">{t.product_express_tag}</span>
+                    <h3 class="product-name">{t.product_express_name}</h3>
+                </div>
+                <p class="product-desc">
+                    {t.product_express_desc}
+                </p>
+                <ul class="product-specs">
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-sage);"></span>{
+                            t.product_express_spec1
+                        }
+                    </li>
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-sage);"></span>{
+                            t.product_express_spec2
+                        }
+                    </li>
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-sage);"></span>{
+                            t.product_express_spec3
+                        }
+                    </li>
+                </ul>
+                <span class="product-badge">{t.product_express_badge}</span>
+            </CursorGlowCard>
 
-      <!-- Express — Web -->
-      <CursorGlowCard
-        as="a"
-        href="https://app.futureboard.studio"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="product-card product-card--link"
-        client:visible
-      >
-        <div class="product-card-header">
-          <span class="product-tag">{t.product_express_tag}</span>
-          <h3 class="product-name">{t.product_express_name}</h3>
+            <!-- Lite — Electron -->
+            <CursorGlowCard
+                className="product-card product-card--muted"
+                client:visible
+            >
+                <div class="product-card-header">
+                    <span class="product-tag">{t.product_lite_tag}</span>
+                    <h3 class="product-name">{t.product_lite_name}</h3>
+                </div>
+                <p class="product-desc">
+                    {t.product_lite_desc}
+                </p>
+                <ul class="product-specs">
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-wheat);"></span>{
+                            t.product_lite_spec1
+                        }
+                    </li>
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-wheat);"></span>{
+                            t.product_lite_spec2
+                        }
+                    </li>
+                    <li>
+                        <span
+                            class="spec-dot"
+                            style="background: var(--color-wheat);"></span>{
+                            t.product_lite_spec3
+                        }
+                    </li>
+                </ul>
+                <span class="product-badge product-badge--muted"
+                    >{t.product_lite_badge}</span
+                >
+            </CursorGlowCard>
+
+            <!-- Studio — Primary -->
+            <CursorGlowCard
+                className="product-card product-card--primary"
+                client:visible
+            >
+                <div class="product-card-top-line" aria-hidden="true"></div>
+                <div class="product-card-header">
+                    <span class="product-tag product-tag--accent"
+                        >{t.product_studio_tag}</span
+                    >
+                    <h3 class="product-name">{t.product_studio_name}</h3>
+                </div>
+                <p class="product-desc">
+                    {t.product_studio_desc}
+                </p>
+                <ul class="product-specs">
+                    <li>
+                        <span class="spec-dot spec-dot--accent"></span>{
+                            t.product_studio_spec1
+                        }
+                    </li>
+                    <li>
+                        <span class="spec-dot spec-dot--accent"></span>{
+                            t.product_studio_spec2
+                        }
+                    </li>
+                    <li>
+                        <span class="spec-dot spec-dot--accent"></span>{
+                            t.product_studio_spec3
+                        }
+                    </li>
+                </ul>
+                <span class="product-badge product-badge--accent"
+                    >{t.product_studio_badge}</span
+                >
+            </CursorGlowCard>
         </div>
-        <p class="product-desc">
-          {t.product_express_desc}
-        </p>
-        <ul class="product-specs">
-          <li><span class="spec-dot" style="background: var(--color-sage);"></span>{t.product_express_spec1}</li>
-          <li><span class="spec-dot" style="background: var(--color-sage);"></span>{t.product_express_spec2}</li>
-          <li><span class="spec-dot" style="background: var(--color-sage);"></span>{t.product_express_spec3}</li>
-        </ul>
-        <span class="product-badge">{t.product_express_badge}</span>
-      </CursorGlowCard>
-
-      <!-- Lite — Electron -->
-      <CursorGlowCard className="product-card product-card--muted" client:visible>
-        <div class="product-card-header">
-          <span class="product-tag">{t.product_lite_tag}</span>
-          <h3 class="product-name">{t.product_lite_name}</h3>
-        </div>
-        <p class="product-desc">
-          {t.product_lite_desc}
-        </p>
-        <ul class="product-specs">
-          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>{t.product_lite_spec1}</li>
-          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>{t.product_lite_spec2}</li>
-          <li><span class="spec-dot" style="background: var(--color-wheat);"></span>{t.product_lite_spec3}</li>
-        </ul>
-        <span class="product-badge product-badge--muted">{t.product_lite_badge}</span>
-      </CursorGlowCard>
-
-      <!-- Studio — Primary -->
-      <CursorGlowCard className="product-card product-card--primary" client:visible>
-        <div class="product-card-top-line" aria-hidden="true"></div>
-        <div class="product-card-header">
-          <span class="product-tag product-tag--accent">{t.product_studio_tag}</span>
-          <h3 class="product-name">{t.product_studio_name}</h3>
-        </div>
-        <p class="product-desc">
-          {t.product_studio_desc}
-        </p>
-        <ul class="product-specs">
-          <li><span class="spec-dot spec-dot--accent"></span>{t.product_studio_spec1}</li>
-          <li><span class="spec-dot spec-dot--accent"></span>{t.product_studio_spec2}</li>
-          <li><span class="spec-dot spec-dot--accent"></span>{t.product_studio_spec3}</li>
-        </ul>
-        <span class="product-badge product-badge--accent">{t.product_studio_badge}</span>
-      </CursorGlowCard>
-
     </div>
-  </div>
 </section>
 
 <style>
-  .product-section {
-    background: var(--color-canvas);
-    border-top: 1px solid var(--color-hairline);
-    padding-block: 88px;
-    padding-inline: 24px;
-  }
-
-  .section-lead {
-    margin-bottom: 48px;
-  }
-
-  .product-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  @media (min-width: 768px) {
-    .product-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .product-section {
+        background: var(--color-canvas);
+        border-top: 1px solid var(--color-hairline);
+        padding-block: 88px;
+        padding-inline: 24px;
     }
-  }
 
-  /* Target both class types to preserve layout */
-  :global(.cursor-glow-card).product-card {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-    box-sizing: border-box;
-  }
+    .section-lead {
+        margin-bottom: 48px;
+    }
 
-  /* Linked card hover glow adjust */
-  :global(.cursor-glow-card).product-card--link:hover {
-    border-color: rgba(91, 191, 181, 0.4);
-  }
+    .product-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 
-  /* Muted card (Lite) */
-  :global(.cursor-glow-card).product-card--muted {
-    opacity: 0.75;
-  }
+    @media (min-width: 900px) {
+        .product-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
 
-  /* Primary card (Studio) */
-  :global(.cursor-glow-card).product-card--primary {
-    background: var(--color-canvas-mid);
-    border-color: rgba(91, 191, 181, 0.22);
-  }
+    /* Target both class types to preserve layout */
+    :global(.cursor-glow-card).product-card {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        box-sizing: border-box;
+    }
 
-  /* Dynamic accent hover glow for Studio card */
-  :global(.cursor-glow-card).product-card--primary:hover {
-    border-color: rgba(91, 191, 181, 0.45);
-  }
+    /* Linked card hover glow adjust */
+    :global(.cursor-glow-card).product-card--link:hover {
+        border-color: var(--fb-rim);
+    }
 
-  /* Top accent line for primary */
-  .product-card-top-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(91, 191, 181, 0.4) 50%, transparent 100%);
-    z-index: 10;
-  }
+    /* Muted card (Lite) */
+    :global(.cursor-glow-card).product-card--muted {
+        opacity: 0.75;
+    }
 
-  /* Card header */
-  .product-card-header {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+    /* Primary card (Studio) */
+    :global(.cursor-glow-card).product-card--primary {
+        background: var(--color-canvas-mid);
+        border-color: var(--color-hairline);
+    }
 
-  .product-tag {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-mute);
-  }
+    /* Dynamic accent hover glow for Studio card */
+    :global(.cursor-glow-card).product-card--primary:hover {
+        border-color: var(--fb-rim);
+    }
 
-  .product-tag--accent {
-    color: var(--color-accent-dark);
-  }
+    /* Top accent line for primary */
+    .product-card-top-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--color-accent);
+        z-index: 10;
+    }
 
-  .product-name {
-    font-size: 1.0625rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.025em;
-  }
+    /* Card header */
+    .product-card-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
 
-  /* Description */
-  .product-desc {
-    font-size: 0.8125rem;
-    line-height: 1.65;
-    color: var(--color-body);
-    flex-grow: 1;
-  }
+    .product-tag {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-mute);
+    }
 
-  /* Specs list */
-  .product-specs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: auto;
-  }
+    .product-tag--accent {
+        color: var(--color-accent-dark);
+    }
 
-  .product-specs li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8125rem;
-    color: var(--color-body);
-  }
+    .product-name {
+        font-size: 1.0625rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.025em;
+    }
 
-  .spec-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 9999px;
-    flex-shrink: 0;
-  }
+    /* Description */
+    .product-desc {
+        font-size: 0.8125rem;
+        line-height: 1.65;
+        color: var(--color-body);
+        flex-grow: 1;
+        overflow-wrap: anywhere;
+    }
 
-  .spec-dot--accent {
-    background: var(--color-accent);
-  }
+    /* Specs list */
+    .product-specs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: auto;
+    }
 
-  /* Badge */
-  .product-badge {
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-mute);
-    background: var(--color-canvas);
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-xs);
-    padding: 4px 10px;
-    align-self: flex-start;
-  }
+    .product-specs li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8125rem;
+        color: var(--color-body);
+        min-width: 0;
+    }
 
-  .product-badge--muted {
-    opacity: 0.6;
-  }
+    .spec-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        flex-shrink: 0;
+    }
 
-  .product-badge--accent {
-    color: var(--color-accent);
-    background: rgba(91, 191, 181, 0.06);
-    border-color: rgba(91, 191, 181, 0.18);
-  }
+    .spec-dot--accent {
+        background: var(--color-accent);
+    }
+
+    /* Badge */
+    .product-badge {
+        display: inline-block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-mute);
+        background: var(--color-canvas);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-xs);
+        padding: 4px 10px;
+        align-self: flex-start;
+    }
+
+    .product-badge--muted {
+        opacity: 0.6;
+    }
+
+    .product-badge--accent {
+        color: var(--color-accent-light);
+        background: var(--color-canvas-soft);
+        border-color: var(--color-hairline);
+    }
 </style>

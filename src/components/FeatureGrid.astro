@@ -1,121 +1,167 @@
 ---
-import AnimatedFeatureCards from './AnimatedFeatureCards.tsx';
+import AnimatedFeatureCards from "./AnimatedFeatureCards.tsx";
 
 const iconPaths: Record<string, string> = {
-  timeline: 'M3 12h4l3-9 4 18 3-9h4',
-  music:    'M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
-  cpu:      'M9 3H7a2 2 0 0 0-2 2v2m4-4h6m-6 0v18m6-18h2a2 2 0 0 1 2 2v2m-4-4v18m4-18v.01M3 9v6m18-6v6M3 15h2m16 0h2M3 9h2m16 0h2M9 21h6M9 3h6',
-  sliders:  'M4 6h16M8 12h8M11 18h2',
-  plug:     'M9.785 6l.415-.713A2 2 0 0 1 12 4.345a2 2 0 0 1 1.8 1.942v1.486L17 9.5l-5 5-5-5 3.2-1.727V5.287M3 19h18',
-  puzzle:   'M4 7h3a1 1 0 0 0 1-1V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H0',
-  waveform: 'M3 12c1.333-4 2.667-6 4-6s2.667 2 4 6 2.667 6 4 6 2.667-2 4-6',
-  folder:   'M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2',
-  devices:  'M13 9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V9zM3 5h11a1 1 0 0 1 1 1v3H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 12h7v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z',
+    timeline: "M3 12h4l3-9 4 18 3-9h4",
+    music: "M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+    cpu: "M9 3H7a2 2 0 0 0-2 2v2m4-4h6m-6 0v18m6-18h2a2 2 0 0 1 2 2v2m-4-4v18m4-18v.01M3 9v6m18-6v6M3 15h2m16 0h2M3 9h2m16 0h2M9 21h6M9 3h6",
+    sliders: "M4 6h16M8 12h8M11 18h2",
+    plug: "M9.785 6l.415-.713A2 2 0 0 1 12 4.345a2 2 0 0 1 1.8 1.942v1.486L17 9.5l-5 5-5-5 3.2-1.727V5.287M3 19h18",
+    puzzle: "M4 7h3a1 1 0 0 0 1-1V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H0",
+    waveform: "M3 12c1.333-4 2.667-6 4-6s2.667 2 4 6 2.667 6 4 6 2.667-2 4-6",
+    folder: "M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2",
+    devices:
+        "M13 9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V9zM3 5h11a1 1 0 0 1 1 1v3H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 12h7v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z",
 };
 
 const iconColors: Record<string, string> = {
-  timeline: '#5bbfb5',
-  music:    '#8f9bba',
-  cpu:      '#7db89a',
-  sliders:  '#c8a97a',
-  plug:     '#c48c7a',
-  puzzle:   '#6ecdc4',
-  waveform: '#5bbfb5',
-  folder:   '#9e8b6f',
-  devices:  '#8f9bba',
+    timeline: "#31FD97",
+    music: "#73BFFC",
+    cpu: "#94E2FE",
+    sliders: "#FCA2B2",
+    plug: "#CD96FE",
+    puzzle: "#7163F6",
+    waveform: "#31FD97",
+    folder: "#FDBED8",
+    devices: "#73BFFC",
 };
 
 const features = [
-  { icon: 'timeline', title: 'Timeline Editing',        description: 'Arrange, cut, and sequence audio, MIDI, and automation clips on a precision timeline.' },
-  { icon: 'music',    title: 'Audio & MIDI Editors',    description: 'Piano roll, audio clip editor, and automation lanes — all built into the same surface.' },
-  { icon: 'cpu',      title: 'Native Audio Engine',     description: 'Low-latency audio processing via CPAL with direct hardware access. No bridges.' },
-  { icon: 'sliders',  title: 'Mixer & Routing',         description: 'Flexible signal routing with per-channel inserts, sends, and a full mix console.' },
-  { icon: 'plug',     title: 'Plugin Hosting',          description: 'Host audio plugins inside the native engine. Sandboxed and crash-resilient.' },
-  { icon: 'puzzle',   title: 'VST3 / CLAP / AU / LV2', description: 'VST3 and CLAP supported today. AU and LV2 on the roadmap for full ecosystem coverage.' },
-  { icon: 'waveform', title: 'Waveform Rendering',      description: 'GPU-accelerated waveform display. Smooth zoom at any level, even on dense projects.' },
-  { icon: 'folder',   title: 'Project System',          description: 'Portable project format. All assets bundled, versioned, and ready to archive or share.' },
-  { icon: 'devices',  title: 'Cross-Platform',          description: 'Windows first. macOS and Linux via community contributors — the architecture is ready.' },
+    {
+        icon: "timeline",
+        title: "Timeline Editing",
+        description:
+            "Arrange, cut, and sequence audio, MIDI, and automation clips on a precision timeline.",
+    },
+    {
+        icon: "music",
+        title: "Audio & MIDI Editors",
+        description:
+            "Piano roll, audio clip editor, and automation lanes — all built into the same surface.",
+    },
+    {
+        icon: "cpu",
+        title: "Native Audio Engine",
+        description:
+            "Low-latency audio processing via CPAL with direct hardware access. No bridges.",
+    },
+    {
+        icon: "sliders",
+        title: "Mixer & Routing",
+        description:
+            "Flexible signal routing with per-channel inserts, sends, and a full mix console.",
+    },
+    {
+        icon: "plug",
+        title: "Plugin Hosting",
+        description:
+            "Host audio plugins inside the native engine. Sandboxed and crash-resilient.",
+    },
+    {
+        icon: "puzzle",
+        title: "VST3 / CLAP / AU / LV2",
+        description:
+            "VST3 and CLAP supported today. AU and LV2 on the roadmap for full ecosystem coverage.",
+    },
+    {
+        icon: "waveform",
+        title: "Waveform Rendering",
+        description:
+            "GPU-accelerated waveform display. Smooth zoom at any level, even on dense projects.",
+    },
+    {
+        icon: "folder",
+        title: "Project System",
+        description:
+            "Portable project format. All assets bundled, versioned, and ready to archive or share.",
+    },
+    {
+        icon: "devices",
+        title: "Cross-Platform",
+        description:
+            "Windows first. macOS and Linux via community contributors — the architecture is ready.",
+    },
 ];
 ---
 
 <section id="features" class="features-section">
-  <div class="section-inner">
-    <span class="eyebrow">Features</span>
-    <h2 class="section-title">Everything a DAW should be.</h2>
+    <div class="section-inner">
+        <span class="eyebrow">Features</span>
+        <h2 class="section-title">Everything a DAW should be.</h2>
 
-    <!-- Cards rendered as animated React component (client:visible = animate on scroll) -->
-    <AnimatedFeatureCards
-      client:visible
-      features={features}
-      iconPaths={iconPaths}
-      iconColors={iconColors}
-    />
-  </div>
+        <!-- Cards rendered as animated React component (client:visible = animate on scroll) -->
+        <AnimatedFeatureCards
+            client:visible
+            features={features}
+            iconPaths={iconPaths}
+            iconColors={iconColors}
+        />
+    </div>
 </section>
 
 <style>
-  .features-section {
-    background: var(--color-canvas);
-    border-top: 1px solid var(--color-hairline);
-    padding-block: 88px;
-    padding-inline: 24px;
-  }
-
-  .section-title {
-    margin-bottom: 48px;
-  }
-
-  /* Grid shell — border/radius from here, cells from React component */
-  :global(.features-grid) {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1px;
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-hairline);
-  }
-
-  @media (min-width: 600px) {
-    :global(.features-grid) {
-      grid-template-columns: repeat(2, 1fr);
+    .features-section {
+        background: var(--color-canvas);
+        border-top: 1px solid var(--color-hairline);
+        padding-block: 88px;
+        padding-inline: 24px;
     }
-  }
 
-  @media (min-width: 900px) {
-    :global(.features-grid) {
-      grid-template-columns: repeat(3, 1fr);
+    .section-title {
+        margin-bottom: 48px;
     }
-  }
 
-  :global(.feature-card) {
-    background: var(--color-canvas-soft);
-    padding: 24px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: background var(--transition-base);
-  }
+    /* Grid shell — border/radius from here, cells from React component */
+    :global(.features-grid) {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1px;
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--color-hairline);
+    }
 
-  :global(.feature-card:hover) {
-    background: var(--color-canvas-mid);
-  }
+    @media (min-width: 600px) {
+        :global(.features-grid) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 
-  :global(.feature-icon) {
-    opacity: 0.85;
-    margin-bottom: 2px;
-  }
+    @media (min-width: 900px) {
+        :global(.features-grid) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
 
-  :global(.feature-title) {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.01em;
-  }
+    :global(.feature-card) {
+        background: var(--color-canvas-soft);
+        padding: 24px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: background var(--transition-base);
+    }
 
-  :global(.feature-desc) {
-    font-size: 0.8125rem;
-    line-height: 1.65;
-    color: var(--color-body);
-  }
+    :global(.feature-card:hover) {
+        background: var(--color-canvas-mid);
+    }
+
+    :global(.feature-icon) {
+        opacity: 0.85;
+        margin-bottom: 2px;
+    }
+
+    :global(.feature-title) {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.01em;
+    }
+
+    :global(.feature-desc) {
+        font-size: 0.8125rem;
+        line-height: 1.65;
+        color: var(--color-body);
+    }
 </style>

@@ -1,12 +1,12 @@
 ---
-import { translations, type Locale } from '../i18n/translations';
-import LanguageSwitcher from './LanguageSwitcher';
+import { translations, type Locale } from "../i18n/translations";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface Props {
-  lang?: Locale;
+    lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = "en" } = Astro.props;
 const t = translations[lang];
 
 // Get pathname to dynamically switch language pages
@@ -14,219 +14,289 @@ const pathname = Astro.url.pathname;
 let cleanPath = pathname;
 
 // Strip out existing locale prefixes to get clean path
-if (pathname.startsWith('/th/') || pathname.startsWith('/ja/') || pathname.startsWith('/zh/')) {
-  cleanPath = pathname.substring(3);
-} else if (pathname === '/th' || pathname === '/ja' || pathname === '/zh') {
-  cleanPath = '/';
+if (
+    pathname.startsWith("/th/") ||
+    pathname.startsWith("/ja/") ||
+    pathname.startsWith("/zh/")
+) {
+    cleanPath = pathname.substring(3);
+} else if (pathname === "/th" || pathname === "/ja" || pathname === "/zh") {
+    cleanPath = "/";
 }
 ---
 
 <header class="site-header">
-  <nav class="site-nav section-inner">
+    <nav class="site-nav section-inner">
+        <!-- Wordmark & Stylized Logo -->
+        <div class="header-left">
+            <a href={lang === "en" ? "/" : `/${lang}`} class="wordmark-link">
+                <img src="/logo.webp" alt="" class="h-8" />
+                <span class="wordmark">Futureboard Studio</span>
+            </a>
+        </div>
 
-    <!-- Wordmark & Stylized Logo -->
-    <div class="header-left">
-      <a href={lang === 'en' ? '/' : `/${lang}`} class="wordmark-link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-logo" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#1b1a18" stroke="var(--color-accent)" stroke-width="1.5" />
-          <path d="M7 12H9C10.1 12 11 11.1 11 10V8C11 6.9 11.9 6 13 6H17" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M7 16H11C12.1 16 13 15.1 13 14" stroke="var(--color-accent-light)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="7" cy="12" r="1.25" fill="var(--color-accent)" />
-          <circle cx="7" cy="16" r="1.25" fill="var(--color-accent-light)" />
-          <circle cx="17" cy="6" r="1.25" fill="var(--color-accent)" />
-          <circle cx="13" cy="14" r="1.25" fill="var(--color-accent-light)" />
-        </svg>
-        <span class="wordmark">Futureboard</span>
-      </a>
-    </div>
+        <!-- Desktop nav links -->
+        <ul class="nav-links" role="list">
+            <li>
+                <a href={lang === "en" ? "/#product" : `/${lang}#product`}
+                    >{t.nav_product}</a
+                >
+            </li>
+            <li>
+                <a
+                    href={lang === "en"
+                        ? "/#feature-showcase"
+                        : `/${lang}#feature-showcase`}>{t.nav_features}</a
+                >
+            </li>
+            <li>
+                <a href={lang === "en" ? "/#roadmap" : `/${lang}#roadmap`}
+                    >{t.nav_roadmap}</a
+                >
+            </li>
+            <li>
+                <a href={lang === "en" ? "/download" : `/${lang}/download`}
+                    >{t.nav_download}</a
+                >
+            </li>
+        </ul>
 
-    <!-- Desktop nav links -->
-    <ul class="nav-links" role="list">
-      <li><a href={lang === 'en' ? '/#product' : `/${lang}#product`}>{t.nav_product}</a></li>
-      <li><a href={lang === 'en' ? '/#feature-showcase' : `/${lang}#feature-showcase`}>{t.nav_features}</a></li>
-      <li><a href={lang === 'en' ? '/#roadmap' : `/${lang}#roadmap`}>{t.nav_roadmap}</a></li>
-      <li><a href={lang === 'en' ? '/download' : `/${lang}/download`}>{t.nav_download}</a></li>
-    </ul>
+        <!-- Right cluster -->
+        <div class="nav-actions">
+            <!-- Social icons -->
+            <div class="social-icons">
+                <!-- Discord -->
+                <a
+                    href="https://discord.gg/kcAmCyXnVn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Join our Discord"
+                    class="icon-btn"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M8.5 5a13.2 13.2 0 0 0-5.5 1.6 14 14 0 0 0-2 9.9 13 13 0 0 0 5.5 2.5 10 10 0 0 0 .9-1.8 8.5 8.5 0 0 1-1.4-.7l.4-1a10.3 10.3 0 0 0 8.2 0l.4 1a8.5 8.5 0 0 1-1.4.7 10 10 0 0 0 .9 1.8 13 13 0 0 0 5.5-2.5 14 14 0 0 0-2-9.9A13.2 13.2 0 0 0 15.5 5h-7zM9.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+                        ></path>
+                    </svg>
+                </a>
 
-    <!-- Right cluster -->
-    <div class="nav-actions">
+                <!-- X / Twitter -->
+                <a
+                    href="https://x.com/ftbdproject"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow us on X"
+                    class="icon-btn"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4"
+                        ></path>
+                    </svg>
+                </a>
 
-      <!-- Social icons -->
-      <div class="social-icons">
-        <!-- Discord -->
-        <a
-          href="https://discord.gg/kcAmCyXnVn"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Join our Discord"
-          class="icon-btn"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M8.5 5a13.2 13.2 0 0 0-5.5 1.6 14 14 0 0 0-2 9.9 13 13 0 0 0 5.5 2.5 10 10 0 0 0 .9-1.8 8.5 8.5 0 0 1-1.4-.7l.4-1a10.3 10.3 0 0 0 8.2 0l.4 1a8.5 8.5 0 0 1-1.4.7 10 10 0 0 0 .9 1.8 13 13 0 0 0 5.5-2.5 14 14 0 0 0-2-9.9A13.2 13.2 0 0 0 15.5 5h-7zM9.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-          </svg>
-        </a>
+                <!-- GitHub -->
+                <a
+                    href="https://github.com/arizkami/futureboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View on GitHub"
+                    class="icon-btn"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                        ></path>
+                    </svg>
+                </a>
+            </div>
 
-        <!-- X / Twitter -->
-        <a
-          href="https://x.com/ftbdproject"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Follow us on X"
-          class="icon-btn"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" />
-          </svg>
-        </a>
+            <!-- Language selector dropdown -->
+            <LanguageSwitcher
+                client:load
+                currentLang={lang}
+                cleanPath={cleanPath}
+            />
 
-        <!-- GitHub -->
-        <a
-          href="https://github.com/arizkami/futureboard"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View on GitHub"
-          class="icon-btn"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Language selector dropdown -->
-      <LanguageSwitcher client:load currentLang={lang} cleanPath={cleanPath} />
-
-      <!-- CTA -->
-      <a href={lang === 'en' ? '/#waitlist' : `/${lang}#waitlist`} class="btn btn-primary nav-cta">
-        {t.nav_waitlist}
-      </a>
-
-    </div>
-  </nav>
+            <!-- CTA -->
+            <a
+                href={lang === "en" ? "/#waitlist" : `/${lang}#waitlist`}
+                class="btn btn-primary nav-cta"
+            >
+                {t.nav_waitlist}
+            </a>
+        </div>
+    </nav>
 </header>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(20, 19, 18, 0.85);
-    border-bottom: 1px solid var(--color-hairline);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(43, 41, 49, 0.82);
+        border-bottom: 1px solid var(--color-hairline);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
 
-  .site-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 52px;
-  }
+    .site-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 52px;
+    }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-  }
+    .header-left {
+        display: flex;
+        align-items: center;
+    }
 
-  /* Wordmark link */
-  .wordmark-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-  }
+    /* Wordmark link */
+    .wordmark-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
 
-  .site-logo {
-    flex-shrink: 0;
-    transition: transform var(--transition-fast);
-  }
+    .site-logo {
+        flex-shrink: 0;
+        transition: transform var(--transition-fast);
+    }
 
-  .wordmark-link:hover .site-logo {
-    transform: scale(1.05);
-  }
+    .wordmark-link:hover .site-logo {
+        transform: scale(1.05);
+    }
 
-  /* Wordmark text */
-  .wordmark {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.015em;
-    transition: color var(--transition-fast);
-  }
+    /* Wordmark text */
+    .wordmark {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.015em;
+        transition: color var(--transition-fast);
+    }
 
-  .wordmark-link:hover .wordmark {
-    color: var(--color-accent);
-  }
+    .wordmark-link:hover .wordmark {
+        color: var(--color-accent);
+    }
 
-  /* Nav links */
-  .nav-links {
-    display: none;
-    align-items: center;
-    gap: 4px;
-  }
-
-  @media (min-width: 768px) {
+    /* Nav links */
     .nav-links {
-      display: flex;
+        display: none;
+        align-items: center;
+        gap: 4px;
     }
-  }
 
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 400;
-    color: var(--color-body);
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-    transition: color var(--transition-fast), background-color var(--transition-fast);
-  }
+    @media (min-width: 920px) {
+        .nav-links {
+            display: flex;
+        }
+    }
 
-  .nav-links a:hover {
-    color: var(--color-ink);
-    background-color: rgba(255, 255, 255, 0.035);
-  }
+    .nav-links a {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--color-body);
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        transition:
+            color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
 
-  /* Right actions */
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    .nav-links a:hover {
+        color: var(--color-ink);
+        background-color: rgba(255, 255, 255, 0.035);
+    }
 
-  /* Social icons */
-  .social-icons {
-    display: none;
-    align-items: center;
-    gap: 2px;
-    margin-right: 4px;
-  }
+    /* Right actions */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-  @media (min-width: 768px) {
+    /* Social icons */
     .social-icons {
-      display: flex;
+        display: none;
+        align-items: center;
+        gap: 2px;
+        margin-right: 4px;
     }
-  }
 
-  .icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-sm);
-    color: var(--color-mute);
-    transition: color var(--transition-fast), background-color var(--transition-fast);
-  }
+    @media (min-width: 920px) {
+        .social-icons {
+            display: flex;
+        }
+    }
 
-  .icon-btn:hover {
-    color: var(--color-body-strong);
-    background-color: rgba(255, 255, 255, 0.035);
-  }
+    .icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-sm);
+        color: var(--color-mute);
+        transition:
+            color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
 
+    .icon-btn:hover {
+        color: var(--color-body-strong);
+        background-color: rgba(255, 255, 255, 0.035);
+    }
 
+    /* CTA */
+    .nav-cta {
+        font-size: 0.8125rem;
+        padding: 7px 14px;
+        white-space: nowrap;
+    }
 
-  /* CTA */
-  .nav-cta {
-    font-size: 0.8125rem;
-    padding: 7px 14px;
-  }
+    @media (max-width: 420px) {
+        .wordmark {
+            display: none;
+        }
+
+        .nav-cta {
+            padding-inline: 10px;
+        }
+    }
 </style>

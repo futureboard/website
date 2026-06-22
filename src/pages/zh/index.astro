@@ -1,26 +1,30 @@
 ---
 export const prerender = true;
 
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import ProductLineup from '../../components/ProductLineup.astro';
-import FeatureShowcase from '../../components/FeatureShowcase.astro';
-import Roadmap from '../../components/Roadmap.astro';
-import WaitlistSection from '../../components/WaitlistSection.astro';
-import Footer from '../../components/Footer.astro';
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import ProductLineup from "../../components/ProductLineup.astro";
+import FeatureShowcase from "../../components/FeatureShowcase.astro";
+import Roadmap from "../../components/Roadmap.astro";
+import WaitlistSection from "../../components/WaitlistSection.astro";
+import Footer from "../../components/Footer.astro";
 
-const lang = 'zh';
+const lang = "zh";
 ---
 
-<Layout lang={lang} title="Futureboard Studio — 新世代 DAW 与创意音频创作平台">
-  <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <ProductLineup lang={lang} />
-    <FeatureShowcase lang={lang} />
-    <Roadmap lang={lang} />
-    <WaitlistSection lang={lang} />
-  </main>
-  <Footer lang={lang} />
+<Layout
+    lang={lang}
+    title="Futureboard Studio — 基于 Rust 与 GPUI 的原生 DAW"
+    description="Futureboard Studio 是一款实验性 DAW，采用 Rust 原生音频核心、GPU 渲染界面，并支持 MIDI 编辑、混音器和插件工作流。"
+>
+    <Header lang={lang} />
+    <main>
+        <Hero lang={lang} />
+        <ProductLineup lang={lang} />
+        <FeatureShowcase lang={lang} />
+        <Roadmap lang={lang} />
+        <WaitlistSection lang={lang} />
+    </main>
+    <Footer lang={lang} />
 </Layout>

@@ -1,69 +1,176 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
-  title?: string;
-  description?: string;
-  lang?: 'en' | 'th' | 'ja' | 'zh';
+    title?: string;
+    description?: string;
+    lang?: "en" | "th" | "ja" | "zh";
+    image?: string;
+    type?: "website" | "article";
+    noindex?: boolean;
 }
 
 const {
-  title = 'Futureboard Studio — Modern DAW and Creative Audio Platform',
-  description = 'Futureboard Studio is a modern DAW and creative audio platform built with Rust, GPUI, Web, and native audio technology.',
-  lang = 'en',
+    title = "Futureboard Studio — Native DAW in Rust and GPUI",
+    description = "Futureboard Studio is an experimental DAW built with a native Rust audio core, GPU-rendered UI, MIDI editing, mixer, and plugin support.",
+    lang = "en",
+    image = "/banner.webp",
+    type = "website",
+    noindex = false,
 } = Astro.props;
 
-const siteUrl = 'https://futureboard.studio';
-const pageUrl = new URL(Astro.url.pathname, siteUrl).toString();
-const ogImage = `${siteUrl}/banner.webp`;
-const ogImageAlt = 'Futureboard Studio — Modern DAW and Creative Audio Platform';
+const siteUrl = "https://futureboard.studio";
+const pathname = Astro.url.pathname;
+const pageUrl = new URL(pathname, siteUrl).toString();
+const ogImage = new URL(image, siteUrl).toString();
+const ogImageAlt = "Futureboard Studio DAW interface and brand preview";
+const ogLocale =
+    {
+        en: "en_US",
+        th: "th_TH",
+        ja: "ja_JP",
+        zh: "zh_CN",
+    }[lang] ?? "en_US";
+const alternateLocales = ["en_US", "th_TH", "ja_JP", "zh_CN"].filter(
+    (locale) => locale !== ogLocale,
+);
+
+const localePathPattern = /^\/(th|ja|zh)(?=\/|$)/;
+const basePath = pathname.replace(localePathPattern, "") || "/";
+const withoutTrailingSlash =
+    basePath !== "/" ? basePath.replace(/\/$/, "") : "/";
+const localizedPath = (locale: "en" | "th" | "ja" | "zh") => {
+    if (locale === "en") return withoutTrailingSlash;
+    return withoutTrailingSlash === "/"
+        ? `/${locale}`
+        : `/${locale}${withoutTrailingSlash}`;
+};
+
+const hreflangs = [
+    { lang: "en", href: new URL(localizedPath("en"), siteUrl).toString() },
+    { lang: "th", href: new URL(localizedPath("th"), siteUrl).toString() },
+    { lang: "ja", href: new URL(localizedPath("ja"), siteUrl).toString() },
+    { lang: "zh", href: new URL(localizedPath("zh"), siteUrl).toString() },
+    {
+        lang: "x-default",
+        href: new URL(localizedPath("en"), siteUrl).toString(),
+    },
+];
+
+const sameAs = [
+    "https://github.com/arizkami/futureboard",
+    "https://x.com/ftbdproject",
+    "https://discord.gg/kcAmCyXnVn",
+];
+
+const schema = [
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Futureboard Studio",
+        url: siteUrl,
+        logo: new URL("/logo.webp", siteUrl).toString(),
+        sameAs,
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Futureboard Studio",
+        url: siteUrl,
+        inLanguage: lang,
+        description,
+        publisher: {
+            "@type": "Organization",
+            name: "Futureboard Studio",
+        },
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "Futureboard Studio",
+        applicationCategory: "MultimediaApplication",
+        applicationSubCategory: "Digital Audio Workstation",
+        operatingSystem: "Windows",
+        description,
+        url: siteUrl,
+        image: ogImage,
+        offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+        },
+        sameAs,
+    },
+];
 ---
 
 <!doctype html>
 <html lang={lang}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        <meta
+            name="robots"
+            content={noindex ? "noindex, nofollow" : "index, follow"}
+        />
+        <meta name="theme-color" content="#1F1F1F" />
+        <meta name="application-name" content="Futureboard Studio" />
+        <meta name="apple-mobile-web-app-title" content="Futureboard" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
 
-    <!-- Canonical -->
-    <link rel="canonical" href={pageUrl} />
+        <!-- Canonical and language alternates -->
+        <link rel="canonical" href={pageUrl} />
+        {
+            hreflangs.map((item) => (
+                <link rel="alternate" hreflang={item.lang} href={item.href} />
+            ))
+        }
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Futureboard Studio" />
-    <meta property="og:url" content={pageUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={ogImageAlt} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+        <!-- Open Graph -->
+        <meta property="og:type" content={type} />
+        <meta property="og:site_name" content="Futureboard Studio" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content={ogImageAlt} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content={ogLocale} />
+        {
+            alternateLocales.map((locale) => (
+                <meta property="og:locale:alternate" content={locale} />
+            ))
+        }
 
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ftbdproject" />
-    <meta name="twitter:creator" content="@ftbdproject" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={ogImageAlt} />
+        <!-- Twitter / X Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@ftbdproject" />
+        <meta name="twitter:creator" content="@ftbdproject" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <!-- Structured data -->
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <slot />
-  </body>
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&family=Instrument+Serif:ital@0;1&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>

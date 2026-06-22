@@ -1,26 +1,30 @@
 ---
 export const prerender = true;
 
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import ProductLineup from '../../components/ProductLineup.astro';
-import FeatureShowcase from '../../components/FeatureShowcase.astro';
-import Roadmap from '../../components/Roadmap.astro';
-import WaitlistSection from '../../components/WaitlistSection.astro';
-import Footer from '../../components/Footer.astro';
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import ProductLineup from "../../components/ProductLineup.astro";
+import FeatureShowcase from "../../components/FeatureShowcase.astro";
+import Roadmap from "../../components/Roadmap.astro";
+import WaitlistSection from "../../components/WaitlistSection.astro";
+import Footer from "../../components/Footer.astro";
 
-const lang = 'th';
+const lang = "th";
 ---
 
-<Layout lang={lang} title="Futureboard Studio — โปรแกรมทำเพลง DAW ยุคใหม่และแพลตฟอร์มเสียงเชิงสร้างสรรค์">
-  <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <ProductLineup lang={lang} />
-    <FeatureShowcase lang={lang} />
-    <Roadmap lang={lang} />
-    <WaitlistSection lang={lang} />
-  </main>
-  <Footer lang={lang} />
+<Layout
+    lang={lang}
+    title="Futureboard Studio — โปรแกรมทำเพลง DAW แบบ Native"
+    description="Futureboard Studio คือ DAW รุ่นทดลองที่สร้างด้วย Rust, เอนจินเสียงแบบ native, UI เรนเดอร์ด้วย GPU, MIDI editor, mixer และการรองรับปลั๊กอินสำหรับงานเพลงยุคใหม่"
+>
+    <Header lang={lang} />
+    <main>
+        <Hero lang={lang} />
+        <ProductLineup lang={lang} />
+        <FeatureShowcase lang={lang} />
+        <Roadmap lang={lang} />
+        <WaitlistSection lang={lang} />
+    </main>
+    <Footer lang={lang} />
 </Layout>

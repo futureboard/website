@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { motion, type Variants } from 'framer-motion';
+import { motion, type Variants } from "framer-motion";
 
 interface Feature {
   icon: string;
@@ -26,7 +26,7 @@ const container: Variants = {
 
 const card: Variants = {
   hidden: { opacity: 0, y: 12 },
-  show:   { opacity: 1, y: 0  },
+  show: { opacity: 1, y: 0 },
 };
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -42,7 +42,7 @@ export default function AnimatedFeatureCards({
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, margin: "-80px" }}
     >
       {features.map((f) => (
         <motion.div
@@ -57,14 +57,14 @@ export default function AnimatedFeatureCards({
             height="17"
             viewBox="0 0 24 24"
             fill="none"
-            stroke={iconColors[f.icon] ?? '#5bbfb5'}
+            stroke={iconColors[f.icon] ?? "#31FD97"}
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
             className="feature-icon"
           >
-            <path d={iconPaths[f.icon] ?? ''} />
+            <path d={iconPaths[f.icon] ?? ""} />
           </svg>
           <h3 className="feature-title">{f.title}</h3>
           <p className="feature-desc">{f.description}</p>

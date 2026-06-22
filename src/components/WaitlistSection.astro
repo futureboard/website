@@ -1,153 +1,156 @@
 ---
-import WaitlistForm from './WaitlistForm.tsx';
-import FadeUp from './motion/FadeUp.tsx';
-import CursorGlowCard from './CursorGlowCard.tsx';
-import { translations, type Locale } from '../i18n/translations';
+import WaitlistForm from "./WaitlistForm.tsx";
+import FadeUp from "./motion/FadeUp.tsx";
+import CursorGlowCard from "./CursorGlowCard.tsx";
+import { translations, type Locale } from "../i18n/translations";
 
 interface Props {
-  lang?: Locale;
+    lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = "en" } = Astro.props;
 const t = translations[lang];
 ---
 
 <section id="waitlist" class="waitlist-section">
-  <!-- Subtle ambient dot grid background -->
-  <div class="waitlist-bg" aria-hidden="true"></div>
+    <!-- Subtle ambient dot grid background -->
+    <div class="waitlist-bg" aria-hidden="true"></div>
 
-  <div class="section-inner waitlist-inner">
+    <div class="section-inner waitlist-inner">
+        <!-- Copy -->
+        <FadeUp client:visible>
+            <div class="waitlist-copy">
+                <span class="eyebrow">{t.waitlist_eyebrow}</span>
+                <h2 class="waitlist-headline">
+                    {t.waitlist_headline}<br />
+                    <em class="waitlist-accent">{t.waitlist_headline_accent}</em
+                    >
+                </h2>
+                <p class="waitlist-desc">
+                    {t.waitlist_desc}
+                </p>
 
-    <!-- Copy -->
-    <FadeUp client:visible>
-      <div class="waitlist-copy">
-        <span class="eyebrow">{t.waitlist_eyebrow}</span>
-        <h2 class="waitlist-headline">
-          {t.waitlist_headline}<br />
-          <em class="waitlist-accent">{t.waitlist_headline_accent}</em>
-        </h2>
-        <p class="waitlist-desc">
-          {t.waitlist_desc}
-        </p>
+                <ul class="waitlist-perks">
+                    <li>
+                        <span class="perk-dot" aria-hidden="true"></span>
+                        {t.waitlist_perk1}
+                    </li>
+                    <li>
+                        <span class="perk-dot" aria-hidden="true"></span>
+                        {t.waitlist_perk2}
+                    </li>
+                    <li>
+                        <span class="perk-dot" aria-hidden="true"></span>
+                        {t.waitlist_perk3}
+                    </li>
+                </ul>
+            </div>
+        </FadeUp>
 
-        <ul class="waitlist-perks">
-          <li>
-            <span class="perk-dot" aria-hidden="true"></span>
-            {t.waitlist_perk1}
-          </li>
-          <li>
-            <span class="perk-dot" aria-hidden="true"></span>
-            {t.waitlist_perk2}
-          </li>
-          <li>
-            <span class="perk-dot" aria-hidden="true"></span>
-            {t.waitlist_perk3}
-          </li>
-        </ul>
-      </div>
-    </FadeUp>
-
-    <!-- Form card with cursor glow track -->
-    <FadeUp client:visible delay={0.12}>
-      <CursorGlowCard className="waitlist-card" client:load>
-        <WaitlistForm client:load lang={lang} />
-      </CursorGlowCard>
-    </FadeUp>
-
-  </div>
+        <!-- Form card with cursor glow track -->
+        <FadeUp client:visible delay={0.12}>
+            <CursorGlowCard className="waitlist-card" client:load>
+                <WaitlistForm client:load lang={lang} />
+            </CursorGlowCard>
+        </FadeUp>
+    </div>
 </section>
 
 <style>
-  .waitlist-section {
-    background: var(--color-canvas);
-    border-top: 1px solid var(--color-hairline);
-    padding-block: 96px;
-    padding-inline: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .waitlist-bg {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(ellipse 45% 55% at 85% 50%, rgba(91, 191, 181, 0.035) 0%, transparent 65%),
-      radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 100% 100%, 24px 24px;
-    pointer-events: none;
-  }
-
-  .waitlist-inner {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 56px;
-    align-items: start;
-  }
-
-  @media (min-width: 1024px) {
-    .waitlist-inner {
-      grid-template-columns: 1.15fr 1fr;
+    .waitlist-section {
+        background: var(--color-canvas);
+        border-top: 1px solid var(--color-hairline);
+        padding-block: 96px;
+        padding-inline: 24px;
+        position: relative;
+        overflow: hidden;
     }
-  }
 
-  /* Copy */
-  .waitlist-headline {
-    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
-    font-weight: 400;
-    letter-spacing: -0.04em;
-    color: var(--color-ink);
-    line-height: 1.1;
-    margin-top: 12px;
-    margin-bottom: 16px;
-  }
+    .waitlist-bg {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.01) 1px,
+                transparent 1px
+            );
+        background-size: 24px 24px;
+        pointer-events: none;
+    }
 
-  .waitlist-accent {
-    font-style: italic;
-    font-family: var(--font-serif);
-    color: var(--color-accent-light);
-  }
+    .waitlist-inner {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 56px;
+        align-items: start;
+    }
 
-  .waitlist-desc {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    color: var(--color-body);
-    max-width: 38ch;
-    margin-bottom: 28px;
-  }
+    @media (min-width: 1024px) {
+        .waitlist-inner {
+            grid-template-columns: 1.15fr 1fr;
+        }
+    }
 
-  /* Perks */
-  .waitlist-perks {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+    /* Copy */
+    .waitlist-headline {
+        font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: var(--color-ink);
+        line-height: 1.1;
+        margin-top: 12px;
+        margin-bottom: 16px;
+    }
 
-  .waitlist-perks li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.875rem;
-    line-height: 1.55;
-    color: var(--color-body);
-  }
+    .waitlist-accent {
+        font-style: italic;
+        font-family: var(--font-serif);
+        color: var(--color-accent-light);
+    }
 
-  .perk-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 9999px;
-    background: var(--color-accent);
-    flex-shrink: 0;
-    margin-top: 7px;
-    opacity: 0.7;
-  }
+    .waitlist-desc {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--color-body);
+        max-width: 38ch;
+        margin-bottom: 28px;
+    }
 
-  /* Form card */
-  :global(.cursor-glow-card).waitlist-card {
-    background: var(--color-canvas-soft);
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-md);
-    padding: 28px;
-    box-sizing: border-box;
-  }
+    /* Perks */
+    .waitlist-perks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .waitlist-perks li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        color: var(--color-body);
+    }
+
+    .perk-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        flex-shrink: 0;
+        margin-top: 7px;
+        opacity: 0.7;
+    }
+
+    /* Form card */
+    :global(.cursor-glow-card).waitlist-card {
+        background: var(--color-canvas-soft);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-md);
+        padding: 28px;
+        box-sizing: border-box;
+    }
 </style>

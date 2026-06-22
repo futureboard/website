@@ -1,51 +1,54 @@
 ---
-import HeroContent from './HeroContent.tsx';
-import type { Locale } from '../i18n/translations';
+import HeroContent from "./HeroContent.tsx";
+import type { Locale } from "../i18n/translations";
 
 interface Props {
-  lang?: Locale;
+    lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = "en" } = Astro.props;
 ---
 
 <section class="hero">
-  <!-- Ambient texture — subtle dot grid and accent backdrops -->
-  <div class="hero-bg" aria-hidden="true"></div>
+    <!-- Ambient texture — subtle dot grid and accent backdrops -->
+    <div class="hero-bg" aria-hidden="true"></div>
 
-  <div class="section-inner hero-content">
-    {/* Split grid Hero layout */}
-    <HeroContent client:load lang={lang} />
-  </div>
+    <div class="section-inner hero-content">
+        {/* Split grid Hero layout */}
+        <HeroContent client:load lang={lang} />
+    </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-    padding-top: 80px;
-    padding-bottom: 96px;
-    padding-inline: 24px;
-    background: var(--color-canvas);
-    border-bottom: 1px solid var(--color-hairline);
-  }
+    .hero {
+        position: relative;
+        overflow: hidden;
+        padding-top: 80px;
+        padding-bottom: 96px;
+        padding-inline: 24px;
+        background: var(--color-canvas);
+        border-bottom: 1px solid var(--color-hairline);
+    }
 
-  /* Subtle ambient pattern: custom graph grid + smooth dark radial glows */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: 
-      radial-gradient(ellipse 50% 50% at 20% 50%, rgba(91, 191, 181, 0.025) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 80% 30%, rgba(143, 155, 186, 0.02) 0%, transparent 60%),
-      radial-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 24px 24px;
-    pointer-events: none;
-  }
+    /* Subtle ambient pattern: custom graph grid + smooth dark radial glows */
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.014) 1px,
+                transparent 1px
+            );
+        background-size: 24px 24px;
+        pointer-events: none;
+    }
 
-  /* Content wrapper — z-index above background layer */
-  .hero-content {
-    position: relative;
-    z-index: 10;
-  }
+    /* Content wrapper — z-index above background layer */
+    .hero-content {
+        position: relative;
+        z-index: 10;
+    }
 </style>
