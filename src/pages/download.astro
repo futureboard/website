@@ -5,35 +5,43 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CursorGlowCard from '../components/CursorGlowCard.tsx';
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
 ---
 
 <Layout
-  title="Download — Futureboard Studio"
-  description="Download Futureboard Studio. Windows build available as an early preview. macOS and Linux coming when they're ready."
+  title={`${t.dl_eyebrow} — Futureboard Studio`}
+  description={t.dl_lead}
+  lang={lang}
 >
-  <Header />
+  <Header lang={lang} />
   <main>
 
     <!-- ── Hero ── -->
     <section class="dl-hero">
       <div class="dl-hero-inner section-inner">
-        <span class="eyebrow">Download</span>
-        <h1 class="dl-title">Get Futureboard</h1>
+        <span class="eyebrow">{t.dl_eyebrow}</span>
+        <h1 class="dl-title">{t.dl_title}</h1>
         <p class="dl-lead">
-          We're still building. But if you want to poke around, the Windows build is up.
-          Don't expect everything to work — that's kind of the point of testing it early.
+          {t.dl_lead}
         </p>
         <div class="dl-meta-row">
           <span class="dl-version-badge">v0.1.0-alpha</span>
           <span class="dl-dot" aria-hidden="true"></span>
-          <span class="dl-meta-text">Released June 2026</span>
+          <span class="dl-meta-text">{t.dl_released}</span>
           <span class="dl-dot" aria-hidden="true"></span>
           <a
             href="https://github.com/arizkami/futureboard/releases"
             target="_blank"
             rel="noopener noreferrer"
             class="dl-release-link"
-          >All releases on GitHub →</a>
+          >{t.dl_all_releases}</a>
         </div>
       </div>
     </section>
@@ -53,11 +61,10 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             </div>
             <div class="platform-info">
               <p class="platform-name">Windows</p>
-              <p class="platform-arch">x64 · Windows 10 or later</p>
+              <p class="platform-arch">x64 &middot; Windows 10 or later</p>
             </div>
             <p class="platform-note">
-              This is what we actively develop and test on day-to-day.
-              Still rough in some areas, but the core timeline, mixer, and MIDI editor work.
+              {t.dl_win_desc}
             </p>
             <div class="platform-actions">
               <a
@@ -70,14 +77,14 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                 </svg>
-                Download .exe
+                {t.dl_download_exe}
               </a>
               <a
                 href="https://github.com/arizkami/futureboard/releases/latest"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-outline dl-btn-sm"
-              >.zip portable</a>
+              >{t.dl_zip_portable}</a>
             </div>
           </CursorGlowCard>
 
@@ -90,14 +97,13 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             </div>
             <div class="platform-info">
               <p class="platform-name">macOS</p>
-              <p class="platform-arch">Apple Silicon · Intel</p>
+              <p class="platform-arch">Apple Silicon &middot; Intel</p>
             </div>
             <p class="platform-note">
-              Not yet. GPUI has macOS support, so this should come together once we stabilize
-              the Windows side. If you want to help port it, the GitHub is open.
+              {t.dl_mac_desc}
             </p>
             <div class="platform-actions">
-              <span class="platform-badge-coming">Coming later</span>
+              <span class="platform-badge-coming">{t.dl_coming_later}</span>
             </div>
           </CursorGlowCard>
 
@@ -110,14 +116,13 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             </div>
             <div class="platform-info">
               <p class="platform-name">Linux</p>
-              <p class="platform-arch">.deb · AppImage · Flatpak</p>
+              <p class="platform-arch">.deb &middot; AppImage &middot; Flatpak</p>
             </div>
             <p class="platform-note">
-              Also not yet. Probably after macOS. The Rust codebase is cross-platform,
-              it's just a matter of time and someone who can actually test it on Linux.
+              {t.dl_linux_desc}
             </p>
             <div class="platform-actions">
-              <span class="platform-badge-coming">Coming later</span>
+              <span class="platform-badge-coming">{t.dl_coming_later}</span>
             </div>
           </CursorGlowCard>
 
@@ -128,10 +133,10 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
     <!-- ── Requirements ── -->
     <section class="dl-requirements">
       <div class="section-inner">
-        <h2 class="req-title">System requirements</h2>
+        <h2 class="req-title">{t.dl_sys_req}</h2>
         <div class="req-grid">
           <div class="req-col">
-            <p class="req-heading">Minimum</p>
+            <p class="req-heading">{t.dl_min}</p>
             <ul class="req-list">
               <li><span class="req-label">OS</span>Windows 10 64-bit (build 1903+)</li>
               <li><span class="req-label">CPU</span>Any modern x64 processor</li>
@@ -142,7 +147,7 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             </ul>
           </div>
           <div class="req-col">
-            <p class="req-heading">Recommended</p>
+            <p class="req-heading">{t.dl_rec}</p>
             <ul class="req-list">
               <li><span class="req-label">OS</span>Windows 11 64-bit</li>
               <li><span class="req-label">CPU</span>Ryzen 5 / Core i5 or better</li>
@@ -160,13 +165,13 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
     <section class="dl-changelog">
       <div class="section-inner">
         <div class="changelog-header">
-          <h2 class="changelog-title">What's in this build</h2>
+          <h2 class="changelog-title">{t.dl_what_is_in}</h2>
           <a
             href="https://github.com/arizkami/futureboard/releases"
             target="_blank"
             rel="noopener noreferrer"
             class="changelog-github-link"
-          >Full changelog on GitHub →</a>
+          >{t.dl_all_releases}</a>
         </div>
 
         <div class="changelog-list">
@@ -175,7 +180,7 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             <div class="cl-version-row">
               <span class="cl-version">v0.1.0-alpha</span>
               <span class="cl-date">June 2026</span>
-              <span class="cl-tag cl-tag--new">Latest</span>
+              <span class="cl-tag cl-tag--new">{t.dl_changelog_latest}</span>
             </div>
             <ul class="cl-items">
               <li>Track arrangement view with audio and MIDI clip lanes</li>
@@ -193,10 +198,10 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             <div class="cl-version-row">
               <span class="cl-version">Earlier</span>
               <span class="cl-date">Pre-alpha builds</span>
+              <span class="cl-tag" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-hairline); color: var(--color-mute);">{t.dl_changelog_older}</span>
             </div>
             <p class="cl-summary">
-              Internal only — not publicly released. A lot of renderer rewrites, GPUI migration,
-              and the usual yak-shaving that happens when you rebuild the core three times.
+              {t.dl_changelog_older_desc}
             </p>
           </div>
 
@@ -214,12 +219,9 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
             </svg>
           </div>
           <div class="notice-content">
-            <p class="notice-heading">Heads up — this is alpha software</p>
+            <p class="notice-heading">{t.dl_notice_title}</p>
             <p class="notice-body">
-              Things will crash. Settings might not save. Some features are placeholders.
-              We'd rather ship something real for people to test than wait until it's perfect.
-              If something breaks, <a href="https://github.com/arizkami/futureboard/issues" target="_blank" rel="noopener noreferrer">open an issue</a> or
-              yell at us on <a href="https://discord.gg/kcAmCyXnVn" target="_blank" rel="noopener noreferrer">Discord</a>.
+              {t.dl_notice_body}
             </p>
           </div>
         </div>
@@ -227,7 +229,7 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
     </section>
 
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>
@@ -317,7 +319,7 @@ import CursorGlowCard from '../components/CursorGlowCard.tsx';
   .platform-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
 
   @media (min-width: 768px) {

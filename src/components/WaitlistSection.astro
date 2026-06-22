@@ -2,6 +2,14 @@
 import WaitlistForm from './WaitlistForm.tsx';
 import FadeUp from './motion/FadeUp.tsx';
 import CursorGlowCard from './CursorGlowCard.tsx';
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
 ---
 
 <section id="waitlist" class="waitlist-section">
@@ -13,28 +21,27 @@ import CursorGlowCard from './CursorGlowCard.tsx';
     <!-- Copy -->
     <FadeUp client:visible>
       <div class="waitlist-copy">
-        <span class="eyebrow">Early Access</span>
+        <span class="eyebrow">{t.waitlist_eyebrow}</span>
         <h2 class="waitlist-headline">
-          Get notified<br />
-          <em class="waitlist-accent">when it ships.</em>
+          {t.waitlist_headline}<br />
+          <em class="waitlist-accent">{t.waitlist_headline_accent}</em>
         </h2>
         <p class="waitlist-desc">
-          Still building. Leave your email and I'll reach out when there's something worth downloading.
-          No newsletters, no marketing — just a message when a real build is ready.
+          {t.waitlist_desc}
         </p>
 
         <ul class="waitlist-perks">
           <li>
             <span class="perk-dot" aria-hidden="true"></span>
-            First access to native builds, before public release
+            {t.waitlist_perk1}
           </li>
           <li>
             <span class="perk-dot" aria-hidden="true"></span>
-            Occasional dev updates when something major ships
+            {t.waitlist_perk2}
           </li>
           <li>
             <span class="perk-dot" aria-hidden="true"></span>
-            No spam. Unsubscribe any time, no hard feelings.
+            {t.waitlist_perk3}
           </li>
         </ul>
       </div>
@@ -43,7 +50,7 @@ import CursorGlowCard from './CursorGlowCard.tsx';
     <!-- Form card with cursor glow track -->
     <FadeUp client:visible delay={0.12}>
       <CursorGlowCard className="waitlist-card" client:load>
-        <WaitlistForm client:load />
+        <WaitlistForm client:load lang={lang} />
       </CursorGlowCard>
     </FadeUp>
 

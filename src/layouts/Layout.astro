@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  lang?: 'en' | 'th' | 'ja' | 'zh';
 }
 
 const {
   title = 'Futureboard Studio — Modern DAW and Creative Audio Platform',
   description = 'Futureboard Studio is a modern DAW and creative audio platform built with Rust, GPUI, Web, and native audio technology.',
+  lang = 'en',
 } = Astro.props;
 
 const siteUrl = 'https://futureboard.studio';
@@ -18,7 +20,7 @@ const ogImageAlt = 'Futureboard Studio — Modern DAW and Creative Audio Platfor
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

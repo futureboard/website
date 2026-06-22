@@ -1,4 +1,13 @@
 ---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
+
 const year = new Date().getFullYear();
 
 const socialLinks = [
@@ -12,11 +21,6 @@ const socialLinks = [
     href: 'https://x.com/ftbdproject',
     path: 'M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4',
   },
-  {
-    label: 'Facebook',
-    href: 'https://facebook.com/ftbdproject',
-    path: 'M7 10h3V8a2 2 0 0 1 2-2h3v3h-2a1 1 0 0 0-1 1v2h3l-1 3h-2v7h-3v-7H7v-3z',
-  },
 ];
 ---
 
@@ -25,14 +29,24 @@ const socialLinks = [
 
     <!-- Brand -->
     <div class="footer-brand">
-      <p class="brand-name">Futureboard Studio</p>
+      <div class="footer-logo-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-logo" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#1b1a18" stroke="var(--color-accent)" stroke-width="1.5" />
+          <path d="M7 12H9C10.1 12 11 11.1 11 10V8C11 6.9 11.9 6 13 6H17" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M7 16H11C12.1 16 13 15.1 13 14" stroke="var(--color-accent-light)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="7" cy="12" r="1.25" fill="var(--color-accent)" />
+          <circle cx="7" cy="16" r="1.25" fill="var(--color-accent-light)" />
+          <circle cx="17" cy="6" r="1.25" fill="var(--color-accent)" />
+          <circle cx="13" cy="14" r="1.25" fill="var(--color-accent-light)" />
+        </svg>
+        <span class="brand-name">Futureboard Studio</span>
+      </div>
       <p class="brand-desc">
-        A DAW I'm building because the existing ones all have something that bugs me.
-        Rust + GPUI core, open source, made by one person with too many opinions.
+        {t.hero_desc}
       </p>
       <p class="brand-status">
         <span class="status-indicator" aria-hidden="true"></span>
-        Alpha — things will break.
+        Alpha &middot; Futureboard Project.
       </p>
     </div>
 
@@ -40,13 +54,13 @@ const socialLinks = [
 
       <!-- Links -->
       <div class="footer-col">
-        <p class="col-heading">Links</p>
+        <p class="col-heading">{t.footer_links_title}</p>
         <nav aria-label="Footer navigation">
-          <a href="/download">Download</a>
+          <a href={lang === 'en' ? '/download' : `/${lang}/download`}>{t.nav_download}</a>
           <a href="https://github.com/arizkami/futureboard" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="/#waitlist">Join Waitlist</a>
-          <a href="/terms">Terms of Service</a>
-          <a href="/privacy">Privacy Policy</a>
+          <a href={lang === 'en' ? '/#waitlist' : `/${lang}#waitlist`}>{t.nav_waitlist}</a>
+          <a href={lang === 'en' ? '/terms' : `/${lang}/terms`}>{t.footer_terms}</a>
+          <a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`}>{t.footer_privacy}</a>
         </nav>
       </div>
 
@@ -81,8 +95,8 @@ const socialLinks = [
 
   <!-- Bottom bar -->
   <div class="section-inner footer-bottom">
-    <p>&copy; {year} Futureboard Studio. MIT License.</p>
-    <p>Built with Astro · Rust · GPUI · too much coffee</p>
+    <p>{t.footer_copyright}</p>
+    <p>Astro &middot; Rust &middot; GPUI &middot; WebAssembly</p>
   </div>
 </footer>
 
@@ -114,7 +128,13 @@ const socialLinks = [
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-width: 260px;
+    max-width: 320px;
+  }
+
+  .footer-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .brand-name {
@@ -151,7 +171,7 @@ const socialLinks = [
   /* Columns */
   .footer-cols {
     display: flex;
-    gap: 40px;
+    gap: 60px;
   }
 
   @media (max-width: 480px) {
@@ -186,6 +206,7 @@ const socialLinks = [
   .footer-col a {
     font-size: 0.8125rem;
     color: var(--color-body);
+    text-decoration: none;
     transition: color var(--transition-base);
   }
 
@@ -198,6 +219,7 @@ const socialLinks = [
     display: flex;
     align-items: center;
     gap: 7px;
+    text-decoration: none;
   }
 
   .social-link svg {

@@ -1,5 +1,12 @@
 ---
 import HeroContent from './HeroContent.tsx';
+import type { Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
 ---
 
 <section class="hero">
@@ -8,7 +15,7 @@ import HeroContent from './HeroContent.tsx';
 
   <div class="section-inner hero-content">
     {/* Split grid Hero layout */}
-    <HeroContent client:load />
+    <HeroContent client:load lang={lang} />
   </div>
 </section>
 

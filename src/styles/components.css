@@ -342,3 +342,108 @@
   gap: 10px;
 }
 
+/* ─── Language Switcher (LanguageSwitcher.tsx React Component) ── */
+.lang-switcher-container {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding-inline: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-hairline);
+  background: transparent;
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+.lang-trigger-btn:hover {
+  color: var(--color-ink);
+  border-color: var(--color-mute);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lang-trigger-btn--active {
+  color: var(--color-ink);
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.lang-globe-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.lang-active-flag {
+  font-weight: 600;
+}
+
+.lang-chevron-icon {
+  opacity: 0.6;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.lang-chevron-icon--rotated {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 130px;
+  background: #181716;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  z-index: 100;
+  transform-origin: top right;
+}
+
+.lang-dropdown-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-body);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.lang-dropdown-option:hover {
+  color: var(--color-ink);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lang-dropdown-option--active {
+  color: var(--color-accent);
+  background: rgba(91, 191, 181, 0.06);
+  font-weight: 500;
+}
+
+.lang-option-flag {
+  opacity: 0.6;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.lang-option-label {
+  font-weight: 400;
+}
+

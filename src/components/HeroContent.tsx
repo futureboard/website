@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
+import { translations, type Locale } from '../i18n/translations.ts';
 
 const containerVariants: Variants = {
   hidden: {},
@@ -21,7 +22,9 @@ const itemVariants: Variants = {
 const ease = [0.16, 1, 0.3, 1] as const;
 const transitionDur = { duration: 0.6, ease } as const;
 
-export default function HeroContent() {
+export default function HeroContent({ lang = 'en' }: { lang?: Locale }) {
+  const t = translations[lang];
+
   return (
     <div className="hero-grid">
       {/* Left Column: Text Copy */}
@@ -34,30 +37,28 @@ export default function HeroContent() {
         {/* Eyebrow */}
         <motion.p className="hero-eyebrow" variants={itemVariants} transition={transitionDur}>
           <span className="eyebrow-dot" aria-hidden="true" />
-          Experimental &middot; In active development
+          {t.hero_eyebrow}
         </motion.p>
 
         {/* Headline */}
         <motion.h1 className="hero-headline" variants={itemVariants} transition={transitionDur}>
-          A DAW I actually<br />
-          want to use every<br />
-          <em className="hero-accent">damn day.</em>
+          {t.hero_headline_1}<br />
+          {t.hero_headline_2}<br />
+          <em className="hero-accent">{t.hero_headline_accent}</em>
         </motion.h1>
 
         {/* Description */}
         <motion.p className="hero-desc" variants={itemVariants} transition={transitionDur}>
-          Futureboard is a DAW I'm building because nothing out there feels quite right.
-          Native Rust core, GPU-rendered UI, and a layout that doesn't fight you
-          when you're in the middle of a session.
+          {t.hero_desc}
         </motion.p>
 
         {/* CTA Actions */}
         <motion.div className="hero-actions" variants={itemVariants} transition={transitionDur}>
-          <a href="/download" className="btn btn-primary hero-btn-main">
-            Download
+          <a href={lang === 'en' ? '/download' : `/${lang}/download`} className="btn btn-primary hero-btn-main">
+            {t.hero_download}
           </a>
           <a href="#waitlist" className="btn btn-outline">
-            Join Waitlist
+            {t.hero_waitlist}
           </a>
           <a
             href="https://github.com/arizkami/futureboard"
@@ -65,7 +66,7 @@ export default function HeroContent() {
             rel="noopener noreferrer"
             className="btn btn-outline"
           >
-            GitHub
+            {t.hero_github}
           </a>
         </motion.div>
       </motion.div>

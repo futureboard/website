@@ -1,15 +1,20 @@
 ---
 import FadeUp from './motion/FadeUp.tsx';
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
 
 const features = [
   {
     id: 'track-experience',
     tag: '01',
-    title: 'Track Experience',
-    body: [
-      'Designed to give producers a clear, focused, and highly responsive workspace for building complete arrangements. Every track is presented with essential controls — volume, pan, mute, solo, record arm, monitoring state, and visual waveform feedback.',
-      'The layout is built to stay readable even when the project becomes complex. Track headers, clip lanes, meters, and automation-ready areas are visually separated so the user can quickly identify what is playing, what is selected, and what needs attention.',
-    ],
+    title: t.ft_track_title,
+    body: [t.ft_track_body1, t.ft_track_body2],
     image: '/ft-track-experience.webp',
     imageAlt: 'Futureboard track arrangement view showing multiple colored audio tracks',
     flip: false,
@@ -18,11 +23,8 @@ const features = [
   {
     id: 'inspector',
     tag: '02',
-    title: 'Inspector Details',
-    body: [
-      'A dedicated space for editing the properties of selected tracks, clips, and musical elements without interrupting the main timeline workflow. Fine-tune gain, pitch, stretch, fades, timing, routing, and plugin-related settings in one panel.',
-      'By keeping detailed controls close to the arrangement view, the Inspector reduces the need for pop-up dialogs. Producers can modify small details while still seeing the result in the timeline — aligning clips, adjusting transitions, and correcting timing.',
-    ],
+    title: t.ft_inspector_title,
+    body: [t.ft_inspector_body1, t.ft_inspector_body2],
     image: '/ft-inspector.webp',
     imageAlt: 'Inspector panel showing clip properties like name, timing, gain, and fade controls',
     flip: true,
@@ -31,11 +33,8 @@ const features = [
   {
     id: 'continuous-scroll',
     tag: '03',
-    title: 'Continuous Scroll',
-    body: [
-      'Keeps the timeline movement smooth, stable, and easy to follow during playback and editing. Stay visually connected to the music as the playhead moves through the arrangement — making long sessions, live recordings, and multitrack projects easier to navigate.',
-      'Instead of jumping abruptly between timeline sections, the view follows playback naturally. The timeline remains responsive while scrolling, zooming, and displaying waveforms — so the project never feels disconnected from the audio.',
-    ],
+    title: t.ft_scroll_title,
+    body: [t.ft_scroll_body1, t.ft_scroll_body2],
     image: '/ft-continuous-scroll.webp',
     imageAlt: 'Continuous scroll view showing smooth waveform timeline playback',
     flip: false,
@@ -44,11 +43,8 @@ const features = [
   {
     id: 'floating-toolbar',
     tag: '04',
-    title: 'Floating Toolbar',
-    body: [
-      'Brings the most commonly used editing tools directly to the area where the user is working. Select, cut, move, trim, split, snap, zoom — all accessible near the selected content without relying on distant menus or fixed toolbars.',
-      'Designed to be contextual, lightweight, and non-intrusive. It appears when useful, stays out of the way when not needed, and adapts to the current task — making editing feel more direct, almost like the interface is responding to the user.',
-    ],
+    title: t.ft_toolbar_title,
+    body: [t.ft_toolbar_body1, t.ft_toolbar_body2],
     image: '/ft-floating-toolbar.webp',
     imageAlt: 'Floating toolbar appearing near an audio track with editing tool icons',
     flip: true,
@@ -57,11 +53,8 @@ const features = [
   {
     id: 'mixer',
     tag: '05',
-    title: 'Mixer Experience',
-    body: [
-      'Built for fast, readable, and professional control over the sound of the entire session. Each channel provides clear access to faders, meters, pan controls, mute, solo, record states, inserts, sends, and routing information — a complete mix overview in one view.',
-      'The layout emphasizes clarity and density without becoming visually overwhelming. Channel strips are compact enough to fit many tracks on screen, but still detailed enough to support serious mixing decisions — approachable for beginners, powerful for professionals.',
-    ],
+    title: t.ft_mixer_title,
+    body: [t.ft_mixer_body1, t.ft_mixer_body2],
     image: '/ft-mixer.webp',
     imageAlt: 'Futureboard mixer showing multiple channel strips with faders, pan knobs, and meters',
     flip: false,
@@ -70,11 +63,8 @@ const features = [
   {
     id: 'midi-editor',
     tag: '06',
-    title: 'MIDI Editor',
-    body: [
-      'A precise piano-roll environment for composing, editing, and refining musical ideas. Notes are displayed clearly on a grid, making it easy to create melodies, chords, basslines, drum patterns, and full MIDI arrangements with accurate timing and pitch control.',
-      'Designed for both fast sketching and detailed programming. Quickly draw notes, resize them, move them, adjust timing, and refine rhythmic patterns. Supports velocity editing, quantization, snapping, note selection, and expressive control data.',
-    ],
+    title: t.ft_midi_title,
+    body: [t.ft_midi_body1, t.ft_midi_body2],
     image: '/ft-midi.webp',
     imageAlt: 'MIDI piano roll editor showing teal note blocks on a dark grid',
     flip: true,
@@ -86,11 +76,9 @@ const features = [
 <section id="feature-showcase" class="showcase-section">
   <div class="section-inner">
     <FadeUp client:visible>
-      <span class="eyebrow">Features</span>
-      <h2 class="section-title">Here's what it actually does.</h2>
-      <p class="section-lead">
-        Six things I kept getting annoyed by in other DAWs. So I built them properly.
-      </p>
+      <span class="eyebrow">{t.features_eyebrow}</span>
+      <h2 class="section-title">{t.features_title}</h2>
+      <p class="section-lead">{t.features_lead}</p>
     </FadeUp>
   </div>
 
@@ -114,7 +102,7 @@ const features = [
             ))}
           </div>
 
-          {/* Image column with stylized editor window frame */}
+          <!-- Image column with stylized editor window frame -->
           <div class="showcase-visual">
             <div class="showcase-frame">
               <div class="frame-header-decor">
