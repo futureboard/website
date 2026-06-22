@@ -1,10 +1,11 @@
 ---
 import WaitlistForm from './WaitlistForm.tsx';
 import FadeUp from './motion/FadeUp.tsx';
+import CursorGlowCard from './CursorGlowCard.tsx';
 ---
 
 <section id="waitlist" class="waitlist-section">
-  <!-- Subtle ambient, not a glowing blob -->
+  <!-- Subtle ambient dot grid background -->
   <div class="waitlist-bg" aria-hidden="true"></div>
 
   <div class="section-inner waitlist-inner">
@@ -39,11 +40,11 @@ import FadeUp from './motion/FadeUp.tsx';
       </div>
     </FadeUp>
 
-    <!-- Form card -->
+    <!-- Form card with cursor glow track -->
     <FadeUp client:visible delay={0.12}>
-      <div class="waitlist-card">
+      <CursorGlowCard className="waitlist-card" client:load>
         <WaitlistForm client:load />
-      </div>
+      </CursorGlowCard>
     </FadeUp>
 
   </div>
@@ -53,7 +54,7 @@ import FadeUp from './motion/FadeUp.tsx';
   .waitlist-section {
     background: var(--color-canvas);
     border-top: 1px solid var(--color-hairline);
-    padding-block: 88px;
+    padding-block: 96px;
     padding-inline: 24px;
     position: relative;
     overflow: hidden;
@@ -62,7 +63,10 @@ import FadeUp from './motion/FadeUp.tsx';
   .waitlist-bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 45% 55% at 80% 50%, rgba(91, 191, 181, 0.03) 0%, transparent 65%);
+    background-image: 
+      radial-gradient(ellipse 45% 55% at 85% 50%, rgba(91, 191, 181, 0.035) 0%, transparent 65%),
+      radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 100% 100%, 24px 24px;
     pointer-events: none;
   }
 
@@ -76,7 +80,7 @@ import FadeUp from './motion/FadeUp.tsx';
 
   @media (min-width: 1024px) {
     .waitlist-inner {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 1fr;
     }
   }
 
@@ -132,10 +136,11 @@ import FadeUp from './motion/FadeUp.tsx';
   }
 
   /* Form card */
-  .waitlist-card {
+  :global(.cursor-glow-card).waitlist-card {
     background: var(--color-canvas-soft);
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-md);
     padding: 28px;
+    box-sizing: border-box;
   }
 </style>

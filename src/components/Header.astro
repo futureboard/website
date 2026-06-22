@@ -4,10 +4,16 @@
 <header class="site-header">
   <nav class="site-nav section-inner">
 
-    <!-- Wordmark -->
-    <a href="/" class="wordmark">
-      Futureboard Studio
-    </a>
+    <!-- Wordmark & Engineering Badge -->
+    <div class="header-left">
+      <a href="/" class="wordmark">
+        Futureboard Studio
+      </a>
+      <div class="system-status-indicator" aria-hidden="true">
+        <span class="status-pulse-dot"></span>
+        <span class="status-pulse-text">GPUI Native</span>
+      </div>
+    </div>
 
     <!-- Desktop nav links -->
     <ul class="nav-links" role="list">
@@ -78,7 +84,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(20, 19, 18, 0.88);
+    background: rgba(20, 19, 18, 0.85);
     border-bottom: 1px solid var(--color-hairline);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -91,24 +97,73 @@
     height: 52px;
   }
 
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   /* Wordmark */
   .wordmark {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--color-ink);
-    letter-spacing: -0.01em;
-    transition: color var(--transition-base);
+    letter-spacing: -0.015em;
+    transition: color var(--transition-fast);
   }
 
   .wordmark:hover {
     color: var(--color-accent);
   }
 
+  /* System status indicator */
+  .system-status-indicator {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: rgba(91, 191, 181, 0.05);
+    border: 1px solid rgba(91, 191, 181, 0.15);
+    border-radius: var(--radius-pill);
+    padding: 3px 8px;
+    height: 18px;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 480px) {
+    .system-status-indicator {
+      display: flex;
+    }
+  }
+
+  .status-pulse-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    box-shadow: 0 0 5px var(--color-accent);
+    animation: status-blink 1.8s infinite ease-in-out;
+  }
+
+  .status-pulse-text {
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  @keyframes status-blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
   /* Nav links */
   .nav-links {
     display: none;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
   }
 
   @media (min-width: 768px) {
@@ -121,13 +176,14 @@
     font-size: 0.875rem;
     font-weight: 400;
     color: var(--color-body);
-    padding: 5px 10px;
+    padding: 4px 10px;
     border-radius: var(--radius-sm);
-    transition: color var(--transition-base);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
   }
 
   .nav-links a:hover {
     color: var(--color-ink);
+    background-color: rgba(255, 255, 255, 0.035);
   }
 
   /* Right actions */
@@ -159,11 +215,12 @@
     height: 32px;
     border-radius: var(--radius-sm);
     color: var(--color-mute);
-    transition: color var(--transition-base);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
   }
 
   .icon-btn:hover {
     color: var(--color-body-strong);
+    background-color: rgba(255, 255, 255, 0.035);
   }
 
   /* CTA */

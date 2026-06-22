@@ -3,25 +3,11 @@ import HeroContent from './HeroContent.tsx';
 ---
 
 <section class="hero">
-  <!-- Ambient texture — very subtle, not glowing -->
+  <!-- Ambient texture — subtle dot grid and accent backdrops -->
   <div class="hero-bg" aria-hidden="true"></div>
 
-  <!-- App preview — faded right side -->
-  <div class="hero-preview" aria-hidden="true">
-    <div class="hero-preview-fade"></div>
-    <div class="hero-preview-fade-bottom"></div>
-    <div class="hero-preview-img-wrap">
-      <img
-        src="/preview.webp"
-        alt=""
-        class="hero-preview-img"
-        loading="eager"
-      />
-    </div>
-  </div>
-
   <div class="section-inner hero-content">
-    <!-- Animated text block — staggered entrance on load -->
+    {/* Split grid Hero layout */}
     <HeroContent client:load />
   </div>
 </section>
@@ -30,62 +16,27 @@ import HeroContent from './HeroContent.tsx';
   .hero {
     position: relative;
     overflow: hidden;
-    padding-top: 96px;
-    padding-bottom: 112px;
+    padding-top: 80px;
+    padding-bottom: 96px;
     padding-inline: 24px;
     background: var(--color-canvas);
+    border-bottom: 1px solid var(--color-hairline);
   }
 
-  /* Subtle ambient — not a glowing orb */
+  /* Subtle ambient pattern: custom graph grid + smooth dark radial glows */
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background:
-      radial-gradient(ellipse 55% 45% at 18% 65%, rgba(91, 191, 181, 0.04) 0%, transparent 65%),
-      radial-gradient(ellipse 35% 30% at 75% 25%, rgba(143, 155, 186, 0.03) 0%, transparent 60%);
+    background-image: 
+      radial-gradient(ellipse 50% 50% at 20% 50%, rgba(91, 191, 181, 0.025) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 30%, rgba(143, 155, 186, 0.02) 0%, transparent 60%),
+      radial-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 24px 24px;
     pointer-events: none;
   }
 
-  /* Preview image layer */
-  .hero-preview {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .hero-preview-fade {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, #141312 28%, rgba(20, 19, 18, 0.7) 58%, rgba(20, 19, 18, 0.2) 100%);
-    z-index: 1;
-  }
-
-  .hero-preview-fade-bottom {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, #141312 0%, transparent 35%);
-    z-index: 1;
-  }
-
-  .hero-preview-img-wrap {
-    position: absolute;
-    right: -8%;
-    top: 12%;
-    width: 72rem;
-    max-width: none;
-    opacity: 0.45;
-  }
-
-  .hero-preview-img {
-    width: 100%;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-shadow: 0 48px 120px rgba(0, 0, 0, 0.55);
-  }
-
-  /* Content wrapper — z-index above preview layer */
+  /* Content wrapper — z-index above background layer */
   .hero-content {
     position: relative;
     z-index: 10;

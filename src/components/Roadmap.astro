@@ -13,10 +13,10 @@ const items = [
   { status: 'future',  label: 'LV2 / AU plugin formats',           detail: 'Expand plugin ecosystem coverage for Linux and macOS users.' },
 ];
 
-const statusMeta: Record<string, { label: string; dotClass: string }> = {
-  active:  { label: 'In progress', dotClass: 'dot--active' },
-  planned: { label: 'Planned',     dotClass: 'dot--planned' },
-  future:  { label: 'Future',      dotClass: 'dot--future' },
+const statusMeta: Record<string, { label: string; tagClass: string; dotClass: string }> = {
+  active:  { label: 'In Progress', tagClass: 'status-tag--active', dotClass: 'dot--active' },
+  planned: { label: 'Planned',     tagClass: 'status-tag--planned', dotClass: 'dot--planned' },
+  future:  { label: 'Future',      tagClass: 'status-tag--future', dotClass: 'dot--future' },
 };
 ---
 
@@ -30,18 +30,27 @@ const statusMeta: Record<string, { label: string; dotClass: string }> = {
       </p>
     </FadeUp>
 
-    <div class="roadmap-list">
-      {items.map((item) => {
+    <div class="roadmap-timeline">
+      {items.map((item, index) => {
         const meta = statusMeta[item.status];
         return (
-          <div class="roadmap-row">
-            <div class="roadmap-status">
-              <span class={`status-dot ${meta.dotClass}`}></span>
-              <span class="status-label">{meta.label}</span>
+          <div class={`timeline-item timeline-item--${item.status}`}>
+            {/* Left track line and node */}
+            <div class="timeline-track">
+              <div class={`timeline-dot-wrapper ${meta.dotClass}`}>
+                <div class="timeline-dot-core"></div>
+                {item.status === 'active' && <span class="pulse-glow"></span>}
+              </div>
+              {index < items.length - 1 && <div class="timeline-line"></div>}
             </div>
-            <div class="roadmap-content">
-              <p class="roadmap-title">{item.label}</p>
-              <p class="roadmap-detail">{item.detail}</p>
+
+            {/* Content card */}
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class={`status-tag ${meta.tagClass}`}>{meta.label}</span>
+              </div>
+              <h3 class="timeline-card-title">{item.label}</h3>
+              <p class="timeline-card-detail">{item.detail}</p>
             </div>
           </div>
         );
@@ -54,71 +63,173 @@ const statusMeta: Record<string, { label: string; dotClass: string }> = {
   .roadmap-section {
     background: var(--color-canvas);
     border-top: 1px solid var(--color-hairline);
-    padding-block: 88px;
+    padding-block: 96px;
     padding-inline: 24px;
   }
 
   .section-lead {
-    margin-bottom: 40px;
+    margin-bottom: 56px;
   }
 
-  /* List */
-  .roadmap-list {
-    border-top: 1px solid var(--color-hairline);
-  }
-
-  .roadmap-row {
+  /* Timeline Grid */
+  .roadmap-timeline {
+    max-width: 800px;
+    margin-inline: auto;
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    padding-block: 18px;
-    border-bottom: 1px solid var(--color-hairline);
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
   }
 
-  /* Status column */
-  .roadmap-status {
+  .timeline-item {
+    display: flex;
+    gap: 24px;
+    position: relative;
+  }
+
+  /* Left track styling */
+  .timeline-track {
+    width: 24px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .timeline-dot-wrapper {
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: 108px;
-    flex-shrink: 0;
-    padding-top: 2px;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
+    background: var(--color-canvas);
+    border: 1.5px solid transparent;
   }
 
-  .status-dot {
+  .timeline-dot-core {
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    flex-shrink: 0;
   }
 
-  .dot--active  { background: var(--color-accent); }
-  .dot--planned { background: var(--color-wheat); }
-  .dot--future  { background: var(--color-hairline-soft); border: 1px solid var(--color-hairline); width: 5px; height: 5px; }
-
-  .status-label {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-mute);
-    letter-spacing: 0;
+  /* Dot status variables */
+  .dot--active {
+    border-color: var(--color-accent);
+  }
+  .dot--active .timeline-dot-core {
+    background: var(--color-accent);
   }
 
-  /* Content */
-  .roadmap-content {
+  .dot--planned {
+    border-color: var(--color-wheat);
+  }
+  .dot--planned .timeline-dot-core {
+    background: var(--color-wheat);
+  }
+
+  .dot--future {
+    border-color: var(--color-hairline);
+  }
+  .dot--future .timeline-dot-core {
+    background: var(--color-hairline);
+  }
+
+  /* Connection line */
+  .timeline-line {
+    position: absolute;
+    top: 16px;
+    bottom: -24px;
+    width: 1px;
+    background: var(--color-hairline);
+    z-index: 1;
+  }
+
+  /* Active Pulse Glow Animation */
+  .pulse-glow {
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-accent);
+    opacity: 0;
+    animation: timeline-pulse 2.2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  @keyframes timeline-pulse {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.65);
+      opacity: 0;
+    }
+  }
+
+  /* Card content wrapper */
+  .timeline-content {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.012);
+    border: 1px solid var(--color-hairline-soft);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    transition: border-color var(--transition-base), background-color var(--transition-base);
+  }
+
+  .timeline-content:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--color-hairline);
+  }
+
+  .timeline-header {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    margin-bottom: 8px;
   }
 
-  .roadmap-title {
+  /* Status label tags */
+  .status-tag {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: var(--radius-xs);
+    border: 1px solid transparent;
+  }
+
+  .status-tag--active {
+    background: rgba(91, 191, 181, 0.08);
+    border-color: rgba(91, 191, 181, 0.2);
+    color: var(--color-accent);
+  }
+
+  .status-tag--planned {
+    background: rgba(200, 169, 122, 0.08);
+    border-color: rgba(200, 169, 122, 0.2);
+    color: var(--color-wheat);
+  }
+
+  .status-tag--future {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--color-hairline);
+    color: var(--color-mute);
+  }
+
+  .timeline-card-title {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--color-ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
   }
 
-  .roadmap-detail {
+  .timeline-card-detail {
     font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--color-body);

@@ -1,5 +1,6 @@
 ---
 import FadeUp from './motion/FadeUp.tsx';
+import CursorGlowCard from './CursorGlowCard.tsx';
 ---
 
 <section id="product" class="product-section">
@@ -15,11 +16,13 @@ import FadeUp from './motion/FadeUp.tsx';
     <div class="product-grid">
 
       <!-- Express — Web -->
-      <a
+      <CursorGlowCard
+        as="a"
         href="https://app.futureboard.studio"
         target="_blank"
         rel="noopener noreferrer"
-        class="product-card product-card--link"
+        className="product-card product-card--link"
+        client:visible
       >
         <div class="product-card-header">
           <span class="product-tag">Express</span>
@@ -35,10 +38,10 @@ import FadeUp from './motion/FadeUp.tsx';
           <li><span class="spec-dot" style="background: var(--color-sage);"></span>No install needed</li>
         </ul>
         <span class="product-badge">Web target &rarr;</span>
-      </a>
+      </CursorGlowCard>
 
       <!-- Lite — Electron -->
-      <div class="product-card product-card--muted">
+      <CursorGlowCard className="product-card product-card--muted" client:visible>
         <div class="product-card-header">
           <span class="product-tag">Lite</span>
           <h3 class="product-name">Futureboard Lite</h3>
@@ -53,10 +56,10 @@ import FadeUp from './motion/FadeUp.tsx';
           <li><span class="spec-dot" style="background: var(--color-wheat);"></span>Installable app</li>
         </ul>
         <span class="product-badge product-badge--muted">Electron target</span>
-      </div>
+      </CursorGlowCard>
 
       <!-- Studio — Primary -->
-      <div class="product-card product-card--primary">
+      <CursorGlowCard className="product-card product-card--primary" client:visible>
         <div class="product-card-top-line" aria-hidden="true"></div>
         <div class="product-card-header">
           <span class="product-tag product-tag--accent">Studio</span>
@@ -73,7 +76,7 @@ import FadeUp from './motion/FadeUp.tsx';
           <li><span class="spec-dot spec-dot--accent"></span>GPU-rendered UI</li>
         </ul>
         <span class="product-badge product-badge--accent">Native target &middot; Primary</span>
-      </div>
+      </CursorGlowCard>
 
     </div>
   </div>
@@ -94,7 +97,7 @@ import FadeUp from './motion/FadeUp.tsx';
   .product-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
 
   @media (min-width: 768px) {
@@ -103,11 +106,8 @@ import FadeUp from './motion/FadeUp.tsx';
     }
   }
 
-  /* Card base */
-  .product-card {
-    background: var(--color-canvas-soft);
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-md);
+  /* Target both class types to preserve layout */
+  :global(.cursor-glow-card).product-card {
     padding: 22px;
     display: flex;
     flex-direction: column;
@@ -116,23 +116,29 @@ import FadeUp from './motion/FadeUp.tsx';
     color: inherit;
     position: relative;
     overflow: hidden;
-    transition: border-color var(--transition-base);
+    height: 100%;
+    box-sizing: border-box;
   }
 
-  /* Linked card hover */
-  .product-card--link:hover {
-    border-color: rgba(125, 184, 154, 0.4);
+  /* Linked card hover glow adjust */
+  :global(.cursor-glow-card).product-card--link:hover {
+    border-color: rgba(91, 191, 181, 0.4);
   }
 
   /* Muted card (Lite) */
-  .product-card--muted {
-    opacity: 0.8;
+  :global(.cursor-glow-card).product-card--muted {
+    opacity: 0.75;
   }
 
   /* Primary card (Studio) */
-  .product-card--primary {
+  :global(.cursor-glow-card).product-card--primary {
     background: var(--color-canvas-mid);
-    border-color: rgba(91, 191, 181, 0.25);
+    border-color: rgba(91, 191, 181, 0.22);
+  }
+
+  /* Dynamic accent hover glow for Studio card */
+  :global(.cursor-glow-card).product-card--primary:hover {
+    border-color: rgba(91, 191, 181, 0.45);
   }
 
   /* Top accent line for primary */
@@ -143,6 +149,7 @@ import FadeUp from './motion/FadeUp.tsx';
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent 0%, rgba(91, 191, 181, 0.4) 50%, transparent 100%);
+    z-index: 10;
   }
 
   /* Card header */
