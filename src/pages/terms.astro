@@ -1,25 +1,25 @@
 ---
 export const prerender = true;
 
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import LegalDocument from '../components/LegalDocument.astro';
-import TermsEnglish from '../assets/tos.mdx';
-import TermsThai from '../assets/tosth.mdx';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import LegalDocument from "../components/LegalDocument.astro";
+import TermsEnglish from "../assets/tos.mdx";
+import TermsThai from "../assets/tosth.mdx";
 ---
 
 <Layout
-  title="Terms of Service | Futureboard Studio"
-  description="Futureboard Marketplace Terms of Service in English and Thai."
+    title="Terms of Service | Futureboard Studio"
+    description="Futureboard Marketplace Terms of Service in English and Thai."
 >
-  <Header />
-  <LegalDocument
-    eyebrow="Legal"
-    title="Terms of Service"
-    description="Terms governing access to and use of Futureboard Marketplace."
-    EnglishContent={TermsEnglish}
-    ThaiContent={TermsThai}
-  />
-  <Footer />
+    <Header />
+    <LegalDocument
+        eyebrow="Legal"
+        title="Terms of Service"
+        description="Terms governing access to and use of Futureboard Marketplace."
+        EnglishContent={TermsEnglish}
+        ThaiContent={TermsThai}
+    />
+    <Footer />
 </Layout>
