@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import InteractiveSequencer from './InteractiveSequencer.tsx';
+import React from 'react';
+import { motion, type Variants } from 'framer-motion';
 
 const containerVariants: Variants = {
   hidden: {},
@@ -22,11 +21,7 @@ const itemVariants: Variants = {
 const ease = [0.16, 1, 0.3, 1] as const;
 const transitionDur = { duration: 0.6, ease } as const;
 
-type HeroTab = 'screenshot' | 'sequencer';
-
 export default function HeroContent() {
-  const [activeTab, setActiveTab] = useState<HeroTab>('screenshot');
-
   return (
     <div className="hero-grid">
       {/* Left Column: Text Copy */}
@@ -75,7 +70,7 @@ export default function HeroContent() {
         </motion.div>
       </motion.div>
 
-      {/* Right Column: Interactive App Showcase Window */}
+      {/* Right Column: App Showcase Window */}
       <motion.div
         className="hero-showcase-side"
         initial={{ opacity: 0, scale: 0.98, y: 16 }}
@@ -92,68 +87,25 @@ export default function HeroContent() {
               <span className="window-dot-btn green"></span>
             </div>
 
-            {/* Window Tabs Switcher */}
-            <div className="window-tabs" role="tablist">
-              <button
-                role="tab"
-                aria-selected={activeTab === 'screenshot'}
-                onClick={() => setActiveTab('screenshot')}
-                className={`window-tab ${activeTab === 'screenshot' ? 'window-tab--active' : ''}`}
-              >
-                App Screenshot
-              </button>
-              <button
-                role="tab"
-                aria-selected={activeTab === 'sequencer'}
-                onClick={() => setActiveTab('sequencer')}
-                className={`window-tab ${activeTab === 'sequencer' ? 'window-tab--active' : ''}`}
-              >
-                Web Sequencer
-                <span className="live-badge-dot"></span>
-              </button>
-            </div>
+            {/* Window title */}
+            <div className="window-title">Futureboard Studio</div>
             
-            {/* Fake layout status */}
+            {/* Window version status */}
             <div className="window-status" aria-hidden="true">
-              {activeTab === 'sequencer' ? 'Web Audio API' : 'v0.1.0-alpha'}
+              v0.1.0-alpha
             </div>
           </div>
 
           {/* Window Body Container */}
           <div className="window-body">
-            <AnimatePresence mode="wait">
-              {activeTab === 'screenshot' ? (
-                <motion.div
-                  key="screenshot"
-                  initial={{ opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.25, ease: 'easeInOut' }}
-                  className="showcase-view screenshot-view"
-                >
-                  <img
-                    src="/preview.webp"
-                    alt="Futureboard Studio DAW interface preview showing track lanes and timeline"
-                    className="showcase-screenshot-img"
-                    loading="eager"
-                  />
-                  <div className="screenshot-overlay">
-                    <span>Double-click or click tabs to play with Web Sequencer</span>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sequencer"
-                  initial={{ opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.25, ease: 'easeInOut' }}
-                  className="showcase-view sequencer-view"
-                >
-                  <InteractiveSequencer />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="showcase-view screenshot-view">
+              <img
+                src="/preview.webp"
+                alt="Futureboard Studio DAW interface preview showing track lanes and timeline"
+                className="showcase-screenshot-img"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </motion.div>
@@ -291,52 +243,11 @@ export default function HeroContent() {
         .window-dot-btn.yellow { background: #ffbd2e; }
         .window-dot-btn.green { background: #27c93f; }
 
-        .window-tabs {
-          display: flex;
-          background: rgba(0, 0, 0, 0.15);
-          border: 1px solid var(--color-hairline-soft);
-          border-radius: 6px;
-          padding: 2px;
-        }
-
-        .window-tab {
+        .window-title {
           font-family: var(--font-sans);
           font-size: 0.72rem;
           font-weight: 500;
-          color: var(--color-mute);
-          padding: 4px 12px;
-          border: none;
-          background: transparent;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-
-        .window-tab:hover {
           color: var(--color-body-strong);
-        }
-
-        .window-tab--active {
-          background: rgba(255, 255, 255, 0.05);
-          color: var(--color-ink);
-        }
-
-        .live-badge-dot {
-          width: 4px;
-          height: 4px;
-          border-radius: 9999px;
-          background: #5bbfb5;
-          display: inline-block;
-          box-shadow: 0 0 6px #5bbfb5;
-          animation: pulse 1.6s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 0.3; transform: scale(0.9); }
-          50% { opacity: 1; transform: scale(1.3); }
         }
 
         .window-status {
@@ -352,7 +263,6 @@ export default function HeroContent() {
         .window-body {
           position: relative;
           background: #141312;
-          min-height: 250px;
           display: flex;
           flex-direction: column;
         }
@@ -364,7 +274,6 @@ export default function HeroContent() {
         }
 
         .screenshot-view {
-          cursor: pointer;
           position: relative;
           overflow: hidden;
         }
@@ -380,32 +289,6 @@ export default function HeroContent() {
         .screenshot-view:hover .showcase-screenshot-img {
           transform: scale(1.01);
           filter: brightness(0.98) contrast(1.02);
-        }
-
-        .screenshot-overlay {
-          position: absolute;
-          bottom: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: rgba(20, 19, 18, 0.85);
-          backdrop-filter: blur(8px);
-          border: 1px solid var(--color-hairline);
-          border-radius: 6px;
-          padding: 6px 14px;
-          font-family: var(--font-sans);
-          font-size: 0.68rem;
-          color: var(--color-body);
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-        }
-
-        .screenshot-view:hover .screenshot-overlay {
-          opacity: 1;
-        }
-
-        .sequencer-view {
-          padding: 10px;
         }
       `}</style>
     </div>

@@ -59,11 +59,8 @@ export default function InteractiveSequencer() {
     kick: false,
   });
 
-  const [filterCutoff, setFilterCutoff] = useState(10000); // 100Hz to 20000Hz
-  
   // Audio Context Ref
   const audioCtxRef = useRef<AudioContext | null>(null);
-  const masterFilterRef = useRef<BiquadFilterNode | null>(null);
   
   // Timing variables
   const schedulerTimerRef = useRef<number | null>(null);
@@ -86,14 +83,6 @@ export default function InteractiveSequencer() {
     mutesRef.current = mutes;
   }, [mutes]);
 
-  // Handle master filter cutoff slider change
-  useEffect(() => {
-    if (masterFilterRef.current && audioCtxRef.current) {
-      const time = audioCtxRef.current.currentTime;
-      masterFilterRef.current.frequency.setTargetAtTime(filterCutoff, time, 0.05);
-    }
-  }, [filterCutoff]);
-
   // Clean up timer on unmount
   useEffect(() => {
     return () => {
@@ -111,13 +100,7 @@ export default function InteractiveSequencer() {
     if (audioCtxRef.current) return;
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     const ctx = new AudioContextClass();
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(filterCutoff, ctx.currentTime);
-    filter.connect(ctx.destination);
-    
     audioCtxRef.current = ctx;
-    masterFilterRef.current = filter;
   };
 
   // Synthesize Sound Functions
@@ -213,8 +196,9 @@ export default function InteractiveSequencer() {
   // Scheduler Loop
   const scheduleNote = (step: number, time: number) => {
     const ctx = audioCtxRef.current;
-    const dest = masterFilterRef.current;
-    if (!ctx || !dest) return;
+    if (!ctx) return;
+    
+    const dest = ctx.destination;
 
     // Trigger visual step indicator
     const timeDiffMs = Math.max(0, (time - ctx.currentTime) * 1000);
@@ -410,26 +394,6 @@ export default function InteractiveSequencer() {
                 className="sequencer-range-input"
               />
               <span className="control-value">{bpm} <span className="value-unit">BPM</span></span>
-            </div>
-          </div>
-
-          {/* Master Cutoff filter slider */}
-          <div className="slider-control">
-            <span className="control-label">CUTOFF</span>
-            <div className="control-input-wrapper">
-              <input
-                type="range"
-                min="200"
-                max="18000"
-                step="100"
-                value={filterCutoff}
-                onChange={(e) => setFilterCutoff(Number(e.target.value))}
-                className="sequencer-range-input"
-              />
-              <span className="control-value">
-                {filterCutoff >= 1000 ? `${(filterCutoff / 1000).toFixed(1)}k` : filterCutoff}{' '}
-                <span className="value-unit">Hz</span>
-              </span>
             </div>
           </div>
         </div>
