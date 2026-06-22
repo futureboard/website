@@ -8,6 +8,7 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = translations[lang];
+const WAITLIST_URL = "https://tally.so/r/lbgzx5";
 
 // Get pathname to dynamically switch language pages
 const pathname = Astro.url.pathname;
@@ -153,7 +154,9 @@ if (
 
             <!-- CTA -->
             <a
-                href={lang === "en" ? "/#waitlist" : `/${lang}#waitlist`}
+                href={WAITLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-primary nav-cta"
             >
                 {t.nav_waitlist}

@@ -21,6 +21,7 @@ const itemVariants: Variants = {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const transitionDur = { duration: 0.6, ease } as const;
+const WAITLIST_URL = "https://tally.so/r/lbgzx5";
 
 export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
   const t = translations[lang];
@@ -78,7 +79,12 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
           >
             {t.hero_download}
           </a>
-          <a href="#waitlist" className="btn btn-outline">
+          <a
+            href={WAITLIST_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+          >
             {t.hero_waitlist}
           </a>
           <a

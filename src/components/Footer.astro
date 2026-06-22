@@ -7,6 +7,7 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = translations[lang];
+const WAITLIST_URL = "https://tally.so/r/lbgzx5";
 
 const year = new Date().getFullYear();
 
@@ -54,8 +55,10 @@ const socialLinks = [
                         target="_blank"
                         rel="noopener noreferrer">GitHub</a
                     >
-                    <a href={lang === "en" ? "/#waitlist" : `/${lang}#waitlist`}
-                        >{t.nav_waitlist}</a
+                    <a
+                        href={WAITLIST_URL}
+                        target="_blank"
+                        rel="noopener noreferrer">{t.nav_waitlist}</a
                     >
                     <a href={lang === "en" ? "/terms" : `/${lang}/terms`}
                         >{t.footer_terms}</a

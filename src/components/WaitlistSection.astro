@@ -1,5 +1,4 @@
 ---
-import WaitlistForm from "./WaitlistForm.tsx";
 import FadeUp from "./motion/FadeUp.tsx";
 import CursorGlowCard from "./CursorGlowCard.tsx";
 import { translations, type Locale } from "../i18n/translations";
@@ -10,6 +9,37 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = translations[lang];
+const WAITLIST_URL = "https://tally.so/r/lbgzx5";
+const cardCopy = {
+    en: {
+        kicker: "Early access intake",
+        title: "Join the early access list",
+        body: "The form opens in Tally so we can keep signups organized without adding another account system here.",
+        open: "Open Tally form",
+        fields: ["Email", "Platform", "Audio setup", "Testing notes"],
+    },
+    th: {
+        kicker: "Early access intake",
+        title: "ลงชื่อรับสิทธิ์ Early Access",
+        body: "ฟอร์มจะเปิดใน Tally เพื่อเก็บรายชื่อให้เป็นระบบ โดยไม่ต้องเพิ่มระบบบัญชีใหม่ในเว็บนี้",
+        open: "เปิดฟอร์ม Tally",
+        fields: ["อีเมล", "แพลตฟอร์ม", "เซ็ตอัปเสียง", "โน้ตสำหรับทดสอบ"],
+    },
+    ja: {
+        kicker: "Early access intake",
+        title: "早期アクセスリストに登録",
+        body: "登録内容を整理するため、フォームは Tally で開きます。このサイトに別のアカウント機能は追加しません。",
+        open: "Tally フォームを開く",
+        fields: ["メール", "プラットフォーム", "オーディオ環境", "テストメモ"],
+    },
+    zh: {
+        kicker: "Early access intake",
+        title: "加入早期访问名单",
+        body: "表单会在 Tally 中打开，方便整理报名信息，同时不在本站增加额外账号系统。",
+        open: "打开 Tally 表单",
+        fields: ["邮箱", "平台", "音频设置", "测试备注"],
+    },
+}[lang];
 ---
 
 <section id="waitlist" class="waitlist-section">
@@ -47,10 +77,63 @@ const t = translations[lang];
             </div>
         </FadeUp>
 
-        <!-- Form card with cursor glow track -->
+        <!-- Embedded Tally signup card -->
         <FadeUp client:visible delay={0.12}>
             <CursorGlowCard className="waitlist-card" client:load>
-                <WaitlistForm client:load lang={lang} />
+                <div class="waitlist-panel">
+                    <div class="waitlist-panel-header">
+                        <div class="waitlist-panel-title">
+                            <span class="panel-led" aria-hidden="true"></span>
+                            <span>{cardCopy.kicker}</span>
+                        </div>
+                        <a
+                            href={WAITLIST_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="waitlist-panel-link"
+                        >
+                            {cardCopy.open}
+                        </a>
+                    </div>
+
+                    <div class="waitlist-panel-intro">
+                        <h3 class="waitlist-card-title">{cardCopy.title}</h3>
+                        <p class="waitlist-card-copy">{cardCopy.body}</p>
+                    </div>
+
+                    <div class="waitlist-action-panel">
+                        <div class="intake-block">
+                            <div class="intake-block-header">
+                                <span>INTAKE</span>
+                                <span>04 FIELDS</span>
+                            </div>
+                            <ul
+                                class="intake-fields"
+                                aria-label="Tally form fields"
+                            >
+                                {
+                                    cardCopy.fields.map((field) => (
+                                        <li>
+                                            <span>{field}</span>
+                                            <span class="field-status">
+                                                Required
+                                            </span>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+
+                        <a
+                            href={WAITLIST_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-primary waitlist-main-link"
+                        >
+                            {cardCopy.open}
+                        </a>
+                    </div>
+                </div>
             </CursorGlowCard>
         </FadeUp>
     </div>
@@ -150,7 +233,156 @@ const t = translations[lang];
         background: var(--color-canvas-soft);
         border: 1px solid var(--color-hairline);
         border-radius: var(--radius-md);
-        padding: 28px;
         box-sizing: border-box;
+    }
+
+    .waitlist-panel {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid var(--color-hairline-soft);
+        border-radius: var(--radius-md);
+        background: var(--color-canvas);
+    }
+
+    .waitlist-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 36px;
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--color-hairline-soft);
+        background: var(--color-canvas-mid);
+    }
+
+    .waitlist-panel-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-body-strong);
+    }
+
+    .panel-led {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        flex-shrink: 0;
+    }
+
+    .waitlist-panel-link {
+        flex-shrink: 0;
+        font-size: 0.75rem;
+        color: var(--color-accent-light);
+        text-decoration: underline;
+        text-underline-offset: 0.18em;
+    }
+
+    .waitlist-panel-intro {
+        padding: 20px 20px 14px;
+        border-bottom: 1px solid var(--color-hairline-soft);
+    }
+
+    .waitlist-card-title {
+        font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: var(--color-ink);
+        line-height: 1.15;
+    }
+
+    .waitlist-card-copy {
+        max-width: 46ch;
+        margin-top: 8px;
+        font-size: 0.875rem;
+        line-height: 1.65;
+        color: var(--color-body);
+    }
+
+    .waitlist-action-panel {
+        margin: 16px;
+        padding: 0;
+        border: 1px solid var(--color-hairline-soft);
+        border-radius: calc(var(--radius-md) - 6px);
+        background: var(--color-canvas-soft);
+    }
+
+    .intake-block {
+        border-bottom: 1px solid var(--color-hairline-soft);
+    }
+
+    .intake-block-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--color-hairline-soft);
+        color: var(--color-muted);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+    }
+
+    .intake-fields {
+        display: grid;
+    }
+
+    .intake-fields li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 42px;
+        padding: 0 14px;
+        border-bottom: 1px solid var(--color-hairline-soft);
+        color: var(--color-body-strong);
+        font-size: 0.84rem;
+    }
+
+    .intake-fields li:last-child {
+        border-bottom: 0;
+    }
+
+    .field-status {
+        color: var(--color-muted);
+        font-size: 0.72rem;
+    }
+
+    .waitlist-main-link {
+        width: calc(100% - 28px);
+        justify-content: center;
+        margin: 14px;
+    }
+
+    @media (max-width: 520px) {
+        .waitlist-panel-header {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .waitlist-panel-intro {
+            padding: 18px 16px 12px;
+        }
+
+        .waitlist-action-panel {
+            margin: 12px;
+        }
+
+        .intake-fields li {
+            min-height: 40px;
+            padding-inline: 12px;
+        }
+
+        .waitlist-main-link {
+            width: calc(100% - 24px);
+            margin: 12px;
+        }
     }
 </style>
