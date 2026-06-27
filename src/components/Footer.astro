@@ -50,7 +50,9 @@ const socialLinks = [
                     <a href={lang === "en" ? "/download" : `/${lang}/download`}
                         >{t.nav_download}</a
                     >
-                    <a href="/blogs">{t.nav_blog}</a>
+                    <a href={lang === "en" ? "/blogs" : `/${lang}/blogs`}
+                        >{t.nav_blog}</a
+                    >
                     <a
                         href="https://github.com/arizkami/futureboard"
                         target="_blank"

@@ -61,7 +61,9 @@ if (
                 >
             </li>
             <li>
-                <a href="/blogs">{t.nav_blog}</a>
+                <a href={lang === "en" ? "/blogs" : `/${lang}/blogs`}
+                    >{t.nav_blog}</a
+                >
             </li>
         </ul>
 
