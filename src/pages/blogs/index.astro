@@ -26,13 +26,17 @@ const posts = await getBlogPosts();
                 <div>
                     <h1>Notes from the build.</h1>
                     <p>
-                        Development logs, release notes, and behind-the-scenes updates
-                        from Futureboard Studio.
+                        Development logs, release notes, and behind-the-scenes
+                        updates from Futureboard Studio.
                     </p>
                 </div>
                 <div class="blog-status card">
-                    <span class="status-dot status-dot--active" aria-hidden="true"></span>
-                    <span>{posts.length} post{posts.length === 1 ? "" : "s"} published</span>
+                    <span
+                        class="status-dot status-dot--active"
+                        aria-hidden="true"></span>
+                    <span
+                        >{posts.length} post{posts.length === 1 ? "" : "s"} published</span
+                    >
                 </div>
             </div>
         </section>
@@ -41,14 +45,26 @@ const posts = await getBlogPosts();
             {
                 posts.length > 0 ? (
                     posts.map((post) => {
-                        const image = getImageUrl(post.heroImage ?? post.meta?.image);
+                        const image = getImageUrl(
+                            post.heroImage ?? post.meta?.image,
+                        );
                         const description = getPostDescription(post);
 
                         return (
                             <article class="blog-card card">
                                 {image && (
-                                    <a href={`/blogs/p/${post.slug}`} class="blog-card-image">
-                                        <img src={image} alt="" loading="lazy" />
+                                    <a
+                                        href={`/blogs/p/${post.slug}`}
+                                        class="blog-card-image"
+                                    >
+                                        <img
+                                            src={
+                                                "https://feed.futureboard.studio/" +
+                                                image
+                                            }
+                                            alt=""
+                                            loading="lazy"
+                                        />
                                     </a>
                                 )}
                                 <div class="blog-card-body">
@@ -58,10 +74,15 @@ const posts = await getBlogPosts();
                                         </time>
                                     </div>
                                     <h2>
-                                        <a href={`/blogs/p/${post.slug}`}>{post.title}</a>
+                                        <a href={`/blogs/p/${post.slug}`}>
+                                            {post.title}
+                                        </a>
                                     </h2>
                                     <p>{description}</p>
-                                    <a class="read-more" href={`/blogs/p/${post.slug}`}>
+                                    <a
+                                        class="read-more"
+                                        href={`/blogs/p/${post.slug}`}
+                                    >
                                         Read post →
                                     </a>
                                 </div>
@@ -84,7 +105,11 @@ const posts = await getBlogPosts();
     .blog-index {
         min-height: 70vh;
         background:
-            radial-gradient(circle at top left, rgba(115, 191, 252, 0.1), transparent 36rem),
+            radial-gradient(
+                circle at top left,
+                rgba(115, 191, 252, 0.1),
+                transparent 36rem
+            ),
             var(--color-canvas);
     }
 
