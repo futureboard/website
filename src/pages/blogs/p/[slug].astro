@@ -1,0 +1,231 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import {
+    formatPostDate,
+    getBlogPostBySlug,
+    getImageUrl,
+    getPostDescription,
+    lexicalToHtml,
+} from "../../../lib/blog";
+
+const lang = "en";
+const { slug } = Astro.params;
+const post = slug ? await getBlogPostBySlug(slug) : null;
+
+if (!post) {
+    return Astro.redirect("/404", 302);
+}
+
+const description = getPostDescription(post);
+const heroImage = getImageUrl(post.heroImage ?? post.meta?.image);
+const contentHtml = lexicalToHtml(post.content?.root);
+---
+
+<Layout
+    lang={lang}
+    title={`${post.meta?.title ?? post.title} — Futureboard Studio`}
+    description={description}
+    image={heroImage ?? "/banner.webp"}
+    type="article"
+>
+    <Header lang={lang} />
+    <main class="blog-post">
+        <article class="section-inner post-shell">
+            <a href="/blogs" class="back-link">← Back to blogs</a>
+
+            <header class="post-header">
+                <div class="post-meta">
+                    <span>Blog</span>
+                    {
+                        post.publishedAt && (
+                            <>
+                                <span aria-hidden="true">/</span>
+                                <time datetime={post.publishedAt}>
+                                    {formatPostDate(post.publishedAt)}
+                                </time>
+                            </>
+                        )
+                    }
+                </div>
+                <h1>{post.title}</h1>
+                {description && <p>{description}</p>}
+            </header>
+
+            {
+                heroImage && (
+                    <figure class="post-hero-image">
+                        <img src={heroImage} alt="" />
+                    </figure>
+                )
+            }
+
+            {
+                contentHtml ? (
+                    <div class="blog-prose" set:html={contentHtml} />
+                ) : (
+                    <div class="blog-prose empty-content">
+                        <p>This post does not have content yet.</p>
+                    </div>
+                )
+            }
+        </article>
+    </main>
+    <Footer lang={lang} />
+</Layout>
+
+<style>
+    .blog-post {
+        min-height: 70vh;
+        background:
+            radial-gradient(circle at top, rgba(205, 150, 254, 0.09), transparent 34rem),
+            var(--color-canvas);
+    }
+
+    .post-shell {
+        max-width: 860px;
+        padding-block: 64px 96px;
+    }
+
+    .back-link {
+        color: var(--color-body);
+        display: inline-flex;
+        font-size: 0.875rem;
+        margin-bottom: 42px;
+        text-decoration: none;
+        transition: color var(--transition-base);
+    }
+
+    .back-link:hover {
+        color: var(--color-accent-light);
+    }
+
+    .post-header {
+        margin-bottom: 34px;
+    }
+
+    .post-meta {
+        align-items: center;
+        color: var(--color-accent);
+        display: flex;
+        font-size: 0.75rem;
+        gap: 8px;
+        letter-spacing: 0.04em;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+    }
+
+    .post-header h1 {
+        color: var(--color-ink);
+        font-size: clamp(2.4rem, 7vw, 5rem);
+        font-weight: 400;
+        letter-spacing: -0.06em;
+        line-height: 0.98;
+    }
+
+    .post-header p {
+        color: var(--color-body);
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin-top: 20px;
+        max-width: 64ch;
+    }
+
+    .post-hero-image {
+        background: var(--color-canvas-panel);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-lg);
+        margin: 0 0 42px;
+        overflow: hidden;
+    }
+
+    .post-hero-image img {
+        display: block;
+        width: 100%;
+        max-height: 520px;
+        object-fit: cover;
+    }
+
+    .blog-prose {
+        color: var(--color-body);
+        font-size: 1rem;
+        line-height: 1.85;
+    }
+
+    .blog-prose :global(*) {
+        margin: 0;
+    }
+
+    .blog-prose :global(* + *) {
+        margin-top: 1.15rem;
+    }
+
+    .blog-prose :global(h1),
+    .blog-prose :global(h2),
+    .blog-prose :global(h3),
+    .blog-prose :global(h4) {
+        color: var(--color-ink);
+        font-weight: 400;
+        letter-spacing: -0.035em;
+        line-height: 1.2;
+        margin-top: 2.4rem;
+    }
+
+    .blog-prose :global(h1) {
+        font-size: 2rem;
+    }
+
+    .blog-prose :global(h2) {
+        font-size: 1.6rem;
+    }
+
+    .blog-prose :global(h3) {
+        font-size: 1.3rem;
+    }
+
+    .blog-prose :global(a) {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 0.22em;
+    }
+
+    .blog-prose :global(strong) {
+        color: var(--color-body-strong);
+        font-weight: 600;
+    }
+
+    .blog-prose :global(blockquote) {
+        border-left: 2px solid var(--color-accent);
+        color: var(--color-body-strong);
+        padding-left: 18px;
+    }
+
+    .blog-prose :global(ul),
+    .blog-prose :global(ol) {
+        padding-left: 1.35rem;
+    }
+
+    .blog-prose :global(code) {
+        background: var(--color-canvas-panel);
+        border: 1px solid var(--color-hairline-soft);
+        border-radius: var(--radius-xs);
+        color: var(--color-accent-light);
+        font-size: 0.92em;
+        padding: 0.12em 0.32em;
+    }
+
+    .blog-prose :global(img) {
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-md);
+        display: block;
+        max-width: 100%;
+    }
+
+    .empty-content {
+        background: var(--color-canvas-soft);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-md);
+        padding: 24px;
+    }
+</style>

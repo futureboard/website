@@ -1,0 +1,225 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import {
+    formatPostDate,
+    getBlogPosts,
+    getImageUrl,
+    getPostDescription,
+} from "../../lib/blog";
+
+const lang = "en";
+const posts = await getBlogPosts();
+---
+
+<Layout
+    lang={lang}
+    title="Blogs — Futureboard Studio"
+    description="Latest news, development notes, and product updates from Futureboard Studio."
+>
+    <Header lang={lang} />
+    <main class="blog-index">
+        <section class="section-inner blog-hero">
+            <span class="eyebrow">Blog</span>
+            <div class="blog-hero-grid">
+                <div>
+                    <h1>Notes from the build.</h1>
+                    <p>
+                        Development logs, release notes, and behind-the-scenes updates
+                        from Futureboard Studio.
+                    </p>
+                </div>
+                <div class="blog-status card">
+                    <span class="status-dot status-dot--active" aria-hidden="true"></span>
+                    <span>{posts.length} post{posts.length === 1 ? "" : "s"} published</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-inner blog-list" aria-label="Blog posts">
+            {
+                posts.length > 0 ? (
+                    posts.map((post) => {
+                        const image = getImageUrl(post.heroImage ?? post.meta?.image);
+                        const description = getPostDescription(post);
+
+                        return (
+                            <article class="blog-card card">
+                                {image && (
+                                    <a href={`/blogs/p/${post.slug}`} class="blog-card-image">
+                                        <img src={image} alt="" loading="lazy" />
+                                    </a>
+                                )}
+                                <div class="blog-card-body">
+                                    <div class="blog-meta">
+                                        <time datetime={post.publishedAt}>
+                                            {formatPostDate(post.publishedAt)}
+                                        </time>
+                                    </div>
+                                    <h2>
+                                        <a href={`/blogs/p/${post.slug}`}>{post.title}</a>
+                                    </h2>
+                                    <p>{description}</p>
+                                    <a class="read-more" href={`/blogs/p/${post.slug}`}>
+                                        Read post →
+                                    </a>
+                                </div>
+                            </article>
+                        );
+                    })
+                ) : (
+                    <div class="empty-state card">
+                        <h2>No posts yet.</h2>
+                        <p>Check back soon for Futureboard Studio updates.</p>
+                    </div>
+                )
+            }
+        </section>
+    </main>
+    <Footer lang={lang} />
+</Layout>
+
+<style>
+    .blog-index {
+        min-height: 70vh;
+        background:
+            radial-gradient(circle at top left, rgba(115, 191, 252, 0.1), transparent 36rem),
+            var(--color-canvas);
+    }
+
+    .blog-hero {
+        padding-block: 88px 40px;
+    }
+
+    .blog-hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: end;
+    }
+
+    @media (min-width: 780px) {
+        .blog-hero-grid {
+            grid-template-columns: minmax(0, 1fr) auto;
+        }
+    }
+
+    .blog-hero h1 {
+        color: var(--color-ink);
+        font-size: clamp(2.5rem, 7vw, 5rem);
+        font-weight: 400;
+        letter-spacing: -0.06em;
+        line-height: 0.95;
+        max-width: 12ch;
+    }
+
+    .blog-hero p {
+        color: var(--color-body);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-top: 18px;
+        max-width: 48ch;
+    }
+
+    .blog-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--color-body-strong);
+        font-size: 0.8125rem;
+        padding: 14px 16px;
+        width: fit-content;
+    }
+
+    .blog-list {
+        display: grid;
+        gap: 18px;
+        padding-bottom: 96px;
+    }
+
+    .blog-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 22px;
+        overflow: hidden;
+    }
+
+    @media (min-width: 760px) {
+        .blog-card {
+            grid-template-columns: 280px 1fr;
+        }
+    }
+
+    .blog-card-image {
+        display: block;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: var(--color-canvas-panel);
+        min-height: 180px;
+    }
+
+    .blog-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform var(--transition-base);
+    }
+
+    .blog-card:hover .blog-card-image img {
+        transform: scale(1.025);
+    }
+
+    .blog-card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .blog-meta {
+        color: var(--color-mute);
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+
+    .blog-card h2 {
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        line-height: 1.12;
+    }
+
+    .blog-card h2 a {
+        color: var(--color-ink);
+        text-decoration: none;
+    }
+
+    .blog-card h2 a:hover,
+    .read-more:hover {
+        color: var(--color-accent-light);
+    }
+
+    .blog-card p,
+    .empty-state p {
+        color: var(--color-body);
+        line-height: 1.7;
+        margin-top: 12px;
+        max-width: 68ch;
+    }
+
+    .read-more {
+        color: var(--color-accent);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-top: 18px;
+        text-decoration: none;
+        width: fit-content;
+    }
+
+    .empty-state h2 {
+        color: var(--color-ink);
+        font-weight: 400;
+        letter-spacing: -0.03em;
+    }
+</style>
