@@ -6,6 +6,7 @@ export const th: TranslationKeys = {
   nav_features: "ฟีเจอร์",
   nav_roadmap: "โรดแมป",
   nav_download: "ดาวน์โหลด",
+  nav_blog: "บล็อก",
   nav_waitlist: "เข้าร่วม Waitlist",
 
   // Hero

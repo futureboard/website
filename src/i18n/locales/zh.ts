@@ -6,6 +6,7 @@ export const zh: TranslationKeys = {
   nav_features: "特色功能",
   nav_roadmap: "路线图",
   nav_download: "下载",
+  nav_blog: "博客",
   nav_waitlist: "加入候补名单",
 
   // Hero
