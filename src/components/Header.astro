@@ -31,8 +31,7 @@ if (
         <!-- Wordmark & Stylized Logo -->
         <div class="header-left">
             <a href={lang === "en" ? "/" : `/${lang}`} class="wordmark-link">
-                <img src="/logo.webp" alt="" class="h-8" />
-                <span class="wordmark">Futureboard Studio</span>
+                <img src="/logo.svg" alt="" class="h-5" />
             </a>
         </div>
 
@@ -166,15 +165,154 @@ if (
             >
                 {t.nav_waitlist}
             </a>
+
+            <button
+                type="button"
+                class="mobile-menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-sidebar"
+                data-mobile-menu-toggle
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <div class="mobile-sidebar-backdrop" data-mobile-menu-close></div>
+    <aside
+        id="mobile-sidebar"
+        class="mobile-sidebar"
+        aria-label="Mobile navigation"
+        aria-hidden="true"
+    >
+        <div class="mobile-sidebar-header">
+            <a href={lang === "en" ? "/" : `/${lang}`} class="wordmark-link">
+                <img src="/logo.svg" alt="Futureboard" class="h-5" />
+            </a>
+            <button
+                type="button"
+                class="mobile-sidebar-close"
+                aria-label="Close navigation menu"
+                data-mobile-menu-close
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="mobile-sidebar-nav" aria-label="Mobile primary navigation">
+            <a href={lang === "en" ? "/#product" : `/${lang}#product`}
+                >{t.nav_product}</a
+            >
+            <a
+                href={lang === "en"
+                    ? "/#feature-showcase"
+                    : `/${lang}#feature-showcase`}>{t.nav_features}</a
+            >
+            <a href={lang === "en" ? "/#roadmap" : `/${lang}#roadmap`}
+                >{t.nav_roadmap}</a
+            >
+            <a href={lang === "en" ? "/download" : `/${lang}/download`}
+                >{t.nav_download}</a
+            >
+            <a href={lang === "en" ? "/blogs" : `/${lang}/blogs`}
+                >{t.nav_blog}</a
+            >
+        </nav>
+
+        <div class="mobile-sidebar-actions">
+            <a
+                href={WAITLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary mobile-sidebar-cta"
+            >
+                {t.nav_waitlist}
+            </a>
+            <div class="mobile-sidebar-socials" aria-label="Social links">
+                <a
+                    href="https://discord.gg/kcAmCyXnVn"
+                    target="_blank"
+                    rel="noopener noreferrer">Discord</a
+                >
+                <a
+                    href="https://x.com/ftbdproject"
+                    target="_blank"
+                    rel="noopener noreferrer">X</a
+                >
+                <a
+                    href="https://github.com/arizkami/futureboard"
+                    target="_blank"
+                    rel="noopener noreferrer">GitHub</a
+                >
+            </div>
+        </div>
+    </aside>
 </header>
+
+<script>
+    const header = document.querySelector(".site-header");
+    const sidebar = document.querySelector(".mobile-sidebar");
+    const toggle = document.querySelector("[data-mobile-menu-toggle]");
+    const closeTargets = document.querySelectorAll("[data-mobile-menu-close]");
+    const sidebarLinks = document.querySelectorAll(".mobile-sidebar a");
+
+    const setMobileMenuOpen = (open) => {
+        header?.toggleAttribute("data-mobile-menu-open", open);
+        sidebar?.setAttribute("aria-hidden", String(!open));
+        toggle?.setAttribute("aria-expanded", String(open));
+        document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    toggle?.addEventListener("click", () => {
+        setMobileMenuOpen(!header?.hasAttribute("data-mobile-menu-open"));
+    });
+
+    closeTargets.forEach((target) => {
+        target.addEventListener("click", () => setMobileMenuOpen(false));
+    });
+
+    sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => setMobileMenuOpen(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMobileMenuOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 920) setMobileMenuOpen(false);
+    });
+</script>
 
 <style>
     .site-header {
         position: sticky;
         top: 0;
         z-index: 50;
+    }
+
+    .site-header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
         background: rgba(43, 41, 49, 0.82);
         border-bottom: 1px solid var(--color-hairline);
         backdrop-filter: blur(12px);
@@ -298,13 +436,212 @@ if (
         white-space: nowrap;
     }
 
+    .mobile-menu-toggle {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.025);
+        color: var(--color-ink);
+        transition:
+            border-color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
+
+    .mobile-menu-toggle:hover {
+        border-color: var(--color-rim, var(--fb-rim));
+        background: rgba(255, 255, 255, 0.055);
+    }
+
+    .mobile-menu-toggle span {
+        width: 14px;
+        height: 1.5px;
+        border-radius: 9999px;
+        background: currentColor;
+        transition:
+            transform var(--transition-fast),
+            opacity var(--transition-fast);
+    }
+
+    .site-header[data-mobile-menu-open] .mobile-menu-toggle span:nth-child(1) {
+        transform: translateY(5.5px) rotate(45deg);
+    }
+
+    .site-header[data-mobile-menu-open] .mobile-menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .site-header[data-mobile-menu-open] .mobile-menu-toggle span:nth-child(3) {
+        transform: translateY(-5.5px) rotate(-45deg);
+    }
+
+    .mobile-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        background: rgba(0, 0, 0, 0.52);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-base);
+    }
+
+    .mobile-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 70;
+        display: flex;
+        width: min(84vw, 320px);
+        flex-direction: column;
+        padding: 18px;
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.025) 1px,
+                transparent 1px
+            ),
+            rgba(36, 35, 41, 0.98);
+        background-size: 24px 24px;
+        border-left: 1px solid var(--color-hairline);
+        box-shadow: var(--shadow-lg);
+        transform: translateX(100%);
+        transition: transform 240ms ease;
+    }
+
+    .site-header[data-mobile-menu-open] .mobile-sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .site-header[data-mobile-menu-open] .mobile-sidebar {
+        transform: translateX(0);
+    }
+
+    .mobile-sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--color-hairline-soft);
+    }
+
+    .mobile-sidebar-close {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.025);
+        color: var(--color-body);
+        transition:
+            color var(--transition-fast),
+            border-color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
+
+    .mobile-sidebar-close:hover {
+        color: var(--color-ink);
+        border-color: var(--color-rim, var(--fb-rim));
+        background: rgba(255, 255, 255, 0.055);
+    }
+
+    .mobile-sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding-block: 18px;
+        text-align: left;
+    }
+
+    .mobile-sidebar-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 42px;
+        border-radius: var(--radius-sm);
+        padding: 9px 12px;
+        color: var(--color-body-strong);
+        font-size: 0.9375rem;
+        font-weight: 500;
+        transition:
+            color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
+
+    .mobile-sidebar-nav a:hover {
+        color: var(--color-ink);
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    .mobile-sidebar-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid var(--color-hairline-soft);
+    }
+
+    .mobile-sidebar-cta {
+        width: 100%;
+    }
+
+    .mobile-sidebar-socials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .mobile-sidebar-socials a {
+        display: inline-flex;
+        min-height: 36px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-sm);
+        color: var(--color-body);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        transition:
+            color var(--transition-fast),
+            border-color var(--transition-fast),
+            background-color var(--transition-fast);
+    }
+
+    .mobile-sidebar-socials a:hover {
+        color: var(--color-ink);
+        border-color: var(--color-rim, var(--fb-rim));
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    @media (min-width: 920px) {
+        .mobile-menu-toggle,
+        .mobile-sidebar-backdrop,
+        .mobile-sidebar {
+            display: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .nav-cta {
+            display: none;
+        }
+    }
+
     @media (max-width: 420px) {
         .wordmark {
             display: none;
-        }
-
-        .nav-cta {
-            padding-inline: 10px;
         }
     }
 </style>
