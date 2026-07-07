@@ -1,0 +1,249 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CursorGlowCard from "../components/CursorGlowCard.tsx";
+import { translations, type Locale } from "../i18n/translations";
+
+interface Props {
+    lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props;
+const t = translations[lang];
+
+const downloadHref = lang === "en" ? "/download" : `/${lang}/download`;
+
+const platforms = [
+    {
+        name: "Windows",
+        icon: "windows",
+        requirements: [
+            "Windows 10 22H2 or Windows 11",
+            "64-bit Intel/AMD CPU, Intel Core i5 8th Gen / AMD Ryzen 5 2000 or newer",
+            "8GB RAM minimum, 16GB recommended",
+            "DirectX 11 compatible GPU",
+            "WASAPI compatible audio device",
+            "2GB available storage, SSD recommended",
+            "VST3 64-bit plugin support",
+        ],
+    },
+    {
+        name: "Linux",
+        icon: "linux",
+        requirements: [
+            "Ubuntu 24.04 LTS or compatible modern Linux distribution",
+            "64-bit x86_64 CPU",
+            "8GB RAM minimum, 16GB recommended",
+            "Vulkan or OpenGL 3.3 compatible GPU",
+            "PipeWire or ALSA audio backend",
+            "2GB available storage, SSD recommended",
+            "Distributed as AppImage",
+        ],
+    },
+    {
+        name: "macOS",
+        icon: "macos",
+        requirements: [
+            "macOS 13 Ventura or newer",
+            "Apple Silicon or Intel Mac",
+            "8GB RAM minimum, 16GB recommended",
+            "CoreAudio compatible audio device",
+            "2GB available storage, SSD recommended",
+            "VST3 64-bit plugin support",
+        ],
+    },
+] as const;
+---
+
+<Layout
+    title={`${t.sysreq_title} — Futureboard Studio`}
+    description={t.sysreq_lead}
+    lang={lang}
+>
+    <Header lang={lang} />
+    <main>
+        <section class="sysreq-hero">
+            <div class="section-inner">
+                <span class="eyebrow">{t.sysreq_eyebrow}</span>
+                <h1 class="sysreq-title">{t.sysreq_title}</h1>
+                <p class="sysreq-lead">{t.sysreq_lead}</p>
+                <a href={downloadHref} class="sysreq-back-link"
+                    >{t.sysreq_back_to_download}</a
+                >
+            </div>
+        </section>
+
+        <section class="sysreq-platforms">
+            <div class="section-inner">
+                <div class="platform-grid">
+                    {
+                        platforms.map((platform) => (
+                            <CursorGlowCard
+                                className="platform-card"
+                                client:load
+                            >
+                                <div class="platform-icon-wrap">
+                                    {platform.icon === "windows" && (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="28"
+                                            height="28"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.549H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+                                        </svg>
+                                    )}
+                                    {platform.icon === "macos" && (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="28"
+                                            height="28"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                    )}
+                                    {platform.icon === "linux" && (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="28"
+                                            height="28"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.107 1.001-.37 1.302-.807l.books-books-books 1.488.072c.2.036.347.082.505.06.362-.055.744-.177.96-.463.293-.378.354-.99.354-1.752 0-.376-.01-.797-.042-1.218-.072-.9-.187-1.83-.387-2.543-.193-.717-.555-1.282-1.18-1.714 1.048-.262 2.05-.814 2.688-1.682.656-.889.951-1.989.736-3.176C21.736 8.55 20.34 6.695 19.24 5.17c-1.102-1.526-1.73-3.234-1.073-5.098C18.476.36 18.127 0 17.71 0h-5.206zm.49 6.93c-.195.54-.28 1.268-.253 1.986.026.711.146 1.41.437 1.929.576 1.018 1.36 1.516 2.116 1.707-.074.067-.147.135-.22.205C14.46 13.34 13.634 14.74 13 16.26c-.204.486-.39.989-.524 1.498a5.46 5.46 0 00-.18 1.379c-.001.437.044.847.117 1.18l-.23.048c-.42.09-.813.105-1.209.044.005-.21.017-.436.017-.645 0-.607-.04-1.24-.146-1.81-.108-.574-.28-1.075-.559-1.44-.278-.363-.625-.524-1.014-.523-.432.001-.805.19-1.12.449-.313.26-.571.599-.73.977-.158.378-.22.808-.176 1.236.044.428.171.852.368 1.2.194.349.457.614.73.755-.157.033-.316.053-.479.063-.164.011-.34.019-.5.006-.16-.011-.295-.044-.432-.093.031-.139.042-.284.053-.44.01-.155.02-.315.02-.493-.001-.342-.04-.718-.163-1.078-.124-.358-.327-.694-.64-.944-.31-.252-.712-.374-1.168-.371-.459.005-.886.14-1.21.379-.324.239-.55.564-.666.916-.116.352-.127.74-.055 1.097.073.358.218.686.414.956.197.27.44.477.688.61.247.132.497.194.733.197l.044.002c.001.1.001.2 0 .3l-.001.032c-.145-.01-.29-.028-.433-.056-.285-.055-.584-.152-.866-.317-.281-.162-.544-.395-.71-.737-.167-.34-.222-.77-.133-1.255.088-.485.34-.953.674-1.274.335-.32.754-.484 1.162-.477.41.006.818.177 1.12.47.304.292.494.709.528 1.187.034.48-.083.999-.33 1.43-.246.43-.614.772-1.032.946.109.023.22.04.332.05.333.03.699.008 1.07-.058.374-.065.745-.173 1.057-.327.31-.153.56-.356.704-.608.28-.492.319-1.156.258-1.843-.06-.688-.226-1.394-.47-1.98-.484-1.169-1.213-1.944-2.094-2.284l.155-.073c.498-.25.9-.584 1.208-.987.307-.403.516-.878.655-1.39.278-1.023.243-2.198.028-3.237-.215-1.04-.602-1.937-.994-2.39a4.73 4.73 0 00-.307-.31c.048-.24.107-.474.178-.697.206-.644.5-1.198.84-1.547.339-.35.718-.503 1.09-.481.372.023.74.23 1.076.6.334.37.621.91.796 1.562z" />
+                                        </svg>
+                                    )}
+                                </div>
+                                <h2 class="platform-name">{platform.name}</h2>
+                                <ul class="req-list">
+                                    {platform.requirements.map((item) => (
+                                        <li>{item}</li>
+                                    ))}
+                                </ul>
+                            </CursorGlowCard>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer lang={lang} />
+</Layout>
+
+<style>
+    .sysreq-hero {
+        padding-block: 80px 64px;
+        padding-inline: 24px;
+        border-bottom: 1px solid var(--color-hairline);
+        background: var(--color-canvas);
+    }
+
+    .sysreq-title {
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: var(--color-ink);
+        line-height: 1.1;
+        margin-top: 12px;
+        margin-bottom: 18px;
+    }
+
+    .sysreq-lead {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--color-body);
+        max-width: 52ch;
+        margin-bottom: 20px;
+    }
+
+    .sysreq-back-link {
+        font-family: var(--font-sans);
+        font-size: 0.8125rem;
+        color: var(--color-accent);
+        opacity: 0.85;
+        transition: opacity var(--transition-base);
+    }
+
+    .sysreq-back-link:hover {
+        opacity: 1;
+    }
+
+    .sysreq-platforms {
+        padding-block: 64px 80px;
+        padding-inline: 24px;
+        background: var(--color-canvas);
+    }
+
+    .platform-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    @media (min-width: 960px) {
+        .platform-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    :global(.cursor-glow-card).platform-card {
+        background: var(--color-canvas-soft);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .platform-icon-wrap {
+        color: var(--color-accent);
+    }
+
+    .platform-name {
+        font-size: 1.0625rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.02em;
+    }
+
+    .req-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+    }
+
+    .req-list li {
+        font-size: 0.875rem;
+        color: var(--color-body);
+        line-height: 1.55;
+        padding-left: 14px;
+        position: relative;
+    }
+
+    .req-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 4px;
+        height: 4px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        opacity: 0.5;
+    }
+</style>

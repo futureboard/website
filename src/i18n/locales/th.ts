@@ -178,4 +178,12 @@ export const th: TranslationKeys = {
   dl_notice_title: "แจ้งไว้ก่อน — นี่คือซอฟต์แวร์ alpha",
   dl_notice_body:
     "อาจแครชได้ การตั้งค่าบางอย่างอาจไม่ถูกบันทึก และบางฟีเจอร์ยังเป็น placeholder เราอยากปล่อยของจริงให้คนทดสอบ มากกว่ารอให้สมบูรณ์แบบ ถ้าเจออะไรพัง เปิด issue หรือมาคุยกับเราบน Discord ได้เลย",
+  dl_sys_req_link: "ดูความต้องการของระบบทั้งหมด →",
+
+  // System Requirements Page
+  sysreq_eyebrow: "ดาวน์โหลด",
+  sysreq_title: "ความต้องการของระบบ",
+  sysreq_lead:
+    "ข้อกำหนดด้านฮาร์ดแวร์และซอฟต์แวร์สำหรับรัน Futureboard Studio บน Windows, Linux และ macOS",
+  sysreq_back_to_download: "← กลับไปหน้าดาวน์โหลด",
 };

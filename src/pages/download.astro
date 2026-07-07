@@ -85,6 +85,8 @@ function formatReleaseDate(locale: Locale, publishedAt?: string) {
 const latestRelease = await getLatestRelease();
 const releaseVersion = latestRelease?.tag_name ?? FALLBACK_RELEASE_VERSION;
 const releaseDateLabel = formatReleaseDate(lang, latestRelease?.published_at);
+const sysReqHref =
+    lang === "en" ? "/system-requirements" : `/${lang}/system-requirements`;
 ---
 
 <Layout
@@ -238,60 +240,11 @@ const releaseDateLabel = formatReleaseDate(lang, latestRelease?.published_at);
         <section class="dl-requirements">
             <div class="section-inner">
                 <h2 class="req-title">{t.dl_sys_req}</h2>
-                <div class="req-grid">
-                    <div class="req-col">
-                        <p class="req-heading">{t.dl_min}</p>
-                        <ul class="req-list">
-                            <li>
-                                <span class="req-label">OS</span>Windows 10
-                                64-bit (build 1903+)
-                            </li>
-                            <li>
-                                <span class="req-label">CPU</span>Any modern x64
-                                processor
-                            </li>
-                            <li><span class="req-label">RAM</span>4 GB</li>
-                            <li>
-                                <span class="req-label">GPU</span>DirectX 11
-                                capable
-                            </li>
-                            <li>
-                                <span class="req-label">Storage</span>200 MB
-                                free
-                            </li>
-                            <li>
-                                <span class="req-label">Audio</span>WASAPI
-                                compatible interface
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="req-col">
-                        <p class="req-heading">{t.dl_rec}</p>
-                        <ul class="req-list">
-                            <li>
-                                <span class="req-label">OS</span>Windows 11
-                                64-bit
-                            </li>
-                            <li>
-                                <span class="req-label">CPU</span>Ryzen 5 / Core
-                                i5 or better
-                            </li>
-                            <li><span class="req-label">RAM</span>16 GB</li>
-                            <li>
-                                <span class="req-label">GPU</span>Discrete GPU
-                                with 2 GB VRAM
-                            </li>
-                            <li>
-                                <span class="req-label">Storage</span>SSD
-                                recommended
-                            </li>
-                            <li>
-                                <span class="req-label">Audio</span>Low-latency
-                                WDM-KS interface
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <p class="req-summary">
+                    Windows 10 22H2+, Ubuntu 24.04 LTS+, or macOS 13 Ventura+.
+                    8 GB RAM minimum (16 GB recommended). 2 GB storage.
+                </p>
+                <a href={sysReqHref} class="req-link">{t.dl_sys_req_link}</a>
             </div>
         </section>
 
@@ -615,51 +568,27 @@ const releaseDateLabel = formatReleaseDate(lang, latestRelease?.published_at);
         font-weight: 500;
         color: var(--color-ink);
         letter-spacing: -0.03em;
-        margin-bottom: 28px;
+        margin-bottom: 12px;
     }
 
-    .req-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    @media (min-width: 640px) {
-        .req-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    .req-heading {
-        font-family: var(--font-sans);
-        font-size: 0.8125rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: var(--color-mute);
-        margin-bottom: 14px;
-    }
-
-    .req-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .req-list li {
-        display: flex;
-        align-items: baseline;
-        gap: 10px;
+    .req-summary {
         font-size: 0.875rem;
+        line-height: 1.65;
         color: var(--color-body);
-        line-height: 1.5;
+        max-width: 52ch;
+        margin-bottom: 16px;
     }
 
-    .req-label {
+    .req-link {
         font-family: var(--font-sans);
         font-size: 0.8125rem;
-        color: var(--color-mute);
-        min-width: 52px;
-        flex-shrink: 0;
+        color: var(--color-accent);
+        opacity: 0.85;
+        transition: opacity var(--transition-base);
+    }
+
+    .req-link:hover {
+        opacity: 1;
     }
 
     /* ── Changelog ──────────────────────────── */

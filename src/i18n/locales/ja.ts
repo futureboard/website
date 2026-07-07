@@ -180,4 +180,12 @@ export const ja: TranslationKeys = {
   dl_notice_title: "重要 — アルファ版の製品です",
   dl_notice_body:
     "強制終了や設定が保存されないエラーが発生する可能性があります。問題が発生した場合は、GitHubのIssueよりバグレポートをご提出いただくか、Discordにてお問い合わせください。",
+  dl_sys_req_link: "動作要件の詳細を見る →",
+
+  // System Requirements Page
+  sysreq_eyebrow: "ダウンロード",
+  sysreq_title: "動作要件",
+  sysreq_lead:
+    "Windows、Linux、macOS で Futureboard Studio を実行するためのハードウェアおよびソフトウェア要件です。",
+  sysreq_back_to_download: "← ダウンロードに戻る",
 };

@@ -176,4 +176,12 @@ export const zh: TranslationKeys = {
   dl_notice_title: "提示 — 这是早期 Alpha 测试软件",
   dl_notice_body:
     "由于该版本仍为开发版，运行中可能会遇到意外退出或数据无法保存的情况。如果您遇到故障，请在 GitHub 提交反馈，或直接在 Discord 与我们团队联系。",
+  dl_sys_req_link: "查看完整系统要求 →",
+
+  // System Requirements Page
+  sysreq_eyebrow: "下载",
+  sysreq_title: "系统要求",
+  sysreq_lead:
+    "在 Windows、Linux 和 macOS 上运行 Futureboard Studio 的硬件与软件要求。",
+  sysreq_back_to_download: "← 返回下载页",
 };

@@ -177,6 +177,14 @@ export const en = {
   dl_notice_title: "Heads up — this is alpha software",
   dl_notice_body:
     "Things will crash. Settings might not save. Some features are placeholders. We'd rather ship something real for people to test than wait until it's perfect. If something breaks, open an issue or yell at us on Discord.",
+  dl_sys_req_link: "View full system requirements →",
+
+  // System Requirements Page
+  sysreq_eyebrow: "Download",
+  sysreq_title: "System Requirements",
+  sysreq_lead:
+    "Hardware and software requirements for running Futureboard Studio on Windows, Linux, and macOS.",
+  sysreq_back_to_download: "← Back to download",
 };
 
 export type TranslationKeys = typeof en;
