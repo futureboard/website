@@ -96,38 +96,40 @@ export const th: TranslationKeys = {
 
   // Roadmap
   roadmap_eyebrow: "โรดแมป",
-  roadmap_title: "สิ่งที่กำลังสร้างอยู่คร่าว ๆ",
+  roadmap_title: "จาก Alpha แรก สู่ DAW เนทีฟที่ใช้งานจริง",
   roadmap_lead:
-    "ลำดับอาจเปลี่ยนได้ และหลายอย่างใช้เวลานานกว่าที่คิด แต่นี่คือทิศทางโดยรวม",
-  roadmap_status_active: "กำลังทำ",
+    "Futureboard Studio ตอนนี้เป็น native-first แล้ว โฟกัสไม่ได้อยู่ที่การพอร์ต UI อีกต่อไป แต่คือการทำแกน DAW ให้เสถียร ทำ plugin host ให้เชื่อถือได้ และเตรียมรุ่น public alpha แรก",
+  roadmap_status_active: "Alpha Lockdown",
   roadmap_status_planned: "วางแผนไว้",
   roadmap_status_future: "อนาคต",
 
-  roadmap_item1_label: "พอร์ตไป GPUI Native",
+  roadmap_item1_label: "แกน Native Studio",
   roadmap_item1_detail:
-    "ย้ายเลเยอร์เรนเดอร์ไป Rust + GPUI เพื่อประสิทธิภาพแบบเนทีฟเต็มรูปแบบ",
-  roadmap_item2_label: "ระบบไทม์ไลน์",
+    "แอปเดสก์ท็อป Rust/GPUI, project lifecycle แบบเนทีฟ, arrangement timeline, inspector, mixer, editor panels และ workflow หลักของ Studio",
+  roadmap_item2_label: "เสถียรภาพ Audio Engine",
   roadmap_item2_detail:
-    "เลนแทร็ก การจัดเรียงคลิป transport controls และ loop regions",
-  roadmap_item3_label: "ตัวแก้ไข Audio / MIDI / Automation",
-  roadmap_item3_detail: "Piano roll, automation curves และตัวแก้คลิป waveform",
-  roadmap_item4_label: "รองรับปลั๊กอินเสียง",
+    "Realtime playback, transport, sample-rate ownership, PDC, latency reporting และ live mixer controls ที่ไม่ rebuild graph ระหว่างเล่น",
+  roadmap_item3_label: "MIDI Editing & Playback",
+  roadmap_item3_detail:
+    "Piano roll, velocity, CC lanes, MIDI routing, import flow และ engine scheduling สำหรับ playback จากคลิปจริง",
+  roadmap_item4_label: "VST3 Plugin Host",
   roadmap_item4_detail:
-    "โฮสต์ VST3 และ CLAP พร้อม plugin scanner และ sandbox สำหรับแยก process",
-  roadmap_item5_label: "มิกเซอร์และ routing",
+    "Plugin scanning, editor hosting, state persistence, ProcessContext จริง, parameter automation และ compatibility hardening",
+  roadmap_item5_label: "Mixer / Routing / Multi-Out",
   roadmap_item5_detail:
-    "Channel strip เต็มรูปแบบ, aux sends, master bus และกราฟ routing ที่ยืดหยุ่น",
-  roadmap_item6_label: "รุ่นแรกสำหรับ Windows",
-  roadmap_item6_detail: "ไบนารีเสถียรรุ่นแรกสำหรับ Windows x64",
-  roadmap_item7_label: "เป้าหมายเว็บ React + WASM",
+    "Channel strips, sends/returns, routing matrix, detached mixer, VSTi multi-out child strips และ substrip FX inserts",
+  roadmap_item6_label: "Export / Bounce Foundations",
+  roadmap_item6_detail:
+    "Export เป็น WAV, RAUF, FLAC, MP3 แบบ optional, offline renderer, PDC-aware pre-roll, progress/cancel และข้อจำกัดของ bridged plugins ที่บอกตรง ๆ",
+  roadmap_item7_label: "Windows First Alpha",
   roadmap_item7_detail:
-    "Futureboard Express เวอร์ชันเบราว์เซอร์พร้อม WASM audio engine",
-  roadmap_item8_label: "รองรับ macOS / Linux",
+    "Installer, portable builds, feedback จาก tester, crash/stutter diagnostics, known issues และรายงาน plugin compatibility",
+  roadmap_item8_label: "Linux and macOS Builds",
   roadmap_item8_detail:
-    "เปิดทางให้คอมมูนิตี้ช่วยพอร์ตสำหรับแพลตฟอร์มนอก Windows",
-  roadmap_item9_label: "รูปแบบปลั๊กอิน LV2 / AU",
+    "Packaging, platform testing และ plugin-host portability หลังจาก Windows native path เสถียรก่อน",
+  roadmap_item9_label: "Plugin Formats & Advanced Tools",
   roadmap_item9_detail:
-    "ขยายการรองรับ ecosystem ปลั๊กอินสำหรับผู้ใช้ Linux และ macOS",
+    "CLAP, AU, LV2, score editor, vocal tools, stem tools, video timeline, MTC/LTC, mobile companion และ extension APIs ในระยะถัดไป",
 
   // Waitlist
   waitlist_eyebrow: "Early Access",

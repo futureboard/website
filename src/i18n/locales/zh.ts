@@ -94,38 +94,40 @@ export const zh: TranslationKeys = {
 
   // Roadmap
   roadmap_eyebrow: "开发路线图",
-  roadmap_title: "未来开发方向规划",
-  roadmap_lead: "计划可能会调整，事情也常比预期更耗时。但这就是目前的大方向。",
-  roadmap_status_active: "开发中",
+  roadmap_title: "从首个 Alpha，迈向真正的原生 DAW。",
+  roadmap_lead:
+    "Futureboard Studio 现已转向原生优先。当前重点不再是移植 UI，而是稳定 DAW 核心、强化插件支持，并为首个公开 Alpha 做准备。",
+  roadmap_status_active: "Alpha Lockdown",
   roadmap_status_planned: "已规划",
   roadmap_status_future: "将来目标",
 
-  roadmap_item1_label: "重构至 GPUI 原生渲染层",
+  roadmap_item1_label: "原生 Studio 核心",
   roadmap_item1_detail:
-    "将全部界面渲染逻辑迁移至 Rust + GPUI 框架下，释放极致运行效率。",
-  roadmap_item2_label: "核心时间轴系统",
+    "Rust/GPUI 桌面应用、原生项目生命周期、编曲时间轴、属性检查器、调音台、编辑器面板，以及 Studio 的主要工作流。",
+  roadmap_item2_label: "音频引擎稳定化",
   roadmap_item2_detail:
-    "主音轨通道、音频剪辑排列、走带控制与自定义循环区域编辑。",
-  roadmap_item3_label: "音频 / MIDI / 自动化编辑视窗",
+    "实时播放、走带控制、采样率管理、PDC、延迟报告，以及无需重建处理图的实时调音台控制。",
+  roadmap_item3_label: "MIDI 编辑与播放",
   roadmap_item3_detail:
-    "钢琴卷帘、自动化控制包络线以及音频剪辑的实时波形剪切功能。",
-  roadmap_item4_label: "乐器与效果插件支持",
+    "钢琴卷帘编辑、力度、CC 控制轨、MIDI 路由、导入流程，以及用于真实片段播放的引擎调度。",
+  roadmap_item4_label: "VST3 插件宿主",
   roadmap_item4_detail:
-    "VST3 和 CLAP 原生宿主接入，以及防止第三方插件造成崩溃的安全沙箱扫描机制。",
-  roadmap_item5_label: "调音台路由系统",
+    "插件扫描、编辑器托管、状态持久化、真实 ProcessContext、参数自动化与兼容性强化。",
+  roadmap_item5_label: "调音台 / 路由 / Multi-Out",
   roadmap_item5_detail:
-    "总线音轨控制、发送路由效果链、调音台精确信号指示以及信号逻辑。",
-  roadmap_item6_label: "首个 Windows 稳定版本",
-  roadmap_item6_detail: "首个官方发行的 Windows x64 桌面安装包与绿色包。",
-  roadmap_item7_label: "Web React + WASM 运行环境",
+    "通道条、发送/返回、路由矩阵、独立调音台、VSTi Multi-Out 子通道条与子通道 FX 插槽。",
+  roadmap_item6_label: "导出 / 混缩基础",
+  roadmap_item6_detail:
+    "支持 WAV、RAUF、FLAC 与可选 MP3 导出、离线渲染、PDC 感知预滚、进度/取消，并明确说明桥接插件的限制。",
+  roadmap_item7_label: "Windows First Alpha",
   roadmap_item7_detail:
-    "使用 WebAssembly 音频引擎作为核心的浏览器运行版 Futureboard Express。",
-  roadmap_item8_label: "macOS / Linux 系统适配",
+    "安装版与便携版、测试者反馈、崩溃/卡顿诊断、已知问题，以及插件兼容性报告。",
+  roadmap_item8_label: "Linux 与 macOS 构建",
   roadmap_item8_detail:
-    "正式开辟非 Windows 环境运行测试，开启开源贡献者支持通道。",
-  roadmap_item9_label: "扩展 LV2 / AU 插件格式",
+    "待 Windows 原生路径稳定后，再推进打包、平台测试与插件宿主的跨平台移植。",
+  roadmap_item9_label: "更多插件格式与高级工具",
   roadmap_item9_detail:
-    "为 Linux 与 Mac 用户扩展适配更多主流的第三方音频插件封装格式。",
+    "CLAP、AU、LV2、乐谱编辑、声乐工具、分轨工具、视频时间轴、MTC/LTC、移动端伴侣与扩展 API 将在后续阶段推出。",
 
   // Waitlist
   waitlist_eyebrow: "早期体验",
