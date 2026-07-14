@@ -94,39 +94,40 @@ export const en = {
 
   // Roadmap
   roadmap_eyebrow: "Roadmap",
-  roadmap_title: "What's getting built, roughly.",
+  roadmap_title: "From first alpha to a real native DAW.",
   roadmap_lead:
-    "Order might shift. Things take longer than expected. But this is the general direction.",
-  roadmap_status_active: "In Progress",
+    "Futureboard Studio is now native-first. The focus is no longer porting the UI — it is stabilizing the DAW core, hardening plugin support, and preparing the first public alpha.",
+  roadmap_status_active: "Alpha Lockdown",
   roadmap_status_planned: "Planned",
   roadmap_status_future: "Future",
 
-  roadmap_item1_label: "Port to GPUI Native",
+  roadmap_item1_label: "Native Studio Core",
   roadmap_item1_detail:
-    "Migrating rendering layer to Rust + GPUI for full native performance.",
-  roadmap_item2_label: "Timeline system",
+    "Rust/GPUI desktop app, native project lifecycle, arrangement timeline, inspector, mixer, editor panels, and the main Studio workflow.",
+  roadmap_item2_label: "Audio Engine Stabilization",
   roadmap_item2_detail:
-    "Track lanes, clip arrangement, transport controls, and loop regions.",
-  roadmap_item3_label: "Audio / MIDI / Automation editors",
+    "Realtime playback, transport, sample-rate ownership, PDC, latency reporting, and live mixer controls that do not rebuild the graph.",
+  roadmap_item3_label: "MIDI Editing & Playback",
   roadmap_item3_detail:
-    "Piano roll, automation curves, and waveform clip editors.",
-  roadmap_item4_label: "Audio plugin support",
+    "Piano roll editing, velocity, CC lanes, MIDI routing, import flow, and engine scheduling for real clip playback.",
+  roadmap_item4_label: "VST3 Plugin Host",
   roadmap_item4_detail:
-    "VST3 and CLAP host integration. Plugin scanner and process sandbox.",
-  roadmap_item5_label: "Mixer and routing",
+    "Plugin scanning, editor hosting, state persistence, real ProcessContext, parameter automation, and compatibility hardening.",
+  roadmap_item5_label: "Mixer / Routing / Multi-Out",
   roadmap_item5_detail:
-    "Full channel strip, aux sends, master bus, and flexible routing graph.",
-  roadmap_item6_label: "Windows first release",
-  roadmap_item6_detail: "First stable binary targeting Windows x64.",
-  roadmap_item7_label: "Web React + WASM target",
+    "Channel strips, sends/returns, routing matrix, detached mixer, VSTi multi-out child strips, and substrip FX inserts.",
+  roadmap_item6_label: "Export / Bounce Foundations",
+  roadmap_item6_detail:
+    "WAV, RAUF, FLAC, optional MP3 export, offline rendering, PDC-aware pre-roll, progress/cancel, and honest bridged-plugin limitations.",
+  roadmap_item7_label: "Windows First Alpha",
   roadmap_item7_detail:
-    "Futureboard Express browser edition with WASM audio engine.",
-  roadmap_item8_label: "macOS / Linux support",
+    "Installer and portable builds, tester feedback, crash/stutter diagnostics, known issues, and plugin compatibility reports.",
+  roadmap_item8_label: "Linux and macOS Builds",
   roadmap_item8_detail:
-    "Community contributor pathway for non-Windows platforms.",
-  roadmap_item9_label: "LV2 / AU plugin formats",
+    "Packaging, platform testing, and plugin-host portability after the Windows native path is stable.",
+  roadmap_item9_label: "More Plugin Formats & Advanced Tools",
   roadmap_item9_detail:
-    "Expand plugin ecosystem coverage for Linux and macOS users.",
+    "CLAP, AU, LV2, score editing, vocal tools, stem tools, video timeline, MTC/LTC, mobile companion, and extension APIs later.",
 
   // Waitlist
   waitlist_eyebrow: "Early Access",

@@ -96,40 +96,40 @@ export const ja: TranslationKeys = {
 
   // Roadmap
   roadmap_eyebrow: "ロードマップ",
-  roadmap_title: "開発予定リスト",
+  roadmap_title: "最初のAlphaから、本格的なネイティブDAWへ。",
   roadmap_lead:
-    "順序は変更される可能性がありますが、基本的にはこのロードマップに沿って開発を進めています。",
-  roadmap_status_active: "開発中",
+    "Futureboard Studioはネイティブファーストへ移行しました。今の重点はUIの移植ではなく、DAWコアの安定化、プラグイン対応の強化、そして最初の公開Alphaの準備です。",
+  roadmap_status_active: "Alpha Lockdown",
   roadmap_status_planned: "計画中",
   roadmap_status_future: "将来対応",
 
-  roadmap_item1_label: "GPUIネイティブへの移行",
+  roadmap_item1_label: "ネイティブStudioコア",
   roadmap_item1_detail:
-    "Rust + GPUIを活用した超高速で軽快な動作のメイン描写環境への移植作業。",
-  roadmap_item2_label: "タイムラインの基盤システム",
+    "Rust/GPUIデスクトップアプリ、ネイティブなプロジェクトライフサイクル、アレンジメントタイムライン、インスペクター、ミキサー、各エディターパネル、Studioの主要ワークフロー。",
+  roadmap_item2_label: "オーディオエンジンの安定化",
   roadmap_item2_detail:
-    "トラックレーン、クリップ配置、トランスポート制御およびループ選択機能の開発。",
-  roadmap_item3_label: "音声 / MIDI / オートメーションエディタ",
+    "リアルタイム再生、トランスポート、サンプルレート管理、PDC、レイテンシー報告、グラフを再構築しないライブミキサー操作。",
+  roadmap_item3_label: "MIDI編集と再生",
   roadmap_item3_detail:
-    "ピアノロール、オートメーション曲線、波形編集インターフェースの実装。",
-  roadmap_item4_label: "オーディオプラグイン対応",
+    "ピアノロール編集、ベロシティ、CCレーン、MIDIルーティング、インポート、実際のクリップ再生に向けたエンジンスケジューリング。",
+  roadmap_item4_label: "VST3プラグインホスト",
   roadmap_item4_detail:
-    "VST3およびCLAPプラグインスキャナの統合、クラッシュ防止用サンドボックス環境の開発。",
-  roadmap_item5_label: "ミキサーと音響ルーティング",
+    "プラグインスキャン、エディター表示、状態の永続化、実際のProcessContext、パラメーターオートメーション、互換性の強化。",
+  roadmap_item5_label: "ミキサー / ルーティング / Multi-Out",
   roadmap_item5_detail:
-    "各チャンネルストリップ、AUXセンド、マスターバス、高精度音声信号グラフの構築。",
-  roadmap_item6_label: "Windows向け初公開版",
+    "チャンネルストリップ、センド/リターン、ルーティングマトリクス、独立ミキサー、VSTi Multi-Out子ストリップ、サブストリップFXインサート。",
+  roadmap_item6_label: "エクスポート / バウンス基盤",
   roadmap_item6_detail:
-    "Windows x64環境向けの初となる公式安定バイナリの配布準備。",
-  roadmap_item7_label: "Web React + WASMビルド",
+    "WAV、RAUF、FLAC、オプションのMP3出力、オフラインレンダリング、PDC対応プリロール、進捗/キャンセル、ブリッジプラグインの制約の明示。",
+  roadmap_item7_label: "Windows First Alpha",
   roadmap_item7_detail:
-    "WebAssembly音声エンジンを用いたブラウザ版Futureboard Expressの作成。",
-  roadmap_item8_label: "macOS / Linuxプラットフォームサポート",
+    "インストーラーとポータブル版、テスターからのフィードバック、クラッシュ/音切れ診断、既知の問題、プラグイン互換性レポート。",
+  roadmap_item8_label: "Linux / macOSビルド",
   roadmap_item8_detail:
-    "非Windows環境での実行に向けたコミュニティ共同貢献プロセスの開始。",
-  roadmap_item9_label: "LV2 / AUプラグイン規格のサポート",
+    "Windowsのネイティブ版が安定した後に、パッケージング、各プラットフォームのテスト、プラグインホストの移植性を整備。",
+  roadmap_item9_label: "追加プラグイン形式と高度なツール",
   roadmap_item9_detail:
-    "macOSおよびLinuxユーザー向けの対応プラグイン形式の拡張。",
+    "CLAP、AU、LV2、スコアエディター、ボーカル/ステムツール、ビデオタイムライン、MTC/LTC、モバイルコンパニオン、拡張APIは後の段階で対応。",
 
   // Waitlist
   waitlist_eyebrow: "早期プレビュー登録",
