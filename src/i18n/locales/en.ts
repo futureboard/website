@@ -1,5 +1,6 @@
 export const en = {
   // Header
+  nav_skip: "Skip to content",
   nav_product: "Product",
   nav_features: "Features",
   nav_roadmap: "Roadmap",

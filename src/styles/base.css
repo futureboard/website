@@ -14,6 +14,28 @@
         -moz-osx-font-smoothing: grayscale;
         font-feature-settings: "cv11", "ss01";
         line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Sticky header is ~52px; keep in-page anchor targets clear of it */
+    :target,
+    [id] {
+        scroll-margin-top: 72px;
+    }
+
+    /* Respect users who ask for less motion */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            scroll-behavior: auto !important;
+        }
     }
 
     *,
@@ -85,6 +107,15 @@
     button {
         cursor: pointer;
         font-family: inherit;
+    }
+
+    /* Mono reserved for technical metadata: code, keys, IDs, timecodes */
+    code,
+    kbd,
+    samp,
+    pre {
+        font-family: var(--font-mono);
+        font-feature-settings: normal;
     }
 
     ul,

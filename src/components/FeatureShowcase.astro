@@ -18,7 +18,6 @@ const features = [
     image: '/ft-track-experience.webp',
     imageAlt: 'Futureboard track arrangement view showing multiple colored audio tracks',
     flip: false,
-    accent: '#31FD97',
   },
   {
     id: 'inspector',
@@ -28,7 +27,6 @@ const features = [
     image: '/ft-inspector.webp',
     imageAlt: 'Inspector panel showing clip properties like name, timing, gain, and fade controls',
     flip: true,
-    accent: '#73BFFC',
   },
   {
     id: 'continuous-scroll',
@@ -38,7 +36,6 @@ const features = [
     image: '/ft-continuous-scroll.webp',
     imageAlt: 'Continuous scroll view showing smooth waveform timeline playback',
     flip: false,
-    accent: '#94E2FE',
   },
   {
     id: 'floating-toolbar',
@@ -48,7 +45,6 @@ const features = [
     image: '/ft-floating-toolbar.webp',
     imageAlt: 'Floating toolbar appearing near an audio track with editing tool icons',
     flip: true,
-    accent: '#FCA2B2',
   },
   {
     id: 'mixer',
@@ -58,7 +54,6 @@ const features = [
     image: '/ft-mixer.webp',
     imageAlt: 'Futureboard mixer showing multiple channel strips with faders, pan knobs, and meters',
     flip: false,
-    accent: '#CD96FE',
   },
   {
     id: 'midi-editor',
@@ -68,7 +63,6 @@ const features = [
     image: '/ft-midi.webp',
     imageAlt: 'MIDI piano roll editor showing teal note blocks on a dark grid',
     flip: true,
-    accent: '#7163F6',
   },
 ];
 ---
@@ -87,7 +81,6 @@ const features = [
       <article
         class={`showcase-item ${ft.flip ? 'showcase-item--flip' : ''}`}
         id={ft.id}
-        style={`--ft-accent: ${ft.accent};`}
       >
         <div class="showcase-inner">
           <!-- Text column -->
@@ -95,6 +88,7 @@ const features = [
             <div class="showcase-meta">
               <span class="showcase-num">{ft.tag}</span>
               <span class="showcase-divider" aria-hidden="true"></span>
+              <span class="showcase-kicker">{ft.id.replace(/-/g, ' ')}</span>
             </div>
             <h3 class="showcase-title">{ft.title}</h3>
             {ft.body.map(p => (
@@ -102,22 +96,20 @@ const features = [
             ))}
           </div>
 
-          <!-- Image column with stylized editor window frame -->
+          <!-- Image column, framed with mono panel header -->
           <div class="showcase-visual">
-            <div class="showcase-frame">
-              <div class="frame-header-decor">
-                <span class="decor-dot"></span>
-                <span class="decor-title">{ft.title.toUpperCase()} PANEL</span>
-                <span class="decor-ruler">0{i + 1}:00:00:00</span>
-              </div>
-              <div class="frame-glow" aria-hidden="true"></div>
+            <figure class="showcase-frame">
+              <figcaption class="frame-bar">
+                <span class="frame-bar-name">{ft.title.toUpperCase()}</span>
+                <span class="frame-bar-code">{`0${i + 1}:00:00:00`}</span>
+              </figcaption>
               <img
                 src={ft.image}
                 alt={ft.imageAlt}
                 class="showcase-img"
                 loading={i === 0 ? 'eager' : 'lazy'}
               />
-            </div>
+            </figure>
           </div>
         </div>
       </article>
@@ -126,7 +118,6 @@ const features = [
 </section>
 
 <style>
-  /* ─── Section wrapper ─────────────────────────── */
   .showcase-section {
     background: var(--color-canvas);
     border-top: 1px solid var(--color-hairline);
@@ -135,71 +126,41 @@ const features = [
 
   .showcase-section .section-inner {
     padding-inline: 24px;
-    margin-bottom: 80px;
+    margin-bottom: 72px;
   }
 
-  .section-lead {
-    margin-top: 0.75rem;
-  }
-
-  /* ─── Feature items list ──────────────────────── */
   .showcase-features {
     display: flex;
     flex-direction: column;
   }
 
-  /* ─── Each item ───────────────────────────────── */
   .showcase-item {
     border-top: 1px solid var(--color-hairline);
-    padding-block: 80px;
+    padding-block: 72px;
     padding-inline: 24px;
     position: relative;
-    transition: background 0.4s ease;
   }
 
   .showcase-item:last-child {
     border-bottom: 1px solid var(--color-hairline);
   }
 
-  /* Subtle accent glow on hover per-item */
-  .showcase-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.012);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .showcase-item--flip::before {
-    background: rgba(255, 255, 255, 0.012);
-  }
-
-  .showcase-item:hover::before {
-    opacity: 1;
-  }
-
-  /* ─── Inner grid ──────────────────────────────── */
   .showcase-inner {
     max-width: 1200px;
     margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
     align-items: center;
     position: relative;
-    z-index: 1;
   }
 
   @media (min-width: 900px) {
     .showcase-inner {
       grid-template-columns: 1fr 1fr;
-      gap: 72px;
+      gap: 64px;
     }
 
-    /* Flip layout: image left, text right */
     .showcase-item--flip .showcase-inner {
       direction: rtl;
     }
@@ -209,7 +170,7 @@ const features = [
     }
   }
 
-  /* ─── Text column ─────────────────────────────── */
+  /* Text column */
   .showcase-meta {
     display: flex;
     align-items: center;
@@ -218,21 +179,28 @@ const features = [
   }
 
   .showcase-num {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--ft-accent);
-    opacity: 0.85;
+    font-weight: 500;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
   }
 
   .showcase-divider {
     display: block;
     height: 1px;
-    width: 32px;
-    background: var(--ft-accent);
-    opacity: 0.3;
+    width: 28px;
+    background: var(--color-hairline);
     flex-shrink: 0;
+  }
+
+  .showcase-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-mute);
   }
 
   .showcase-title {
@@ -255,21 +223,22 @@ const features = [
     margin-top: 14px;
   }
 
-  /* ─── Image column ────────────────────────────── */
+  /* Image column */
   .showcase-visual {
     position: relative;
   }
 
   .showcase-frame {
+    margin: 0;
     position: relative;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--color-hairline);
     background: var(--color-canvas-soft);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+    box-shadow: var(--shadow-md);
   }
 
-  .frame-header-decor {
+  .frame-bar {
     background: var(--color-canvas-mid);
     border-bottom: 1px solid var(--color-hairline-soft);
     height: 30px;
@@ -277,39 +246,23 @@ const features = [
     align-items: center;
     justify-content: space-between;
     padding-inline: 12px;
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--color-mute);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
     letter-spacing: 0.06em;
+    color: var(--color-mute);
     user-select: none;
   }
 
-  .decor-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 9999px;
-    background: var(--ft-accent);
-    box-shadow: none;
-  }
-
-  .decor-title {
+  .frame-bar-name {
     color: var(--color-body-strong);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .decor-ruler {
+  .frame-bar-code {
     font-variant-numeric: tabular-nums;
-  }
-
-  /* Per-item accent glow behind frame */
-  .frame-glow {
-    position: absolute;
-    inset: -40px;
-    border-radius: 50%;
-    background: transparent;
-    z-index: -1;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    flex-shrink: 0;
   }
 
   .showcase-img {
@@ -317,27 +270,18 @@ const features = [
     width: 100%;
     height: auto;
     object-fit: cover;
-    /* Subtle entrance on load */
-    transition: transform 0.6s ease, filter 0.4s ease;
-    filter: brightness(0.92) saturate(0.95);
+    filter: brightness(0.95);
   }
 
-  .showcase-frame:hover .showcase-img {
-    transform: scale(1.015);
-    filter: brightness(1) saturate(1);
-  }
-
-  /* ─── Responsive tweaks ───────────────────────── */
   @media (max-width: 899px) {
     .showcase-item {
-      padding-block: 56px;
+      padding-block: 52px;
     }
 
     .showcase-inner {
-      gap: 32px;
+      gap: 28px;
     }
 
-    /* On mobile, always show text first */
     .showcase-text {
       order: 1;
     }

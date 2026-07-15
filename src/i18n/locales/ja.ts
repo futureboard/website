@@ -2,6 +2,7 @@ import type { TranslationKeys } from "./en";
 
 export const ja: TranslationKeys = {
   // Header
+  nav_skip: "コンテンツへスキップ",
   nav_product: "製品情報",
   nav_features: "機能紹介",
   nav_roadmap: "ロードマップ",

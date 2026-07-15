@@ -1,4 +1,6 @@
 /* ─── Shared Components & Utilities ─────────────────────────── */
+/* Gridgeist system: exposed editorial grid, quiet 1px rules,        */
+/* mono for technical metadata, one blue accent for action/state.    */
 
 @layer components {
     /* ── Section layout helper ─────────────────────── */
@@ -8,36 +10,65 @@
         padding-inline: 24px;
     }
 
-    /* ── Eyebrow label ─────────────────────────────── */
+    /* Framed container: draws the outer column rules of the grid so
+       structure is visible, not decorative. Content sits inside the
+       gutters, rules align across sections. */
+    .grid-frame {
+        max-width: 1248px;
+        margin-inline: auto;
+        border-inline: 1px solid var(--color-grid-line);
+    }
+
+    .grid-frame > * {
+        padding-inline: 24px;
+    }
+
+    @media (min-width: 1280px) {
+        .grid-frame {
+            border-inline-color: var(--color-grid-line);
+        }
+    }
+
+    /* ── Eyebrow / section label — mono, editorial tick ─ */
     .eyebrow {
-        font-family: var(--font-sans);
-        font-size: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
         font-weight: 500;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--color-accent);
         margin-bottom: 1rem;
-        display: block;
+    }
+
+    .eyebrow::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: var(--color-accent);
+        flex-shrink: 0;
     }
 
     /* ── Section headings ──────────────────────────── */
     .section-title {
-        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(1.6rem, 3.2vw, 2.25rem);
         font-weight: 400;
         letter-spacing: -0.04em;
         color: var(--color-ink);
-        line-height: 1.15;
+        line-height: 1.12;
     }
 
     .section-lead {
         font-size: 1rem;
         line-height: 1.7;
         color: var(--color-body);
-        max-width: 40ch;
-        margin-top: 0.75rem;
+        max-width: 46ch;
+        margin-top: 0.85rem;
     }
 
-    /* ── Card base ─────────────────────────────────── */
+    /* ── Framed panel (square, quiet rule) ─────────── */
     .card {
         background: var(--color-canvas-soft);
         border: 1px solid var(--color-hairline);
@@ -45,10 +76,64 @@
         padding: 24px;
     }
 
-    /* ── Cursor Glow Card ──────────────────────────── */
+    /* ── Skip link + screen-reader utility ─────────── */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 200;
+        transform: translateY(-160%);
+        background: var(--color-accent);
+        color: #0e1116;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        padding: 9px 14px;
+        border-radius: var(--radius-sm);
+        transition: transform var(--transition-fast);
+    }
+
+    .skip-link:focus-visible {
+        transform: translateY(0);
+        outline: 2px solid var(--color-ink);
+        outline-offset: 2px;
+    }
+
+    /* Interactive framed cards: clear affordance + keyboard focus.
+       Applies wherever a link uses these grid-card classes. */
+    a.product-card,
+    a.platform-card,
+    a.cursor-glow-card {
+        cursor: pointer;
+    }
+
+    a.product-card:focus-visible,
+    a.platform-card:focus-visible,
+    a.cursor-glow-card:focus-visible,
+    .blog-card a:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+    }
+
+    /* ── Card container (was cursor-glow) ──────────── */
+    /* Now a plain framed panel: no cursor glow, no white wash.
+       Hover only brightens the rule — the border does the work. */
     .cursor-glow-card {
         position: relative;
         background: var(--color-canvas-soft);
+        border: 1px solid var(--color-hairline);
         border-radius: var(--radius-md);
         padding: 22px;
         display: flex;
@@ -57,34 +142,15 @@
         text-decoration: none;
         color: inherit;
         overflow: hidden;
-        border: 1px solid var(--color-hairline);
-        transition:
-            border-color var(--transition-base),
-            background-color var(--transition-base);
+        transition: border-color var(--transition-base);
     }
 
-    .cursor-glow-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.025);
-        z-index: 0;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-    }
-
-    .cursor-glow-card:hover::before {
-        opacity: 1;
-    }
-
-    /* Inner elements need higher z-index to stay clickable/visible above background glow */
     .cursor-glow-card > * {
         position: relative;
         z-index: 1;
     }
 
-    /* ── Buttons ───────────────────────────────────── */
+    /* ── Buttons — square, one accent ──────────────── */
     .btn {
         display: inline-flex;
         align-items: center;
@@ -92,7 +158,6 @@
         gap: 6px;
         font-size: 0.8125rem;
         font-weight: 500;
-        /* Fixed height via explicit padding — both variants identical */
         padding: 8px 16px;
         height: 34px;
         border-radius: var(--radius-sm);
@@ -110,9 +175,8 @@
 
     .btn-primary {
         background: var(--color-accent);
-        color: #111316;
+        color: #0e1116;
         border-color: var(--color-accent);
-        box-shadow: none;
     }
 
     .btn-primary:hover {
@@ -122,16 +186,66 @@
 
     .btn-outline {
         background: transparent;
-        color: var(--color-body);
+        color: var(--color-body-strong);
         border-color: var(--color-hairline);
     }
 
     .btn-outline:hover {
         color: var(--color-ink);
         border-color: var(--color-rim, var(--fb-rim));
+        background: rgba(255, 255, 255, 0.02);
     }
 
-    /* ── Status dot ────────────────────────────────── */
+    /* ── Mono metadata + status labels ─────────────── */
+    .mono-label {
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-mute);
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Small square status chip: text carries meaning, fill carries state */
+    .state-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-body-strong);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-xs);
+        padding: 3px 8px;
+    }
+
+    .state-chip::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        flex-shrink: 0;
+        background: var(--color-mute);
+    }
+
+    .state-chip--live::before {
+        background: var(--color-accent);
+    }
+
+    .state-chip--planned::before {
+        background: transparent;
+        box-shadow: inset 0 0 0 1px var(--color-body);
+    }
+
+    .state-chip--future::before {
+        background: transparent;
+        box-shadow: inset 0 0 0 1px var(--color-hairline);
+    }
+
+    /* ── Status dot (kept for blog/misc) ───────────── */
     .status-dot {
         width: 6px;
         height: 6px;
@@ -145,7 +259,7 @@
     }
 
     .status-dot--planned {
-        background: var(--color-wheat);
+        background: var(--color-body);
     }
 
     .status-dot--future {
@@ -189,11 +303,13 @@
         font-size: 0.75rem;
     }
 
-    /* ── Legal page tabs ───────────────────────────── */
+    /* ── Legal page tabs — mono, square ────────────── */
     .legal-tab {
         padding: 6px 14px;
-        font-size: 0.8125rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
         font-weight: 500;
+        letter-spacing: 0.04em;
         color: var(--color-body);
         border-radius: var(--radius-xs);
         border: none;
@@ -208,7 +324,7 @@
 
     .legal-tab.active {
         background: var(--color-accent);
-        color: #101214;
+        color: #0e1116;
     }
 
     /* ── Legal markdown prose ──────────────────────── */
@@ -216,6 +332,7 @@
         color: var(--color-body);
         font-size: 0.9375rem;
         line-height: 1.85;
+        max-width: 72ch;
     }
 
     .legal-markdown > * + * {
@@ -280,67 +397,6 @@
     }
 }
 
-/* ─── Hero content — global so React island (HeroContent.tsx) can use them ── */
-/* Astro scoped styles don't pierce into client:load React components           */
-
-.hero-text {
-    max-width: 540px;
-}
-
-.hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 22px;
-}
-
-.eyebrow-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 9999px;
-    background: var(--color-accent);
-    flex-shrink: 0;
-    opacity: 0.8;
-    display: inline-block;
-}
-
-.hero-headline {
-    font-size: clamp(2.75rem, 6.5vw, 4.5rem);
-    font-weight: 400;
-    line-height: 1.06;
-    letter-spacing: -0.04em;
-    color: var(--color-ink);
-    margin-bottom: 20px;
-}
-
-.hero-accent {
-    font-style: italic;
-    font-family: var(--font-serif);
-    color: var(--color-accent-light);
-    letter-spacing: -0.02em;
-}
-
-.hero-desc {
-    font-size: 0.9375rem;
-    line-height: 1.75;
-    color: var(--color-body);
-    max-width: 46ch;
-    margin-bottom: 28px;
-}
-
-.hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-}
-
 /* ─── Language Switcher (LanguageSwitcher.tsx React Component) ── */
 .lang-switcher-container {
     position: relative;
@@ -357,9 +413,10 @@
     border: 1px solid var(--color-hairline);
     background: transparent;
     color: var(--color-body);
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
     font-weight: 500;
+    letter-spacing: 0.04em;
     cursor: pointer;
     box-sizing: border-box;
     transition: all var(--transition-fast);
@@ -418,8 +475,9 @@
     justify-content: space-between;
     padding: 8px 10px;
     border-radius: var(--radius-xs);
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.03em;
     color: var(--color-body);
     text-decoration: none;
     transition: all var(--transition-fast);

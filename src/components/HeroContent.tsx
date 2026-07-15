@@ -23,94 +23,99 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const transitionDur = { duration: 0.6, ease } as const;
 const WAITLIST_URL = "https://tally.so/r/lbgzx5";
 
+// Product-native technical evidence — mono baseline strip.
+const baseline = [
+  ["CORE", "Rust audio engine"],
+  ["RENDER", "GPUI · GPU-drawn"],
+  ["EDIT", "MIDI · Mixer · VST3"],
+  ["BUILD", "Windows · Alpha"],
+] as const;
+
 export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
   const t = translations[lang];
 
   return (
-    <div className="hero-grid">
-      {/* Left Column: Text Copy */}
-      <motion.div
-        className="hero-text-side"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        {/* Eyebrow */}
-        <motion.p
-          className="hero-eyebrow"
-          variants={itemVariants}
-          transition={transitionDur}
-        >
-          <span className="eyebrow-dot" aria-hidden="true" />
-          {t.hero_eyebrow}
-        </motion.p>
-
-        {/* Headline */}
-        <motion.h1
-          className="hero-headline"
-          variants={itemVariants}
-          transition={transitionDur}
-        >
-          {t.hero_headline_1}
-          <br />
-          {t.hero_headline_2}
-          <br />
-          <em className="hero-accent">{t.hero_headline_accent}</em>
-        </motion.h1>
-
-        {/* Description */}
-        <motion.p
-          className="hero-desc"
-          variants={itemVariants}
-          transition={transitionDur}
-        >
-          {t.hero_desc}
-        </motion.p>
-
-        {/* CTA Actions */}
+    <div className="hero-grid-wrap">
+      <div className="hero-grid">
+        {/* Left Column: Text Copy */}
         <motion.div
-          className="hero-actions"
-          variants={itemVariants}
-          transition={transitionDur}
+          className="hero-text-side"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
         >
-          <a
-            href={lang === "en" ? "/download" : `/${lang}/download`}
-            className="btn btn-primary hero-btn-main"
+          <motion.p
+            className="hero-eyebrow"
+            variants={itemVariants}
+            transition={transitionDur}
           >
-            {t.hero_download}
-          </a>
-          <a
-            href={WAITLIST_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline"
+            <span className="eyebrow-mark" aria-hidden="true" />
+            {t.hero_eyebrow}
+          </motion.p>
+
+          <motion.h1
+            className="hero-headline"
+            variants={itemVariants}
+            transition={transitionDur}
           >
-            {t.hero_waitlist}
-          </a>
-          <a
-            href="https://github.com/arizkami/futureboard"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline"
+            {t.hero_headline_1}
+            <br />
+            {t.hero_headline_2}
+            <br />
+            <em className="hero-accent">{t.hero_headline_accent}</em>
+          </motion.h1>
+
+          <motion.p
+            className="hero-desc"
+            variants={itemVariants}
+            transition={transitionDur}
           >
-            {t.hero_github}
-          </a>
+            {t.hero_desc}
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            variants={itemVariants}
+            transition={transitionDur}
+          >
+            <a
+              href={lang === "en" ? "/download" : `/${lang}/download`}
+              className="btn btn-primary hero-btn-main"
+            >
+              {t.hero_download}
+            </a>
+            <a
+              href={WAITLIST_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              {t.hero_waitlist}
+            </a>
+            <a
+              href="https://github.com/arizkami/futureboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              {t.hero_github}
+            </a>
+          </motion.div>
         </motion.div>
-      </motion.div>
 
-      {/* Right Column: App Showcase Window */}
-      <motion.div
-        className="hero-showcase-side"
-        initial={{ opacity: 0, scale: 0.98, y: 16 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.75, ease, delay: 0.15 }}
-      >
-        <div className="showcase-window">
-          {/* Simulated Title Bar */}
-
-          {/* Window Body Container */}
-          <div className="window-body">
-            <div className="showcase-view screenshot-view">
+        {/* Right Column: App Screenshot, framed */}
+        <motion.div
+          className="hero-showcase-side"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, ease, delay: 0.15 }}
+        >
+          <figure className="showcase-window">
+            <figcaption className="window-bar">
+              <span className="window-bar-name">Master.fbp</span>
+              <span className="window-bar-spec">48 kHz · 24-bit · 00:00:00:00</span>
+            </figcaption>
+            <div className="window-body">
               <img
                 src="/Master.webp"
                 alt="Futureboard Studio DAW interface preview showing track lanes and timeline"
@@ -118,22 +123,41 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
                 loading="eager"
               />
             </div>
+          </figure>
+        </motion.div>
+      </div>
+
+      {/* Baseline: mono technical evidence spanning the grid */}
+      <dl className="hero-baseline">
+        {baseline.map(([k, v]) => (
+          <div className="hero-baseline-cell" key={k}>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
           </div>
-        </div>
-      </motion.div>
+        ))}
+      </dl>
 
       <style>{`
         .hero-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 48px;
+          gap: 40px;
           align-items: center;
+          padding-block: 24px 56px;
         }
 
         @media (min-width: 1024px) {
           .hero-grid {
-            grid-template-columns: 1.1fr 1.3fr;
-            gap: 40px;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 0;
+            padding-block: 40px 64px;
+          }
+          .hero-text-side {
+            padding-right: 56px;
+          }
+          .hero-showcase-side {
+            padding-left: 56px;
+            border-left: 1px solid var(--color-hairline);
           }
         }
 
@@ -147,40 +171,32 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
         .hero-eyebrow {
           display: flex;
           align-items: center;
-          flex-wrap: wrap;
-          gap: 8px;
-          font-family: var(--font-sans);
-          font-size: 0.72rem;
-          font-weight: 600;
-          letter-spacing: 0.05em;
+          gap: 9px;
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          font-weight: 500;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
           color: var(--color-accent);
-          margin-bottom: 18px;
+          margin-bottom: 22px;
         }
 
-        .eyebrow-dot {
-          width: 5px;
-          height: 5px;
-          border-radius: 9999px;
+        .eyebrow-mark {
+          width: 7px;
+          height: 7px;
           background: var(--color-accent);
           flex-shrink: 0;
           display: inline-block;
-          animation: blink 2.5s infinite ease-in-out;
-        }
-
-        @keyframes blink {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
         }
 
         .hero-headline {
-          font-size: clamp(2.35rem, 6vw, 3.85rem);
+          font-size: clamp(2.4rem, 6vw, 3.9rem);
           font-weight: 400;
-          line-height: 1.05;
+          line-height: 1.04;
           letter-spacing: -0.05em;
           text-wrap: balance;
           color: var(--color-ink);
-          margin-bottom: 18px;
+          margin-bottom: 20px;
         }
 
         .hero-accent {
@@ -192,11 +208,11 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
         }
 
         .hero-desc {
-          font-size: 0.9rem;
+          font-size: 0.9375rem;
           line-height: 1.7;
           color: var(--color-body);
-          max-width: 50ch;
-          margin-bottom: 24px;
+          max-width: 48ch;
+          margin-bottom: 26px;
         }
 
         .hero-actions {
@@ -217,93 +233,53 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
           }
         }
 
-        /* Showcase App Window */
+        /* Framed app window — square, quiet rule, mono chrome */
         .hero-showcase-side {
           width: 100%;
-          display: flex;
-          justify-content: center;
         }
 
         .showcase-window {
           width: 100%;
-          max-width: 680px;
+          margin: 0;
           background: var(--color-canvas-soft);
           border: 1px solid var(--color-hairline);
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-md);
           overflow: hidden;
-          box-shadow:
-            0 1px 1px rgba(255, 255, 255, 0.03) inset,
-            0 12px 30px rgba(0, 0, 0, 0.4),
-            0 32px 70px rgba(0, 0, 0, 0.55);
+          box-shadow: var(--shadow-lg);
           display: flex;
           flex-direction: column;
         }
 
-        .window-titlebar {
-          height: 38px;
-          background: var(--color-canvas-mid);
-          border-bottom: 1px solid var(--color-hairline-soft);
+        .window-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-inline: 14px;
+          gap: 12px;
+          height: 32px;
+          padding-inline: 12px;
+          background: var(--color-canvas-mid);
+          border-bottom: 1px solid var(--color-hairline-soft);
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          letter-spacing: 0.03em;
           user-select: none;
         }
 
-        .window-dots {
-          display: flex;
-          gap: 6px;
-          width: 80px;
-        }
-
-        .window-dot-btn {
-          width: 9px;
-          height: 9px;
-          border-radius: 9999px;
-          display: inline-block;
-          opacity: 0.65;
-        }
-
-        .window-dot-btn.red { background: #ff5f56; }
-        .window-dot-btn.yellow { background: #ffbd2e; }
-        .window-dot-btn.green { background: #27c93f; }
-
-        .window-title {
-          font-family: var(--font-sans);
-          font-size: 0.72rem;
-          font-weight: 500;
+        .window-bar-name {
           color: var(--color-body-strong);
-          min-width: 0;
+        }
+
+        .window-bar-spec {
+          color: var(--color-mute);
+          font-variant-numeric: tabular-nums;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
-        .window-status {
-          font-family: var(--font-sans);
-          font-size: 0.65rem;
-          font-weight: 500;
-          color: var(--color-mute);
-          width: 80px;
-          text-align: right;
-          font-variant-numeric: tabular-nums;
-        }
-
         .window-body {
           position: relative;
           background: #171719;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .showcase-view {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .screenshot-view {
-          position: relative;
           overflow: hidden;
         }
 
@@ -311,13 +287,63 @@ export default function HeroContent({ lang = "en" }: { lang?: Locale }) {
           width: 100%;
           height: auto;
           display: block;
-          filter: brightness(0.9) contrast(1.02);
-          transition: transform 0.4s ease, filter 0.4s ease;
+          filter: brightness(0.94);
         }
 
-        .screenshot-view:hover .showcase-screenshot-img {
-          transform: scale(1.01);
-          filter: brightness(0.98) contrast(1.02);
+        /* Baseline mono evidence strip */
+        .hero-baseline {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          margin: 0;
+          border-top: 1px solid var(--color-hairline);
+        }
+
+        @media (min-width: 720px) {
+          .hero-baseline {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+
+        .hero-baseline-cell {
+          padding: 16px 0;
+          border-left: 1px solid var(--color-grid-line);
+          padding-left: 16px;
+        }
+
+        /* First cell of each row sits flush to the grid edge */
+        .hero-baseline-cell:nth-child(odd) {
+          border-left: 0;
+          padding-left: 0;
+        }
+
+        @media (min-width: 720px) {
+          .hero-baseline-cell {
+            padding-left: 20px;
+          }
+          .hero-baseline-cell:nth-child(odd) {
+            border-left: 1px solid var(--color-grid-line);
+            padding-left: 20px;
+          }
+          .hero-baseline-cell:first-child {
+            border-left: 0;
+            padding-left: 0;
+          }
+        }
+
+        .hero-baseline-cell dt {
+          font-family: var(--font-mono);
+          font-size: 0.625rem;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          color: var(--color-mute);
+          margin-bottom: 5px;
+        }
+
+        .hero-baseline-cell dd {
+          margin: 0;
+          font-size: 0.8125rem;
+          color: var(--color-body-strong);
+          line-height: 1.35;
         }
       `}</style>
     </div>

@@ -2,6 +2,7 @@ import type { TranslationKeys } from "./en";
 
 export const th: TranslationKeys = {
   // Header
+  nav_skip: "ข้ามไปยังเนื้อหา",
   nav_product: "ผลิตภัณฑ์",
   nav_features: "ฟีเจอร์",
   nav_roadmap: "โรดแมป",

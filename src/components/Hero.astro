@@ -10,9 +10,6 @@ const { lang = "en" } = Astro.props;
 ---
 
 <section class="hero">
-    <!-- Ambient texture — subtle dot grid and accent backdrops -->
-    <div class="hero-bg" aria-hidden="true"></div>
-
     <div class="section-inner hero-content">
         {/* Split grid Hero layout */}
         <HeroContent client:load lang={lang} />
@@ -23,30 +20,13 @@ const { lang = "en" } = Astro.props;
     .hero {
         position: relative;
         overflow: hidden;
-        padding-top: 80px;
-        padding-bottom: 96px;
+        padding-top: 72px;
+        padding-bottom: 0;
         padding-inline: 24px;
         background: var(--color-canvas);
         border-bottom: 1px solid var(--color-hairline);
     }
 
-    /* Subtle ambient pattern: custom graph grid + smooth dark radial glows */
-    .hero-bg {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        background-image:
-            linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-            linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.014) 1px,
-                transparent 1px
-            );
-        background-size: 24px 24px;
-        pointer-events: none;
-    }
-
-    /* Content wrapper — z-index above background layer */
     .hero-content {
         position: relative;
         z-index: 10;

@@ -2,6 +2,7 @@ import type { TranslationKeys } from "./en";
 
 export const zh: TranslationKeys = {
   // Header
+  nav_skip: "跳到主要内容",
   nav_product: "产品",
   nav_features: "特色功能",
   nav_roadmap: "路线图",
