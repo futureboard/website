@@ -5,6 +5,7 @@ export const en = {
   nav_features: "Features",
   nav_roadmap: "Roadmap",
   nav_download: "Download",
+  nav_pricing: "Pricing",
   nav_blog: "Blog",
   nav_waitlist: "Join Waitlist",
 
@@ -187,6 +188,35 @@ export const en = {
   sysreq_lead:
     "Hardware and software requirements for running Futureboard Studio on Windows, Linux, and macOS.",
   sysreq_back_to_download: "← Back to download",
+
+  // Pricing Page
+  pricing_eyebrow: "Pricing",
+  pricing_title: "Simple, honest pricing.",
+  pricing_lead:
+    "Start free and keep the full DAW forever. Upgrade once for the professional-grade extras — no subscription, no nagging.",
+  pricing_community_name: "Community Edition",
+  pricing_community_price: "$0",
+  pricing_community_period: "Free forever",
+  pricing_community_desc:
+    "The full Futureboard DAW. Everything you need to write, record, and mix — yours at no cost.",
+  pricing_community_cta: "Download",
+  pricing_exclusive_name: "Exclusive Edition",
+  pricing_exclusive_price: "$99",
+  pricing_exclusive_period: "One-time purchase",
+  pricing_exclusive_desc:
+    "Everything in Community, plus the pro toolkit for low-latency tracking, notation, scoring to picture, and our exclusive instrument.",
+  pricing_exclusive_cta: "Coming soon",
+  pricing_includes_community: "Everything in Community, plus:",
+  pricing_feat_daw: "Full multi-track DAW",
+  pricing_feat_web: "Browser & native builds",
+  pricing_feat_vst: "VST3 plugin support",
+  pricing_feat_updates: "Free updates",
+  pricing_feat_asio: "ASIO low-latency audio",
+  pricing_feat_score: "Score Editor",
+  pricing_feat_video: "Video Player",
+  pricing_feat_plugin: "Exclusive Plugin",
+  pricing_regional_note: "Global $99 · Thailand ฿3,590. Prices in local currency at checkout.",
+  pricing_badge: "Best value",
 };
 
 export type TranslationKeys = typeof en;

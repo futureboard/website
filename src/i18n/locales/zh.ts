@@ -7,6 +7,7 @@ export const zh: TranslationKeys = {
   nav_features: "特色功能",
   nav_roadmap: "路线图",
   nav_download: "下载",
+  nav_pricing: "价格",
   nav_blog: "博客",
   nav_waitlist: "加入候补名单",
 
@@ -187,4 +188,33 @@ export const zh: TranslationKeys = {
   sysreq_lead:
     "在 Windows、Linux 和 macOS 上运行 Futureboard Studio 的硬件与软件要求。",
   sysreq_back_to_download: "← 返回下载页",
+
+  // Pricing Page
+  pricing_eyebrow: "价格",
+  pricing_title: "简单、诚实的价格。",
+  pricing_lead:
+    "免费开始，永久拥有完整的 DAW。专业附加功能只需一次性付费——没有订阅，也没有反复提醒。",
+  pricing_community_name: "Community Edition",
+  pricing_community_price: "$0",
+  pricing_community_period: "永久免费",
+  pricing_community_desc:
+    "完整的 Futureboard DAW。编曲、录音、混音所需的一切，免费提供。",
+  pricing_community_cta: "下载",
+  pricing_exclusive_name: "Exclusive Edition",
+  pricing_exclusive_price: "$99",
+  pricing_exclusive_period: "一次性购买",
+  pricing_exclusive_desc:
+    "包含 Community 的全部功能，另加低延迟录音、记谱、为画面配乐以及我们的独家音源等专业工具包。",
+  pricing_exclusive_cta: "即将推出",
+  pricing_includes_community: "包含 Community 全部功能，另加：",
+  pricing_feat_daw: "完整多轨 DAW",
+  pricing_feat_web: "浏览器版与原生版",
+  pricing_feat_vst: "支持 VST3 插件",
+  pricing_feat_updates: "免费更新",
+  pricing_feat_asio: "ASIO 低延迟音频",
+  pricing_feat_score: "乐谱编辑器",
+  pricing_feat_video: "视频播放器",
+  pricing_feat_plugin: "独家插件",
+  pricing_regional_note: "全球 $99 · 泰国 ฿3,590。结账时以当地货币显示。",
+  pricing_badge: "超值之选",
 };

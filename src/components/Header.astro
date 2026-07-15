@@ -61,6 +61,11 @@ if (
                 >
             </li>
             <li>
+                <a href={lang === "en" ? "/pricing" : `/${lang}/pricing`}
+                    >{t.nav_pricing}</a
+                >
+            </li>
+            <li>
                 <a href={lang === "en" ? "/blogs" : `/${lang}/blogs`}
                     >{t.nav_blog}</a
                 >
@@ -231,6 +236,9 @@ if (
             >
             <a href={lang === "en" ? "/download" : `/${lang}/download`}
                 >{t.nav_download}</a
+            >
+            <a href={lang === "en" ? "/pricing" : `/${lang}/pricing`}
+                >{t.nav_pricing}</a
             >
             <a href={lang === "en" ? "/blogs" : `/${lang}/blogs`}
                 >{t.nav_blog}</a

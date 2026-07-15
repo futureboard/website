@@ -7,6 +7,7 @@ export const th: TranslationKeys = {
   nav_features: "ฟีเจอร์",
   nav_roadmap: "โรดแมป",
   nav_download: "ดาวน์โหลด",
+  nav_pricing: "ราคา",
   nav_blog: "บล็อก",
   nav_waitlist: "เข้าร่วม Waitlist",
 
@@ -189,4 +190,33 @@ export const th: TranslationKeys = {
   sysreq_lead:
     "ข้อกำหนดด้านฮาร์ดแวร์และซอฟต์แวร์สำหรับรัน Futureboard Studio บน Windows, Linux และ macOS",
   sysreq_back_to_download: "← กลับไปหน้าดาวน์โหลด",
+
+  // Pricing Page
+  pricing_eyebrow: "ราคา",
+  pricing_title: "ราคาที่ตรงไปตรงมา",
+  pricing_lead:
+    "เริ่มใช้ฟรีและได้ DAW ตัวเต็มไปตลอด อัปเกรดครั้งเดียวเพื่อรับเครื่องมือระดับมืออาชีพ ไม่มีค่ารายเดือน ไม่มีการรบกวน",
+  pricing_community_name: "Community Edition",
+  pricing_community_price: "฿0",
+  pricing_community_period: "ฟรีตลอดไป",
+  pricing_community_desc:
+    "Futureboard DAW ตัวเต็ม ทุกอย่างที่คุณต้องใช้ในการแต่ง อัด และมิกซ์ — ใช้ได้ฟรี",
+  pricing_community_cta: "ดาวน์โหลด",
+  pricing_exclusive_name: "Exclusive Edition",
+  pricing_exclusive_price: "฿3,590",
+  pricing_exclusive_period: "จ่ายครั้งเดียว",
+  pricing_exclusive_desc:
+    "ได้ทุกอย่างใน Community พร้อมชุดเครื่องมือระดับโปรสำหรับการอัดแบบดีเลย์ต่ำ การเขียนโน้ต การทำเพลงประกอบภาพ และปลั๊กอินเอกซ์คลูซีฟของเรา",
+  pricing_exclusive_cta: "เร็ว ๆ นี้",
+  pricing_includes_community: "ได้ทุกอย่างใน Community พร้อมด้วย:",
+  pricing_feat_daw: "DAW แบบหลายแทร็กเต็มรูปแบบ",
+  pricing_feat_web: "เวอร์ชันเบราว์เซอร์และเนทีฟ",
+  pricing_feat_vst: "รองรับปลั๊กอิน VST3",
+  pricing_feat_updates: "อัปเดตฟรี",
+  pricing_feat_asio: "เสียงดีเลย์ต่ำ ASIO",
+  pricing_feat_score: "Score Editor",
+  pricing_feat_video: "Video Player",
+  pricing_feat_plugin: "ปลั๊กอินเอกซ์คลูซีฟ",
+  pricing_regional_note: "ทั่วโลก $99 · ไทย ฿3,590 คิดเป็นสกุลเงินท้องถิ่นตอนชำระเงิน",
+  pricing_badge: "คุ้มที่สุด",
 };

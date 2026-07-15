@@ -1,0 +1,331 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CursorGlowCard from "../components/CursorGlowCard.tsx";
+import { translations, type Locale } from "../i18n/translations";
+
+interface Props {
+    lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props;
+const t = translations[lang];
+
+const WAITLIST_URL = "https://tally.so/r/lbgzx5";
+const downloadHref = lang === "en" ? "/download" : `/${lang}/download`;
+
+const tiers = [
+    {
+        featured: false,
+        name: t.pricing_community_name,
+        price: t.pricing_community_price,
+        period: t.pricing_community_period,
+        desc: t.pricing_community_desc,
+        cta: t.pricing_community_cta,
+        href: downloadHref,
+        external: false,
+        includesLabel: null as string | null,
+        features: [
+            t.pricing_feat_daw,
+            t.pricing_feat_web,
+            t.pricing_feat_vst,
+            t.pricing_feat_updates,
+        ],
+    },
+    {
+        featured: true,
+        name: t.pricing_exclusive_name,
+        price: t.pricing_exclusive_price,
+        period: t.pricing_exclusive_period,
+        desc: t.pricing_exclusive_desc,
+        cta: t.pricing_exclusive_cta,
+        href: WAITLIST_URL,
+        external: true,
+        includesLabel: t.pricing_includes_community,
+        features: [
+            t.pricing_feat_asio,
+            t.pricing_feat_score,
+            t.pricing_feat_video,
+            t.pricing_feat_plugin,
+        ],
+    },
+] as const;
+---
+
+<Layout
+    title={`${t.pricing_title} — Futureboard Studio`}
+    description={t.pricing_lead}
+    lang={lang}
+>
+    <Header lang={lang} />
+    <main id="main-content" tabindex="-1">
+        <section class="pricing-hero">
+            <div class="section-inner">
+                <span class="eyebrow">{t.pricing_eyebrow}</span>
+                <h1 class="pricing-title">{t.pricing_title}</h1>
+                <p class="pricing-lead">{t.pricing_lead}</p>
+            </div>
+        </section>
+
+        <section class="pricing-plans">
+            <div class="section-inner">
+                <div class="tier-grid">
+                    {
+                        tiers.map((tier) => (
+                            <CursorGlowCard
+                                className={`tier-card${tier.featured ? " tier-card--featured" : ""}`}
+                                client:load
+                            >
+                                {tier.featured && (
+                                    <span class="tier-badge">
+                                        {t.pricing_badge}
+                                    </span>
+                                )}
+                                <div class="tier-head">
+                                    <h2 class="tier-name">{tier.name}</h2>
+                                    <div class="tier-price-row">
+                                        <span class="tier-price">
+                                            {tier.price}
+                                        </span>
+                                        <span class="tier-period">
+                                            {tier.period}
+                                        </span>
+                                    </div>
+                                    <p class="tier-desc">{tier.desc}</p>
+                                </div>
+
+                                {tier.featured ? (
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary tier-cta"
+                                        disabled
+                                        aria-disabled="true"
+                                    >
+                                        {tier.cta}
+                                    </button>
+                                ) : (
+                                    <a
+                                        href={tier.href}
+                                        class="btn btn-outline tier-cta"
+                                        {...(tier.external
+                                            ? {
+                                                  target: "_blank",
+                                                  rel: "noopener noreferrer",
+                                              }
+                                            : {})}
+                                    >
+                                        {tier.cta}
+                                    </a>
+                                )}
+
+                                {tier.includesLabel && (
+                                    <p class="tier-includes">
+                                        {tier.includesLabel}
+                                    </p>
+                                )}
+                                <ul class="tier-features">
+                                    {tier.features.map((feature) => (
+                                        <li>
+                                            <svg
+                                                width="15"
+                                                height="15"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M20 6 9 17l-5-5" />
+                                            </svg>
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CursorGlowCard>
+                        ))
+                    }
+                </div>
+
+                <p class="pricing-note">{t.pricing_regional_note}</p>
+            </div>
+        </section>
+    </main>
+    <Footer lang={lang} />
+</Layout>
+
+<style>
+    .pricing-hero {
+        padding-block: 80px 48px;
+        padding-inline: 24px;
+        border-bottom: 1px solid var(--color-hairline);
+        background: var(--color-canvas);
+    }
+
+    .pricing-title {
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: var(--color-ink);
+        line-height: 1.1;
+        margin-top: 12px;
+        margin-bottom: 18px;
+    }
+
+    .pricing-lead {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--color-body);
+        max-width: 56ch;
+    }
+
+    .pricing-plans {
+        padding-block: 56px 80px;
+        padding-inline: 24px;
+        background: var(--color-canvas);
+    }
+
+    .tier-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 860px;
+        margin-inline: auto;
+    }
+
+    @media (min-width: 820px) {
+        .tier-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: start;
+        }
+    }
+
+    :global(.cursor-glow-card).tier-card {
+        position: relative;
+        background: var(--color-canvas-soft);
+        border: 1px solid var(--color-hairline);
+        border-radius: var(--radius-md);
+        padding: 30px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    :global(.cursor-glow-card).tier-card--featured {
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 1px var(--color-accent);
+    }
+
+    .tier-badge {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        font-family: var(--font-sans);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        border: 1px solid var(--color-accent);
+        border-radius: 9999px;
+        padding: 3px 10px;
+    }
+
+    .tier-head {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tier-name {
+        font-size: 1.0625rem;
+        font-weight: 500;
+        color: var(--color-ink);
+        letter-spacing: -0.02em;
+    }
+
+    .tier-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .tier-price {
+        font-size: clamp(2.25rem, 6vw, 2.75rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: var(--color-ink);
+        line-height: 1;
+    }
+
+    .tier-period {
+        font-size: 0.8125rem;
+        color: var(--color-mute);
+    }
+
+    .tier-desc {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: var(--color-body);
+    }
+
+    .tier-cta {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tier-cta:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+        background: var(--color-canvas-soft);
+        color: var(--color-mute);
+        border-color: var(--color-hairline);
+    }
+
+    .tier-includes {
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--color-mute);
+        margin-top: -4px;
+    }
+
+    .tier-features {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+    }
+
+    .tier-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: var(--color-body);
+    }
+
+    .tier-features svg {
+        flex-shrink: 0;
+        margin-top: 2px;
+        color: var(--color-accent);
+    }
+
+    .pricing-note {
+        margin-top: 28px;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: var(--color-mute);
+    }
+</style>

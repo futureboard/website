@@ -7,6 +7,7 @@ export const ja: TranslationKeys = {
   nav_features: "機能紹介",
   nav_roadmap: "ロードマップ",
   nav_download: "ダウンロード",
+  nav_pricing: "料金",
   nav_blog: "ブログ",
   nav_waitlist: "先行利用登録",
 
@@ -189,4 +190,33 @@ export const ja: TranslationKeys = {
   sysreq_lead:
     "Windows、Linux、macOS で Futureboard Studio を実行するためのハードウェアおよびソフトウェア要件です。",
   sysreq_back_to_download: "← ダウンロードに戻る",
+
+  // Pricing Page
+  pricing_eyebrow: "料金",
+  pricing_title: "シンプルで誠実な料金。",
+  pricing_lead:
+    "無料で始めて、DAW のフル機能をずっと使えます。プロ向けの追加機能は一度きりのお支払いで。サブスクなし、しつこい通知もなし。",
+  pricing_community_name: "Community Edition",
+  pricing_community_price: "$0",
+  pricing_community_period: "ずっと無料",
+  pricing_community_desc:
+    "Futureboard DAW のフル機能。作曲・録音・ミックスに必要なすべてが無料で使えます。",
+  pricing_community_cta: "ダウンロード",
+  pricing_exclusive_name: "Exclusive Edition",
+  pricing_exclusive_price: "$99",
+  pricing_exclusive_period: "買い切り",
+  pricing_exclusive_desc:
+    "Community のすべてに加え、低遅延録音・記譜・映像へのスコアリング・独自音源のプロ向けツールキット。",
+  pricing_exclusive_cta: "近日公開",
+  pricing_includes_community: "Community のすべて、さらに:",
+  pricing_feat_daw: "フル機能のマルチトラック DAW",
+  pricing_feat_web: "ブラウザ版・ネイティブ版",
+  pricing_feat_vst: "VST3 プラグイン対応",
+  pricing_feat_updates: "無料アップデート",
+  pricing_feat_asio: "ASIO 低遅延オーディオ",
+  pricing_feat_score: "スコアエディタ",
+  pricing_feat_video: "ビデオプレーヤー",
+  pricing_feat_plugin: "独占プラグイン",
+  pricing_regional_note: "グローバル $99 · タイ ฿3,590。決済時に現地通貨で表示されます。",
+  pricing_badge: "おすすめ",
 };
